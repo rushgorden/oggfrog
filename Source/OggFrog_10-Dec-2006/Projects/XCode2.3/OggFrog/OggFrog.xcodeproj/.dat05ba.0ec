@@ -1,0 +1,689 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2712819F0A48D64A0086C4DE /* VorbisPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819A0A48D64A0086C4DE /* VorbisPlayer.cpp */; };
+		271281A10A48D64A0086C4DE /* ZPCMQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819C0A48D64A0086C4DE /* ZPCMQueue.cpp */; };
+		271281A30A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819E0A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp */; };
+		272C9D540A5C744300921232 /* libzoo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 272C9D530A5C744300921232 /* libzoo.a */; };
+		272C9D550A5C744300921232 /* libzoo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 272C9D530A5C744300921232 /* libzoo.a */; };
+		273D56840A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 273D56830A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp */; };
+		2743C50E0A47656300FC5BE8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743C50C0A47656300FC5BE8 /* AudioToolbox.framework */; };
+		2743C50F0A47656300FC5BE8 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743C50D0A47656300FC5BE8 /* AudioUnit.framework */; };
+		279B9AB60A5B9C380075F402 /* OFApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD00A4492DE00B4AAA0 /* OFApp.cpp */; };
+		279B9AB70A5B9C380075F402 /* OFMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD20A4492DE00B4AAA0 /* OFMain.cpp */; };
+		279B9AB80A5B9C380075F402 /* OFDiagnosticWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD30A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp */; };
+		279B9AB90A5B9C380075F402 /* VorbisPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819A0A48D64A0086C4DE /* VorbisPlayer.cpp */; };
+		279B9ABA0A5B9C380075F402 /* ZPCMQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819C0A48D64A0086C4DE /* ZPCMQueue.cpp */; };
+		279B9ABB0A5B9C380075F402 /* ZPCMSink_CoreAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2712819E0A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp */; };
+		279B9ABC0A5B9C380075F402 /* FIFOReportPane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAFFD70A4A221500FE9EA7 /* FIFOReportPane.cpp */; };
+		279B9ABD0A5B9C380075F402 /* ZFIFOMonitor_PCM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 273D56830A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp */; };
+		279B9ABE0A5B9C380075F402 /* ZPCMSink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C694110A55FD07000CABDC /* ZPCMSink.cpp */; };
+		279B9ABF0A5B9C380075F402 /* ZUI_FuelGage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279E87860A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp */; };
+		279B9AC10A5B9C380075F402 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743C50C0A47656300FC5BE8 /* AudioToolbox.framework */; };
+		279B9AC20A5B9C380075F402 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2743C50D0A47656300FC5BE8 /* AudioUnit.framework */; };
+		279E87880A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 279E87860A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp */; };
+		27BA71290A5C78B000BCBEB0 /* ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA71280A5C78B000BCBEB0 /* ogg.framework */; };
+		27BA71300A5C78C900BCBEB0 /* vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27BA712F0A5C78C900BCBEB0 /* vorbis.framework */; };
+		27BA71310A5C78D300BCBEB0 /* ogg.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 27BA71280A5C78B000BCBEB0 /* ogg.framework */; };
+		27BA71320A5C78D900BCBEB0 /* vorbis.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 27BA712F0A5C78C900BCBEB0 /* vorbis.framework */; };
+		27C694140A55FD07000CABDC /* ZPCMSink.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C694110A55FD07000CABDC /* ZPCMSink.cpp */; };
+		27CAFFD80A4A221500FE9EA7 /* FIFOReportPane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27CAFFD70A4A221500FE9EA7 /* FIFOReportPane.cpp */; };
+		27E0DDD50A4492DE00B4AAA0 /* OFApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD00A4492DE00B4AAA0 /* OFApp.cpp */; };
+		27E0DDD60A4492DE00B4AAA0 /* OFMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD20A4492DE00B4AAA0 /* OFMain.cpp */; };
+		27E0DDD70A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27E0DDD30A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		279B9B0E0A5BA1E70075F402 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27BA70DC0A5C761500BCBEB0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				27BA71320A5C78D900BCBEB0 /* vorbis.framework in CopyFiles */,
+				27BA71310A5C78D300BCBEB0 /* ogg.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0867D6ABFE840B52C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		2712819A0A48D64A0086C4DE /* VorbisPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = VorbisPlayer.cpp; path = "../../../zoolib-contrib/VorbisPlayer.cpp"; sourceTree = SOURCE_ROOT; };
+		2712819B0A48D64A0086C4DE /* VorbisPlayer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = VorbisPlayer.h; path = "../../../zoolib-contrib/VorbisPlayer.h"; sourceTree = SOURCE_ROOT; };
+		2712819C0A48D64A0086C4DE /* ZPCMQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ZPCMQueue.cpp; path = "../../../zoolib-contrib/ZPCMQueue.cpp"; sourceTree = SOURCE_ROOT; };
+		2712819D0A48D64A0086C4DE /* ZPCMQueue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZPCMQueue.h; path = "../../../zoolib-contrib/ZPCMQueue.h"; sourceTree = SOURCE_ROOT; };
+		2712819E0A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ZPCMSink_CoreAudio.cpp; path = "../../../zoolib-contrib/ZPCMSink_CoreAudio.cpp"; sourceTree = SOURCE_ROOT; };
+		271281C70A48DB060086C4DE /* ZPCMSink_CoreAudio.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZPCMSink_CoreAudio.h; path = "../../../zoolib-contrib/ZPCMSink_CoreAudio.h"; sourceTree = SOURCE_ROOT; };
+		271281EB0A48E2B10086C4DE /* OggFrogConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OggFrogConfig.h; path = ../../../oggfrog/OggFrogConfig.h; sourceTree = SOURCE_ROOT; };
+		2724BC5A0A4237A500633BF2 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		272C9D530A5C744300921232 /* libzoo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzoo.a; path = "../../../Arch/mac-os-x/10.4/Debug/libzoo.a"; sourceTree = SOURCE_ROOT; };
+		273D566C0A4C7A1300E229B4 /* ZFIFOMonitor_PCM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZFIFOMonitor_PCM.h; path = "../../../zoolib-contrib/ZFIFOMonitor_PCM.h"; sourceTree = SOURCE_ROOT; };
+		273D56830A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ZFIFOMonitor_PCM.cpp; path = "../../../zoolib-contrib/ZFIFOMonitor_PCM.cpp"; sourceTree = SOURCE_ROOT; };
+		2743C50C0A47656300FC5BE8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		2743C50D0A47656300FC5BE8 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		279B9ACC0A5B9C380075F402 /* Ogg Frog.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = file; path = "Ogg Frog.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		279B9ACE0A5B9C380075F402 /* Info-10.3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Info-10.3.plist"; sourceTree = "<group>"; };
+		279E87860A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ZUI_FuelGage.cpp; path = "../../../zoolib-contrib/ZUI_FuelGage.cpp"; sourceTree = SOURCE_ROOT; };
+		279E87870A5B86BF00F8A2C0 /* ZUI_FuelGage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZUI_FuelGage.h; path = "../../../zoolib-contrib/ZUI_FuelGage.h"; sourceTree = SOURCE_ROOT; };
+		27BA71280A5C78B000BCBEB0 /* ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ogg.framework; path = "../../../Arch/mac-os-x/10.4/Debug/ogg.framework"; sourceTree = SOURCE_ROOT; };
+		27BA712F0A5C78C900BCBEB0 /* vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vorbis.framework; path = "../../../Arch/mac-os-x/10.4/Debug/vorbis.framework"; sourceTree = SOURCE_ROOT; };
+		27C694100A55FD07000CABDC /* ZPCMSink_WinWaveOut.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZPCMSink_WinWaveOut.h; path = "../../../zoolib-contrib/ZPCMSink_WinWaveOut.h"; sourceTree = SOURCE_ROOT; };
+		27C694110A55FD07000CABDC /* ZPCMSink.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ZPCMSink.cpp; path = "../../../zoolib-contrib/ZPCMSink.cpp"; sourceTree = SOURCE_ROOT; };
+		27C694120A55FD07000CABDC /* ZPCMSink.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZPCMSink.h; path = "../../../zoolib-contrib/ZPCMSink.h"; sourceTree = SOURCE_ROOT; };
+		27CAFFD70A4A221500FE9EA7 /* FIFOReportPane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FIFOReportPane.cpp; path = ../../../oggfrog/FIFOReportPane.cpp; sourceTree = SOURCE_ROOT; };
+		27CAFFE00A4A23CB00FE9EA7 /* FIFOReportPane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = FIFOReportPane.h; path = ../../../oggfrog/FIFOReportPane.h; sourceTree = SOURCE_ROOT; };
+		27E0DDC80A44927C00B4AAA0 /* Ogg Frog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ogg Frog.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27E0DDD00A4492DE00B4AAA0 /* OFApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OFApp.cpp; path = ../../../oggfrog/OFApp.cpp; sourceTree = SOURCE_ROOT; };
+		27E0DDD10A4492DE00B4AAA0 /* OFApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = OFApp.h; path = ../../../oggfrog/OFApp.h; sourceTree = SOURCE_ROOT; };
+		27E0DDD20A4492DE00B4AAA0 /* OFMain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OFMain.cpp; path = ../../../oggfrog/OFMain.cpp; sourceTree = SOURCE_ROOT; };
+		27E0DDD30A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OFDiagnosticWindow.cpp; path = ../../../oggfrog/OFDiagnosticWindow.cpp; sourceTree = SOURCE_ROOT; };
+		27E0DDD40A4492DE00B4AAA0 /* OFDiagnosticWindow.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = OFDiagnosticWindow.h; path = ../../../oggfrog/OFDiagnosticWindow.h; sourceTree = SOURCE_ROOT; };
+		4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		8D0C4E960486CD37000505A6 /* Info-10.4u.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Info-10.4u.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		279B9AC00A5B9C380075F402 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				279B9AC10A5B9C380075F402 /* AudioToolbox.framework in Frameworks */,
+				279B9AC20A5B9C380075F402 /* AudioUnit.framework in Frameworks */,
+				272C9D550A5C744300921232 /* libzoo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27E0DDC60A44927C00B4AAA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2743C50E0A47656300FC5BE8 /* AudioToolbox.framework in Frameworks */,
+				2743C50F0A47656300FC5BE8 /* AudioUnit.framework in Frameworks */,
+				272C9D540A5C744300921232 /* libzoo.a in Frameworks */,
+				27BA71290A5C78B000BCBEB0 /* ogg.framework in Frameworks */,
+				27BA71300A5C78C900BCBEB0 /* vorbis.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27E0DDC80A44927C00B4AAA0 /* Ogg Frog.app */,
+				279B9ACC0A5B9C380075F402 /* Ogg Frog.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* OggFrog */ = {
+			isa = PBXGroup;
+			children = (
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				271281990A48D5FF0086C4DE /* ZooLib-Contrib */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+			);
+			name = OggFrog;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				27CAFFE00A4A23CB00FE9EA7 /* FIFOReportPane.h */,
+				27CAFFD70A4A221500FE9EA7 /* FIFOReportPane.cpp */,
+				27E0DDD00A4492DE00B4AAA0 /* OFApp.cpp */,
+				27E0DDD10A4492DE00B4AAA0 /* OFApp.h */,
+				27E0DDD20A4492DE00B4AAA0 /* OFMain.cpp */,
+				27E0DDD30A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp */,
+				27E0DDD40A4492DE00B4AAA0 /* OFDiagnosticWindow.h */,
+				271281EB0A48E2B10086C4DE /* OggFrogConfig.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D0C4E960486CD37000505A6 /* Info-10.4u.plist */,
+				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
+				279B9ACE0A5B9C380075F402 /* Info-10.3.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				27BA712F0A5C78C900BCBEB0 /* vorbis.framework */,
+				27BA71280A5C78B000BCBEB0 /* ogg.framework */,
+				272C9D530A5C744300921232 /* libzoo.a */,
+				2724BC5A0A4237A500633BF2 /* CoreAudio.framework */,
+				2743C50C0A47656300FC5BE8 /* AudioToolbox.framework */,
+				2743C50D0A47656300FC5BE8 /* AudioUnit.framework */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
+				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		271281990A48D5FF0086C4DE /* ZooLib-Contrib */ = {
+			isa = PBXGroup;
+			children = (
+				273D566C0A4C7A1300E229B4 /* ZFIFOMonitor_PCM.h */,
+				27C694100A55FD07000CABDC /* ZPCMSink_WinWaveOut.h */,
+				27C694110A55FD07000CABDC /* ZPCMSink.cpp */,
+				27C694120A55FD07000CABDC /* ZPCMSink.h */,
+				273D56830A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp */,
+				2712819A0A48D64A0086C4DE /* VorbisPlayer.cpp */,
+				2712819B0A48D64A0086C4DE /* VorbisPlayer.h */,
+				2712819C0A48D64A0086C4DE /* ZPCMQueue.cpp */,
+				2712819D0A48D64A0086C4DE /* ZPCMQueue.h */,
+				2712819E0A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp */,
+				271281C70A48DB060086C4DE /* ZPCMSink_CoreAudio.h */,
+				279E87860A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp */,
+				279E87870A5B86BF00F8A2C0 /* ZUI_FuelGage.h */,
+			);
+			name = "ZooLib-Contrib";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		279B9AB30A5B9C380075F402 /* OggFrog-10.3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 279B9AC90A5B9C380075F402 /* Build configuration list for PBXNativeTarget "OggFrog-10.3" */;
+			buildPhases = (
+				279B9AB40A5B9C380075F402 /* Resources */,
+				279B9AB50A5B9C380075F402 /* Sources */,
+				279B9AC00A5B9C380075F402 /* Frameworks */,
+				279B9B0E0A5BA1E70075F402 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OggFrog-10.3";
+			productName = "OggFrog-Debug";
+			productReference = 279B9ACC0A5B9C380075F402 /* Ogg Frog.app */;
+			productType = "com.apple.product-type.application";
+		};
+		27E0DDC70A44927C00B4AAA0 /* OggFrog-10.4u */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27E0DDCB0A44927D00B4AAA0 /* Build configuration list for PBXNativeTarget "OggFrog-10.4u" */;
+			buildPhases = (
+				27E0DDC40A44927C00B4AAA0 /* Resources */,
+				27E0DDC50A44927C00B4AAA0 /* Sources */,
+				27E0DDC60A44927C00B4AAA0 /* Frameworks */,
+				27BA70DC0A5C761500BCBEB0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OggFrog-10.4u";
+			productName = "OggFrog-Debug";
+			productReference = 27E0DDC80A44927C00B4AAA0 /* Ogg Frog.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "OggFrog" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 20286C29FDCF999611CA2CEA /* OggFrog */;
+			projectDirPath = "";
+			targets = (
+				27E0DDC70A44927C00B4AAA0 /* OggFrog-10.4u */,
+				279B9AB30A5B9C380075F402 /* OggFrog-10.3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		279B9AB40A5B9C380075F402 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27E0DDC40A44927C00B4AAA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		279B9AB50A5B9C380075F402 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				279B9AB60A5B9C380075F402 /* OFApp.cpp in Sources */,
+				279B9AB70A5B9C380075F402 /* OFMain.cpp in Sources */,
+				279B9AB80A5B9C380075F402 /* OFDiagnosticWindow.cpp in Sources */,
+				279B9AB90A5B9C380075F402 /* VorbisPlayer.cpp in Sources */,
+				279B9ABA0A5B9C380075F402 /* ZPCMQueue.cpp in Sources */,
+				279B9ABB0A5B9C380075F402 /* ZPCMSink_CoreAudio.cpp in Sources */,
+				279B9ABC0A5B9C380075F402 /* FIFOReportPane.cpp in Sources */,
+				279B9ABD0A5B9C380075F402 /* ZFIFOMonitor_PCM.cpp in Sources */,
+				279B9ABE0A5B9C380075F402 /* ZPCMSink.cpp in Sources */,
+				279B9ABF0A5B9C380075F402 /* ZUI_FuelGage.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27E0DDC50A44927C00B4AAA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27E0DDD50A4492DE00B4AAA0 /* OFApp.cpp in Sources */,
+				27E0DDD60A4492DE00B4AAA0 /* OFMain.cpp in Sources */,
+				27E0DDD70A4492DE00B4AAA0 /* OFDiagnosticWindow.cpp in Sources */,
+				2712819F0A48D64A0086C4DE /* VorbisPlayer.cpp in Sources */,
+				271281A10A48D64A0086C4DE /* ZPCMQueue.cpp in Sources */,
+				271281A30A48D64A0086C4DE /* ZPCMSink_CoreAudio.cpp in Sources */,
+				27CAFFD80A4A221500FE9EA7 /* FIFOReportPane.cpp in Sources */,
+				273D56840A4CB09700E229B4 /* ZFIFOMonitor_PCM.cpp in Sources */,
+				27C694140A55FD07000CABDC /* ZPCMSink.cpp in Sources */,
+				279E87880A5B86BF00F8A2C0 /* ZUI_FuelGage.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0867D6ABFE840B52C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		279B9ACA0A5B9C380075F402 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				BUILD_VARIANTS = normal;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_6)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_7)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_8)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+				);
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "Info-10.3.plist";
+				INSTALL_MODE_FLAG = "a-w,a+rX";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				OBJROOT = "$(SYMROOT)/build";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Ogg Frog";
+				SDKROOT = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				USER_HEADER_SEARCH_PATHS = "../../../libogg/include ../../../libvorbis/include ../../../zoolib/src//** ../../../include/$(CONFIGURATION)";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		279B9ACB0A5B9C380075F402 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_6)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_7)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_8)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+				);
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "Info-10.3.plist";
+				INSTALL_MODE_FLAG = "a-w,a+rX";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				OBJROOT = "$(SYMROOT)/build";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Ogg Frog";
+				SDKROOT = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				USER_HEADER_SEARCH_PATHS = "../../../libogg/include ../../../libvorbis/include ../../../zoolib/src//** ../../../include/$(CONFIGURATION)";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		27E0DDCC0A44927D00B4AAA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_VARIANTS = normal;
+				COPY_PHASE_STRIP = NO;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_6)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_7)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_8)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Arch/mac-os-x/10.4/Debug\"";
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "Info-10.4u.plist";
+				INSTALL_MODE_FLAG = "a-w,a+rX";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OBJROOT = "$(SYMROOT)/build";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Ogg Frog";
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				USER_HEADER_SEARCH_PATHS = "../../../libogg/include ../../../libvorbis/include ../../../zoolib/src//** ../../../include/$(CONFIGURATION)";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		27E0DDF80A44967B00B4AAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DSTROOT = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_5)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_6)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_7)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_8)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_3)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_4)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Arch/mac-os-x/10.4/Debug\"";
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "Info-10.4u.plist";
+				INSTALL_MODE_FLAG = "a-w,a+rX";
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SYMROOT)/$(MAXOSX_DEPLOYMENT_TARGET)/$(CONFIGURATION)",
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../../Arch/mac-os-x/10.4/Debug\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				OBJROOT = "$(SYMROOT)/build";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Ogg Frog";
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				USER_HEADER_SEARCH_PATHS = "../../../libogg/include ../../../libvorbis/include ../../../zoolib/src//** ../../../include/$(CONFIGURATION)";
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		27E0DDF90A44967B00B4AAA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				FRAMEWORK_SEARCH_PATHS = (
+					/System/Library/Frameworks/ApplicationServices.framework/Frameworks,
+					/System/Library/Frameworks/Carbon.framework/Frameworks,
+					/System/Library/Frameworks/CoreServices.framework/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
+				OBJROOT = "";
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SKIP_INSTALL = NO;
+				SYMROOT = "$(SYMROOT)";
+				USER_HEADER_SEARCH_PATHS = "../ZooLib/Headers/Release ../../../libogg/include ../Ogg ../../../libvorbis/include ../../../zoolib/src//** ";
+			};
+			name = Release;
+		};
+		C0E91ACA08A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_VARIANTS = normal;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/System/Library/Frameworks/ApplicationServices.framework/Frameworks,
+					/System/Library/Frameworks/Carbon.framework/Frameworks,
+					/System/Library/Frameworks/CoreServices.framework/Frameworks,
+					"$(FRAMEWORK_SEARCH_PATHS)",
+				);
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
+				INFOPLIST_FILE = Info.plist;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SKIP_INSTALL = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = build;
+				USER_HEADER_SEARCH_PATHS = "../ZooLib/Headers/Debug ../../../libogg/include ../Ogg ../../../libvorbis/include ../../../zoolib/src//** ";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		279B9AC90A5B9C380075F402 /* Build configuration list for PBXNativeTarget "OggFrog-10.3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				279B9ACA0A5B9C380075F402 /* Debug */,
+				279B9ACB0A5B9C380075F402 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		27E0DDCB0A44927D00B4AAA0 /* Build configuration list for PBXNativeTarget "OggFrog-10.4u" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27E0DDCC0A44927D00B4AAA0 /* Debug */,
+				27E0DDF80A44967B00B4AAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "OggFrog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91ACA08A95435008D54AB /* Debug */,
+				27E0DDF90A44967B00B4AAA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}

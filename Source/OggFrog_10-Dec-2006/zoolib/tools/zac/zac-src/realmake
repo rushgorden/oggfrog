@@ -1,0 +1,50 @@
+# @(#) $Id: realmake,v 1.12 2005/07/04 22:58:38 agreen Exp $
+
+PROJECT_TARGET_NAME := zac
+
+PROJECT_PATHS :=
+
+PROJECT_SOURCES := \
+	TLSdata.c \
+	TLSinside.c \
+	ZASCompiler.cpp \
+	ZASCompilerCL.cpp \
+	ZASParser.cpp \
+	ZAtomic.cpp \
+	ZByteSwap.cpp \
+	ZDebug.cpp \
+	ZFile.cpp \
+	ZFile_POSIX.cpp \
+	ZMain.cpp \
+	ZMemory.cpp \
+	ZRefCount.cpp \
+	ZStream.cpp \
+	ZStream_Buffered.cpp \
+	ZStream_Count.cpp \
+	ZStream_HexStrim.cpp \
+	ZStream_Memory.cpp \
+	ZStream_POSIX.cpp \
+	ZStreamRWPos_RAM.cpp \
+	ZStreamer.cpp \
+	ZStrim.cpp \
+	ZStrim_CRLF.cpp \
+	ZStrim_Stream.cpp \
+	ZStrimR_Boundary.cpp \
+	ZStrimW_Escapify.cpp \
+	ZString.cpp \
+	ZTextCoder.cpp \
+	ZTextCoder_Unicode.cpp \
+	ZTextCoder_iconv.cpp \
+	ZThread.cpp \
+	ZTime.cpp \
+	ZTrail.cpp \
+	ZTypes.cpp \
+	ZUnicode.cpp \
+	ZUtil_Strim.cpp \
+	ZUtil_TextCoder.cpp \
+
+
+PROJECT_LIBS_POSIX := stdc++ pthread c
+PROJECT_LIBS_LINUX := stdc++ pthread c
+PROJECT_LIBS_MACOSX := stdc++ pthread c
+PROJECT_LIBS_BE := stdc++.r4

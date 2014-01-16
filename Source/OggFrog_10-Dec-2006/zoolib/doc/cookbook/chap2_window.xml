@@ -1,0 +1,518 @@
+<sect1 id="ZHelloWorld_Window"><title>ZHelloWorld_Window: the Window Objects</title>
+<sect2><title>The Window Class Declaration</title>
+<para>
+The objects that represent our windows are of class ZHelloWorld_Window.  This is a subclass
+of ZWindow and of ZPaneLocator:
+</para>
+<para>
+<programlisting>
+<![CDATA[class ZHelloWorld_Window : public ZWindow,
+							public ZPaneLocator
+	{
+public:
+	ZHelloWorld_Window(ZApp* inApp);
+	~ZHelloWorld_Window();
+
+// From ZEventHr via ZWindow
+	virtual void DoInstallMenus(ZMenuInstall* inMenuInstall);
+	virtual void DoSetupMenus(ZMenuSetup* inMenuSetup);
+	virtual bool DoMenuMessage(const ZMessage& inMenuMessage);
+
+// From ZPaneLocator
+	virtual bool GetPaneLocation(ZSubPane* inPane, ZPoint& outLocation);
+
+protected:
+	ZWindowPane* fWindowPane;
+	ZUICaptionPane* fHelloPane;
+	};]]>
+</programlisting>
+</para>
+<para>Looking in ZWindow.h, we see that ZWindow is a subclass of ZOSWindowOwner,
+ZMessageLooper, ZMessageReceiver and ZFakeWindow.
+</para>
+<para>
+ZOSWindowOwner links ZWindow to the real windows supplied by the operating system's
+GUI layer.  You will find the implementations of the different OS windows in each of
+the subdirectories of zoolib/platform: ZOSWindow_Mac, ZOSWindow_Windows and so on.
+</para>
+<para>
+ZMessageLoopers may have messages posted to them and are responsible for dispatching them
+to the ZMessageReceivers, which receive and handle them.  Windows handle messages not
+only to respond to menu commands, but also to GUI events like keypresses, mouse clicks,
+activations, notifications that the window needs to draw, resizing and so on.  You can
+also define your own messages to allow different threads to communicate among each other
+or to themselves.
+</para>
+<para>
+ZFakeWindow is a subclass of ZEventHr, which is defined to respond to most GUI events.
+ZHelloWorld_Window overrides several of ZEventHr's methods to provide menu handling,
+similar to the menu handling provided by the application object.
+</para>
+</sect2>
+<sect2><title>Our First Look at ZPaneLocator</title>
+<para>
+ZHelloWorld_Window is a subclass of ZPaneLocator.  The ZPaneLocator class is a central
+concept in the management of ZooLib graphical user interfaces, and it is very 
+powerful and flexible, but it seems to 
+be difficult for most beginners to learn to work with.  I had a hard time with it myself,
+but I found it very worthwhile to learn how to use it well.  I will discuss it in some
+detail in this book, returning to it several times.
+</para>
+<para>
+ZPaneLocators serve several functions, the first of them being the layout of widgets in
+windows.  ZPaneLocators have a number of other duties that I will get to later.
+</para>
+<para>
+In most GUI frameworks, the location and size of each widget are stored as member variables
+in the widget.  This is even the case for non-object oriented toolkits, such as the Mac OS
+Control Manager, where a Mac OS Button stores its own location in a data structure.
+</para>
+<para>
+This works well for the most part, but is difficult to work with when the layout of the
+window is complex and must be flexible.  If we want the widgets to rearrange 
+themselves as
+the window is resized, or to automatically adjust for the width of label text that may
+be translated into different languages, it is hard for the individual widgets to know how
+to adjust.
+</para>
+<para>
+It is particularly inflexible if the windows are designed with a graphical layout tool
+that saves the widget coordinates in files, such as Mac or Windows resource files.
+</para>
+<para>
+In ZooLib, individual GUI widgets are not responsible for knowing their own sizes or
+locations.  Instead, they hold a pointer to their ZPaneLocator, and any inquiries about
+dimensions are passed on to the locator.  Typically a ZPaneLocator manages a number of 
+different widgets and can carry out the calculations needed to keep them arranged relative
+to each other.
+</para>
+<para>
+ZHelloWorld_Window is a simple ZPaneLocator, it only serves to provide the location of
+its subpanes:
+</para>
+<para>
+<programlisting>
+<![CDATA[bool ZHelloWorld_Window::GetPaneLocation(ZSubPane* inPane, ZPoint& outLocation)
+	{
+	if (inPane == fHelloPane)
+		{
+		ZPoint theSize = inPane->GetSize();
+		ZPoint superSize = inPane->GetSuperPane()->GetInternalSize();
+		outLocation = (superSize - theSize) / 2;
+		return true;
+		}
+	return ZPaneLocator::GetPaneLocation(inPane, outLocation);
+	}]]>
+</programlisting>
+</para>
+<para>
+GetPaneLocation is passed a pointer to the ZSubPane whose location is needed, and
+a reference to the ZPoint where the location is to be stored.  The code here tests if
+the subpane is the one whose pointer is stored in the member variable fHelloPane,
+if it is, it calls the subpane's GetSize() method to find its size, and the
+pane's superpane's GetInternalSize() method to find the size of the pane it is inside
+of.  Then it divides the vector difference of these by two to get the value to place
+in outLocation.  This has the effect of centering fHelloPane in its superpane.
+</para>
+<para>
+GetPaneLocation returns true if it handled the call by supplying the location,
+otherwise it passes on the call by returning the result of 
+ZPaneLocator::GetPaneLocation.  With this, it is possible to chain PaneLocators that
+handle different responsibilities.
+</para>
+<para>
+Now what does ZSubPane::GetSize() do?  We can have a look at the source code in
+ZPane.cpp:
+</para>
+<para>
+<programlisting>
+<![CDATA[ZPoint ZSubPane::GetSize()
+	{
+	ZPoint theSize;
+	if (fPaneLocator && fPaneLocator->GetPaneSize(this, theSize))
+		return theSize;
+	if (fSuperPane)
+		return fSuperPane->GetInternalSize();
+	return ZPoint::sZero;
+	}]]>
+</programlisting>
+</para>
+<para>
+If the pane has a non-nil ZPaneLocator pointer, then it called GetPaneSize to
+ask the pane locator for the size.  If it has no locator, then it asks for the
+internal size of its superpane, so if there is no pane locator, it fills up its
+whole superpane.  If it has no superpane it defaults to (0,0).  Thus we see that
+by default, ZSubPanes do not know about their sizes on their own.  The code for
+ZSubPane::GetLocation() is similar.
+</para>
+<para>
+It is possible to override GetSize() and provide a size directly if you want to
+do so.  That makes the most sense for widgets that will always be the same size.
+Alternatively, you can do this in a superpane that wants to set its size to just
+surround all its subpanes.
+</para>
+
+</sect2>
+<sect2><title>Constructing and Destructing the Window</title>
+<para>
+The constructor for the ZHelloWorld_Window calls its base class constructor, passing it
+the ZApp pointer (used as a ZWindowSupervisor pointer) and a pointer to a ZOSWindow it
+has just created.  It also constructs its other base class, ZPaneLocator, by passing nil
+as the next locator in the chain, to indicate that there are no others.  Then it creates
+the window's content:
+</para>
+<para>
+<programlisting>
+<![CDATA[ZHelloWorld_Window::ZHelloWorld_Window(ZApp* inApp)
+:	ZWindow(inApp, sCreateOSWindow(inApp)),
+	ZPaneLocator(nil)
+	{
+	this->SetTitle("Hello World Window");
+	this->SetBackInks(ZUIAttributeFactory::sGet()->GetInk_WindowBackground_Dialog(), new ZUIInk_Fixed(ZRGBColor::sYellow));
+	fWindowPane = new ZWindowPane(this, nil);
+	fHelloPane = ZUIFactory::sGet()->Make_CaptionPane(fWindowPane, this, "Hello World!");
+	}]]>
+</programlisting>
+</para>
+<sect3><title>Creating the ZOSWindow</title>
+<para>
+You will need to provide a function like sCreateOSWindow for each window variation you
+wish to create.  If it is a member of your window's class it should be declared static
+as it is used during the constructor initializer list, when the window object is not 
+completely constructed yet (in general you should never pass "this" as a parameter to
+functions called from initializer lists, not even implicitly by calling your own
+non-static member functions.  It is permissible to pass "this" to base class member 
+functions, as any base classes have already been constructed)
+</para>
+<para>
+sCreateOSWindow is responsible for creating the real window on the screen that is 
+managed by the operating system:
+</para>
+<para>
+<programlisting>
+<![CDATA[static ZOSWindow* sCreateOSWindow(ZApp* inApp)
+	{
+	
+	ZOSWindow::CreationAttributes attr;
+	
+	attr.fFrame = ZRect(0, 0, 200, 80);
+	attr.fLook = ZOSWindow::lookDocument;
+	attr.fLayer = ZOSWindow::layerDocument;
+	attr.fResizable = true;
+	attr.fHasSizeBox = true;
+	attr.fHasCloseBox = true;
+	attr.fHasZoomBox = true;
+	attr.fHasMenuBar = true;
+	attr.fHasTitleIcon = false;
+	
+	return inApp->CreateOSWindow( attr );
+
+	}]]>
+</programlisting>
+</para>
+<para>
+First you initialize a ZOSWindow::CreationAttributes structure with your options for
+the size, appearance and behaviour of the window.  Note the fLook and fLayer options;
+the look and feel of the window are specified separately.  Using ZOSWindow::lookDocument
+and ZOSWindow::layerDocument creates an ordinary kind of window.  You can also create
+windows with appropriate appearances for modal dialogs, movable modal dialogs, tool 
+palettes and so on.  From ZOSWindow.h:
+</para>
+<para>
+<programlisting>
+<![CDATA[enum Look { lookDocument, lookPalette, lookModal, lookMovableModal, 
+lookAlert, lookMovableAlert, lookThinBorder, lookMenu, lookHelp };]]>
+</programlisting>
+</para>
+<para>
+ZooLib allows windows to be managed in different ways, to provide normal window behaviour,
+or modal dialogs (windows that must be dealt with by the user before work can continue),
+windows that float above the rest, and "sinkers" or windows that stay at the bottom of the
+heirarchy.  The selections available are again found in ZOSWindow.h:
+</para>
+<para>
+<programlisting>
+<![CDATA[enum Layer { layerDummy, layerSinker, layerDocument, layerFloater, layerDialog, 
+           layerMenu, layerHelp,
+		layerBottomMost = layerDummy, layerTopMost = layerHelp };]]>
+</programlisting>
+</para>
+</sect3>
+<sect3><title>Creating the Window Contents</title>
+<para>
+Now we examine the body of ZHelloWorld_Window's constructor:
+</para>
+<para>
+<programlisting>
+<![CDATA[	this->SetTitle("Hello World Window");
+	this->SetBackInks(ZUIAttributeFactory::sGet()->GetInk_WindowBackground_Dialog(), new ZUIInk_Fixed(ZRGBColor::sYellow));
+	fWindowPane = new ZWindowPane(this, nil);
+	fHelloPane = ZUIFactory::sGet()->Make_CaptionPane(fWindowPane, this, "Hello World!");
+]]>
+</programlisting>
+</para>
+<para>First we set the window's title.
+</para>
+<para>  Then we set the window's background inks.  These
+are the colors that will be drawn if nothing else is - that is, the window will be erased
+with these colors when an update starts, before the contents are drawn.  There are two
+inks that are provided to SetBackInks; the first is used when the window is active, and
+the second is used when the window is in the background.
+</para>
+<para>
+Here is an example of using a factory, in this case the ZUIAttributeFactory, to enable a
+standard appearance for the application.  It calls GetInk_WindowBackground_Dialog to get
+the normal ink for dialog windows according to the platform standard.  For the deactivated
+ink, we construct a fixed yellow color ink; thus the window will turn yellow when it is
+no longer in the front.
+</para>
+<para>
+When a window is constructed, it has no panes in it.  The panes are where the actual
+drawing takes place, and they are the ultimate recipients of UI events like mouse clicks
+and keystrokes.  First we must construct a special pane that takes up the whole window,
+by allocating a ZWindowPane.  We store a pointer to it in fWindowPane.
+</para>
+<para>
+Finally we get to the real meat of our application, shouting "Hello World!":
+</para>
+<para>
+<programlisting>
+<![CDATA[fHelloPane = ZUIFactory::sGet()->Make_CaptionPane(fWindowPane, this, "Hello World!");]]>
+</programlisting>
+</para>
+<para>
+We obtain a pointer to the ZUIFactory through its static method sGet().  Then we call
+Make_CaptionPane to allocate a new ZUICaptionPane that says "Hello World!".  The interface
+to Make_CaptionPane is:
+</para>
+<para>
+<programlisting>
+<![CDATA[virtual ZUICaptionPane* Make_CaptionPane(ZSuperPane* inSuperPane, ZPaneLocator* inLocator, const string& inLabel);]]>
+</programlisting>
+</para>
+<para>
+All ZSubPanes will need to have pointers to their ZSuperPane and ZPaneLocator provided.
+It is permissible to pass nil for each of these; a nil superpane indicates the subpane is
+not attached to any window yet, and a nil ZPaneLocator indicates the defaults are to be
+used for such things as pane size and location.
+</para>
+<para>
+Once a ZUICaptionPane is placed in a window, it takes care of keeping itself updated.
+No more work is required to spread our greetings to the world.  However, if you want to
+implement your own subclass of ZSubPane to provide custom drawing, you should do the
+actual rendering in an override to ZSubPane's DoDraw method.
+</para>
+</sect3>
+<sect3><title>Destroying the Window</title>
+<para>
+You never explicitly delete a ZWindow pointer.  Ordinarily ZWindows are deleted by ZooLib
+in response to the user clicking the window's close box.  But you can provide a destructor
+for your window.  ZHelloWorld_Window does not do anything in its destructor:
+</para>
+<para>
+<programlisting>
+<![CDATA[ZHelloWorld_Window::~ZHelloWorld_Window()
+	{}]]>
+</programlisting>
+</para>
+<para>
+A lot happens behind the scenes in the base class destructors though.  ZooLib will delete
+all the subpanes, the menu bar and menus, and dispose of the operating system window.
+</para>
+<para>
+You can close a window yourself, and cause its eventual deletion, by calling 
+ZWindow::CloseAndDispose().
+</para>
+<para>
+On all the systems besides the Mac OS, normal behaviour is for the application to quit
+after the last window is closed.  On the Mac, the application normally stays running
+with only the top menu bar remaining.  ZooLib does not keep count of your windows for you,
+so it is possible to close all of the windows and have the application object still running.
+This is the case with ZHelloWorld as the source is provided, and it is a bug.  If you
+close all the windows without selecting "Quit" from the File menu first, the process will
+be left running with no user interface.  You will have to kill the process with the
+Windows task manager or the kill command on BeOS or Unix.
+</para>
+<para>
+One simple way to deal with this is for your application object to keep a count of
+open windows.  When a new window is created, it sends a message to the ZApp informing of
+its birth.  It also sends a notification from its destructor.  When the count of windows
+reaches zero, you call PostRequestQuitMessage from the ZApp object.  ZooLib will take
+care of shutting down your application object, and then its Run method will return to
+ZMain, where you will then return and ZooLib will terminate the program.
+</para>
+</sect3>
+</sect2>
+
+<sect2><title>Creating the Window's Menus</title>
+<para>
+The window provides a menu in addition to those provided by the application object:
+</para>
+<para>
+<programlisting>
+<![CDATA[void ZHelloWorld_Window::DoInstallMenus(ZMenuInstall* inMenuInstall)
+	{
+	ZWindow::DoInstallMenus(inMenuInstall);
+
+	ZRef<ZMenu> helloMenu = new ZMenu;
+
+	inMenuInstall->Append("&Hello", helloMenu);
+		helloMenu->Append(mcHello_Again, "&Hello World Again!", 'H');
+		helloMenu->AppendSeparator();
+		helloMenu->Append(mcHello_Pixmap, "My New Niece");
+		helloMenu->Append(mcHello_TextResource, "Text Resource");
+		helloMenu->Append(mcHello_TextHardCoded, "Text (Hard coded)");
+	}]]>
+</programlisting>
+</para>
+<para>
+ZHelloWorld::DoInstallMenus creates a menu titled "Hello" that has several items
+in it, one for creating a new Hello World window, as well as showing a picture of
+Andy's newborn niece Amy from a BMP graphic stored in a resource file, 
+retrieving the message from a resource file, and
+inserting hardcoded text into the message
+</para>
+</sect2>
+<sect2><title>Enabling the Menu Items</title>
+<para>
+Before ZooLib responds to a mouse click on the menu bar, it calls DoSetupMenus to
+allow your code to enable or disable menu items according to the current state of the
+application or document.  It is important to provide the DoSetupMenus implementation
+because the menu items are disabled by default:
+</para>
+<para>
+<programlisting>
+<![CDATA[void ZHelloWorld_Window::DoSetupMenus(ZMenuSetup* inMenuSetup)
+	{
+	ZWindow::DoSetupMenus(inMenuSetup);
+	inMenuSetup->EnableItem(mcClose);
+	inMenuSetup->EnableItem(mcHello_Again);
+	inMenuSetup->EnableItem(mcHello_Pixmap);
+	inMenuSetup->EnableItem(mcHello_TextResource);
+	inMenuSetup->EnableItem(mcHello_TextHardCoded);
+	}]]>
+</programlisting>
+</para>
+<para>
+DoSetupMenus is passed a pointer to a ZMenuSetup object.  Call its EnableItem
+member function with the menu command constant to enable an item. 
+</para>
+<note>
+<para>I need to check with Andy about this, I see a comment in ZMenu.h that 
+indicates that EnableItem is deprecated.
+</para>
+</note>
+</sect2>
+<sect2><title>Handling Menu Messages</title>
+<para>
+Menu messages may be handled by a window or by its ZWindowSupervisor, the application
+object in our case.  This allows common functions to be handled in a central location
+by the application, but allows menu commands that are particular to a document to be
+handled by the window that holds the document.
+</para>
+<para>
+<programlisting>
+<![CDATA[
+bool ZHelloWorld_Window::DoMenuMessage(const ZMessage& inMenuMessage)
+	{
+	switch (inMenuMessage.GetInt32("menuCommand"))
+		{
+		case mcClose:
+			{
+			this->CloseAndDispose();
+			break;
+			}
+		case mcHello_Again:
+			{
+			ZWindow* theWindow = new ZHelloWorld_Window(ZApp::sGet());
+			theWindow->Center();
+			theWindow->BringFront();
+			theWindow->GetLock().Release();
+			return true;
+			}
+		case mcHello_Pixmap:
+			{
+			ZDCPixmap thePixmap = ZUIUtil::sLoadPixmapFromBMPResource(kRSRC_BMP_Amy);
+			fHelloPane->SetCaption(new ZUICaption_Pix(thePixmap), true);
+			break;
+			}
+		case mcHello_TextResource:
+			{
+			string theText = ZString::sFromStrResource(kRSRC_STR_HelloWorld);
+			ZRef<ZUIFont> theUIFont = ZUIAttributeFactory::sGet()->GetFont_SystemLarge();
+			ZRef<ZUICaption> theUICaption = new ZUICaption_Text(theText, theUIFont, 0);
+			fHelloPane->SetCaption(theUICaption, true);
+			break;
+			}
+		case mcHello_TextHardCoded:
+			{
+			string theText = ZString::sFromStrResource(kRSRC_STR_HelloWorld);
+			ZDCFont theDCFont = ZDCFont::sApp9;
+			theDCFont.SetStyle(theDCFont.GetStyle() | ZDCFont::underline);
+			ZRef<ZUIFont> theUIFont = new ZUIFont_Fixed(theDCFont);
+			ZRef<ZUICaption> theUICaption = new ZUICaption_Text("Hello World! (hard coded)", theUIFont, 0);
+			fHelloPane->SetCaption(theUICaption, true);
+			break;
+			}
+		}
+	return ZWindow::DoMenuMessage(inMenuMessage);
+	}]]>
+</programlisting>
+</para>
+<para>Another important concept within ZooLib is the ZMessage.  ZMessages allow
+formatted packets of data to be communicated between threads or within a thread.
+ZMessages store data of different types that are accessed by name and type.  In the
+case of a menu command, the data stored is a 32-bit integer, and its name is 
+"menuCommand".  There will be much to say about ZMessages later on.
+</para>
+<para>
+ Here we switch according to the command after retrieving its value:
+</para>
+<para>
+<programlisting>
+<![CDATA[	switch (inMenuMessage.GetInt32("menuCommand"))]]>
+</programlisting>
+</para>
+<para>
+The different "mc" constants are defined at the top of the file as integer
+values following mcUser:
+</para>
+<para>
+<programlisting>
+<![CDATA[#include "ZMenuDef.h"
+//...
+
+#define mcHello_Again mcUser + 1
+#define mcHello_Pixmap mcUser + 2
+#define mcHello_TextResource mcUser + 3
+#define mcHello_TextHardCoded mcUser + 4]]>
+</programlisting>
+</para>
+<para>
+If you look in ZMenuDef.h, you will see that it defines a number of standard
+UI commands, like mcAbout, which is the command to display an "About Box".
+It also defines mcUser.  The command numbers less than mcUser are reserved for
+definition by ZooLib, although usually intended to be implemented by your own
+code.  The values above mcUser are for your use as you please.
+</para>
+<para>
+We'll go into the details of what each of the menu commands do later.  But for now
+notice the last line of the function, which passes off any unknown menu commands to the
+window:
+</para>
+<para>
+<programlisting>
+<![CDATA[	return ZWindow::DoMenuMessage(inMenuMessage);]]>
+</programlisting>
+</para>
+
+</sect2>
+</sect1>
+
+<!--
+Local Variables:
+mode: xml
+sgml-doctype: "cookbook.xml"
+sgml-parent-document: ("chap2.xml" "book" "sect1")
+End:
+-->

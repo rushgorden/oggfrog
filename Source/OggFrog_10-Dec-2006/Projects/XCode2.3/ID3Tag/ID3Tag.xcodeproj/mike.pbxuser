@@ -1,0 +1,60 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = QA;
+		activeTarget = 8D07F2BC0486CC7A007CD1D0 /* ID3Tag-10.4u */;
+		addToTargets = (
+			8D07F2BC0486CC7A007CD1D0 /* ID3Tag-10.4u */,
+		);
+		breakpointsGroup = 27B263EB0B01C5A500E851F9 /* XCBreakpointsBucket */;
+		codeSenseManager = 271B1CFE0B0060DC002BCFA3 /* Code sense */;
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 187508903;
+			PBXWorkspaceStateSaveDate = 187508903;
+		};
+		sourceControlManager = 271B1CFD0B0060DC002BCFA3 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = "../../../Arch/mac-os-x";
+			SYMROOT = "../../../Arch/mac-os-x";
+		};
+	};
+	2707C8740B0984F60021E344 /* ID3Tag-10.3 */ = {
+		activeExec = 0;
+	};
+	271B1CFD0B0060DC002BCFA3 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	271B1CFE0B0060DC002BCFA3 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	271B1D100B00615E002BCFA3 /* global.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {476, 756}}";
+			sepNavSelRange = "{1665, 57}";
+			sepNavVisRect = "{{0, 630}, {459, 126}}";
+		};
+	};
+	271B1D180B00615E002BCFA3 /* tag.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 12740}}";
+			sepNavSelRange = "{6091, 13}";
+			sepNavVisRect = "{{0, 3949}, {740, 180}}";
+			sepNavWindowFrame = "{{15, 167}, {820, 706}}";
+		};
+	};
+	27B263EB0B01C5A500E851F9 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = ID3Tag;
+		objects = (
+		);
+	};
+	8D07F2BC0486CC7A007CD1D0 /* ID3Tag-10.4u */ = {
+		activeExec = 0;
+	};
+}

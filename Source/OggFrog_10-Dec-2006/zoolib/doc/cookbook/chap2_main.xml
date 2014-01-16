@@ -1,0 +1,44 @@
+<sect1><title>ZMain: the Application Entry Point</title>
+
+  <para>
+    Every ZooLib application's client code starts up in ZMain().  ZMain is used
+    rather than main() because different operating systems have different conventions
+    for the parameters to be passed to main, and on Windows, WinMain is used rather than
+    main().  Most ZooLib applications will have a ZMain that is much like ZHelloWorld's:
+  </para>
+  <para>
+    <programlisting>
+<![CDATA[int ZMain(int argc, char** argv)
+{
+    try
+    {
+        ZHelloWorld_App theApp;
+        theApp.Run();
+    }
+    catch (...)
+    {}
+
+    return 1;
+}]]>
+    </programlisting>
+  </para>
+<para>
+The first thing we do is create an instance of our application object, here
+ZHelloWorld_App.  It is a subclass of ZApp.  We call the ZApp's Run() method,
+and when Run() finishes, we exit ZMain, and the program terminates.
+</para>
+<para>
+There are ordinarily several threads in a ZooLib application.  The application 
+object has its own thread, and each window has a thread.  The window threads
+come and go as windows are created and closed, but the application object's
+thread keeps running the whole time.
+</para>
+</sect1>
+
+<!--
+Local Variables:
+mode: xml
+sgml-doctype: "cookbook.xml"
+sgml-parent-document: ("chap2.xml" "book" "sect1")
+End:
+-->

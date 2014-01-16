@@ -1,0 +1,8 @@
+EXPORTS
+
+_main@4								@1 main
+_CWPlugin_GetDropInFlags@8			@2 CWPlugin_GetDropInFlags
+_CWPlugin_GetPluginInfo@4			@3 CWPlugin_GetPluginInfo
+_CWPlugin_GetTargetList@4			@4 CWPlugin_GetTargetList
+_CWPlugin_GetDefaultMappingList@4	@5 CWPlugin_GetDefaultMappingList
+

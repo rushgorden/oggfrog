@@ -1,0 +1,579 @@
+// !$*UTF8*$!
+{
+	20286C28FDCF999611CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = 27E0DDC90A44927C00B4AAA0 /* OggFrog-10.4u */;
+		activeTarget = 27E0DDC70A44927C00B4AAA0 /* OggFrog-10.4u */;
+		addToTargets = (
+			279B9AB30A5B9C380075F402 /* OggFrog-10.3 */,
+			27E0DDC70A44927C00B4AAA0 /* OggFrog-10.4u */,
+		);
+		breakpoints = (
+			27FD066F0B083283008103AC /* ZPCMSource_Mad.cpp:441 */,
+			27FD06760B08349A008103AC /* ZPCMSource_Mad.cpp:193 */,
+			27FD06B50B083CE5008103AC /* ZPCMSource_Mad.cpp:146 */,
+			27FD06C00B083DC2008103AC /* ZPCMSource_Mad.cpp:103 */,
+			27FD06DF0B083FC3008103AC /* VorbisPlayer.cpp:120 */,
+			27F5B5980B09B2F8008BB2A9 /* ZFIFOMonitor_PCM.cpp:101 */,
+			27096AD40B0AE573003EB35C /* ZFIFOMonitor_PCM.cpp:178 */,
+		);
+		breakpointsGroup = 2724C0180A427D1F00633BF2 /* XCBreakpointsBucket */;
+		codeSenseManager = 2724BC2B0A422F4700633BF2 /* Code sense */;
+		executables = (
+			27E0DDC90A44927C00B4AAA0 /* OggFrog-10.4u */,
+			279B9ACD0A5B9C380075F402 /* OggFrog-10.3 */,
+		);
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					210,
+					20,
+					110,
+					109,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					315,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 187509332;
+			PBXWorkspaceStateSaveDate = 187509332;
+		};
+		perUserProjectItems = {
+			271BF7910B1EEB3C00BFB970 = 271BF7910B1EEB3C00BFB970 /* PBXTextBookmark */;
+			27CC6A8D0B1EC83900C458EA = 27CC6A8D0B1EC83900C458EA /* PBXTextBookmark */;
+		};
+		sourceControlManager = 2724BC2A0A422F4700633BF2 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = "../../../Arch/mac-os-x";
+			SYMROOT = "../../../Arch/mac-os-x";
+		};
+	};
+	2701F4970AFEFD2C00B87012 /* ZPCMSource.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 1512}}";
+			sepNavSelRange = "{1726, 0}";
+			sepNavVisRect = "{{0, 248}, {858, 630}}";
+		};
+	};
+	2701F4C20AFEFFF100B87012 /* ZPCMSource.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1325, 2660}}";
+			sepNavSelRange = "{2784, 0}";
+			sepNavVisRect = "{{0, 1551}, {1325, 301}}";
+			sepNavWindowFrame = "{{38, 93}, {897, 759}}";
+		};
+	};
+	2701F4DD0AFF06BF00B87012 /* ZPCMSource_Mad.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1325, 1330}}";
+			sepNavSelRange = "{1332, 17}";
+			sepNavVisRect = "{{0, 291}, {1325, 301}}";
+			sepNavWindowFrame = "{{258, 91}, {897, 759}}";
+		};
+	};
+	27096A550B0AE157003EB35C /* ZFIFOVector.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 577}}";
+			sepNavSelRange = "{46, 0}";
+			sepNavVisRect = "{{0, 0}, {781, 577}}";
+			sepNavWindowFrame = "{{204, 76}, {820, 706}}";
+		};
+	};
+	27096AD40B0AE573003EB35C /* ZFIFOMonitor_PCM.cpp:178 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27813E7A0A6CBA77001E4224 /* ZFIFOMonitor_PCM.cpp */;
+		functionName = "ZFIFOMonitor_PCM::Monitor()";
+		hitCount = 1;
+		lineNumber = 178;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400277;
+		state = 2;
+	};
+	271BF7910B1EEB3C00BFB970 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 27813E500A6CB747001E4224 /* OFDiagnosticWindow.cpp */;
+		name = "OFDiagnosticWindow.cpp: 84";
+		rLen = 0;
+		rLoc = 2802;
+		rType = 0;
+		vrLen = 884;
+		vrLoc = 2148;
+	};
+	2724BC2A0A422F4700633BF2 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	2724BC2B0A422F4700633BF2 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	2724C0180A427D1F00633BF2 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = OggFrog;
+		objects = (
+			27FD066F0B083283008103AC /* ZPCMSource_Mad.cpp:441 */,
+			27FD06760B08349A008103AC /* ZPCMSource_Mad.cpp:193 */,
+			27FD06B50B083CE5008103AC /* ZPCMSource_Mad.cpp:146 */,
+			27FD06C00B083DC2008103AC /* ZPCMSource_Mad.cpp:103 */,
+			27FD06DF0B083FC3008103AC /* VorbisPlayer.cpp:120 */,
+			27F5B5980B09B2F8008BB2A9 /* ZFIFOMonitor_PCM.cpp:101 */,
+			27096AD40B0AE573003EB35C /* ZFIFOMonitor_PCM.cpp:178 */,
+		);
+	};
+	27813DE10A6C996E001E4224 /* FIFOReportPane.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {628, 1176}}";
+			sepNavSelRange = "{1791, 14}";
+			sepNavVisRect = "{{0, 403}, {628, 605}}";
+		};
+	};
+	27813DE20A6C996E001E4224 /* OFApp.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 6034}}";
+			sepNavSelRange = "{3918, 15}";
+			sepNavVisRect = "{{0, 2351}, {781, 577}}";
+			sepNavWindowFrame = "{{337, 122}, {820, 706}}";
+		};
+	};
+	27813DE30A6C996E001E4224 /* OFApp.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1325, 1792}}";
+			sepNavSelRange = "{2355, 29}";
+			sepNavVisRect = "{{0, 1117}, {1325, 301}}";
+			sepNavWindowFrame = "{{298, 130}, {820, 706}}";
+		};
+	};
+	27813DE40A6C996E001E4224 /* OFDiagnosticWindow.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {793, 1652}}";
+			sepNavSelRange = "{2801, 5}";
+			sepNavVisRect = "{{0, 1195}, {793, 457}}";
+			sepNavWindowFrame = "{{261, 84}, {897, 759}}";
+		};
+	};
+	27813DE50A6C996E001E4224 /* OggFrogConfig.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1013, 619}}";
+			sepNavSelRange = "{988, 0}";
+			sepNavVisRect = "{{0, 0}, {1013, 619}}";
+			sepNavWindowFrame = "{{38, 104}, {1052, 748}}";
+		};
+	};
+	27813DFE0A6C9DC3001E4224 /* VorbisPlayer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 1274}}";
+			sepNavSelRange = "{1507, 10}";
+			sepNavVisRect = "{{0, 10}, {858, 630}}";
+			sepNavWindowFrame = "{{15, 139}, {667, 734}}";
+		};
+	};
+	27813DFF0A6C9DC3001E4224 /* ZFIFOMonitor_PCM.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 1176}}";
+			sepNavSelRange = "{1718, 0}";
+			sepNavVisRect = "{{0, 539}, {781, 577}}";
+			sepNavWindowFrame = "{{597, 112}, {820, 706}}";
+		};
+	};
+	27813E000A6C9DC3001E4224 /* ZPCMQueue.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 4690}}";
+			sepNavSelRange = "{1703, 11}";
+			sepNavVisRect = "{{0, 363}, {781, 577}}";
+			sepNavWindowFrame = "{{15, 167}, {820, 706}}";
+		};
+	};
+	27813E010A6C9DC3001E4224 /* ZPCMQueue.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 2604}}";
+			sepNavSelRange = "{4300, 11}";
+			sepNavVisRect = "{{0, 1077}, {781, 577}}";
+			sepNavWindowFrame = "{{15, 167}, {820, 706}}";
+		};
+	};
+	27813E020A6C9DC3001E4224 /* ZPCMSink_CoreAudio.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 1064}}";
+			sepNavSelRange = "{1654, 0}";
+			sepNavVisRect = "{{0, 354}, {781, 577}}";
+			sepNavWindowFrame = "{{38, 146}, {820, 706}}";
+		};
+	};
+	27813E040A6C9DC3001E4224 /* ZPCMSink.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {793, 1092}}";
+			sepNavSelRange = "{2155, 0}";
+			sepNavVisRect = "{{0, 635}, {793, 457}}";
+			sepNavWindowFrame = "{{38, 146}, {820, 706}}";
+		};
+	};
+	27813E050A6C9DC3001E4224 /* ZPCMSink.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1325, 924}}";
+			sepNavSelRange = "{1653, 0}";
+			sepNavVisRect = "{{0, 529}, {1325, 301}}";
+			sepNavWindowFrame = "{{298, 130}, {820, 706}}";
+		};
+	};
+	27813E500A6CB747001E4224 /* OFDiagnosticWindow.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 8540}}";
+			sepNavSelRange = "{2802, 0}";
+			sepNavVisRect = "{{0, 728}, {858, 630}}";
+			sepNavWindowFrame = "{{274, 86}, {897, 759}}";
+		};
+	};
+	27813E680A6CB98A001E4224 /* ZPCMSink_CoreAudio.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 2548}}";
+			sepNavSelRange = "{2112, 25}";
+			sepNavVisRect = "{{0, 587}, {781, 577}}";
+			sepNavWindowFrame = "{{15, 167}, {820, 706}}";
+		};
+	};
+	27813E6F0A6CB9E2001E4224 /* VorbisPlayer.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 5110}}";
+			sepNavSelRange = "{2965, 0}";
+			sepNavVisRect = "{{0, 1554}, {628, 605}}";
+			sepNavWindowFrame = "{{332, 102}, {667, 734}}";
+		};
+	};
+	27813E740A6CBA24001E4224 /* FIFOReportPane.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 3374}}";
+			sepNavSelRange = "{3410, 0}";
+			sepNavVisRect = "{{0, 1035}, {781, 577}}";
+			sepNavWindowFrame = "{{292, 128}, {820, 706}}";
+		};
+	};
+	27813E7A0A6CBA77001E4224 /* ZFIFOMonitor_PCM.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 3388}}";
+			sepNavSelRange = "{4259, 0}";
+			sepNavVisRect = "{{0, 2255}, {858, 630}}";
+			sepNavWindowFrame = "{{406, 80}, {897, 759}}";
+		};
+	};
+	279B9AB30A5B9C380075F402 /* OggFrog-10.3 */ = {
+		activeExec = 0;
+		executables = (
+			279B9ACD0A5B9C380075F402 /* OggFrog-10.3 */,
+		);
+	};
+	279B9ACD0A5B9C380075F402 /* OggFrog-10.3 */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 1;
+		name = "OggFrog-10.3";
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+	};
+	279B9ACE0A5B9C380075F402 /* Info-10.3.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {711, 429}}";
+			sepNavSelRange = "{694, 0}";
+			sepNavVisRect = "{{0, 0}, {711, 429}}";
+			sepNavWindowFrame = "{{15, 315}, {750, 558}}";
+		};
+	};
+	27CC6A8D0B1EC83900C458EA /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 27813E500A6CB747001E4224 /* OFDiagnosticWindow.cpp */;
+		name = "OFDiagnosticWindow.cpp: 84";
+		rLen = 0;
+		rLoc = 2802;
+		rType = 0;
+		vrLen = 957;
+		vrLoc = 2075;
+	};
+	27E0DDC70A44927C00B4AAA0 /* OggFrog-10.4u */ = {
+		activeExec = 0;
+		executables = (
+			27E0DDC90A44927C00B4AAA0 /* OggFrog-10.4u */,
+		);
+	};
+	27E0DDC90A44927C00B4AAA0 /* OggFrog-10.4u */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+			"PBXLSLaunchAction-0" = {
+				PBXLSLaunchAction = 0;
+				PBXLSLaunchStartAction = 1;
+				PBXLSLaunchStdioStyle = 2;
+				PBXLSLaunchStyle = 0;
+				class = PBXLSRunLaunchConfig;
+				displayName = "Executable Runner";
+				identifier = com.apple.Xcode.launch.runConfig;
+				remoteHostInfo = "";
+				startActionInfo = "";
+			};
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+			{
+				active = YES;
+				name = MALLOC_FILL_SPACE;
+			},
+			{
+				active = YES;
+				name = MALLOC_STRICT_SIZE;
+			},
+			{
+				active = NO;
+				name = MALLOC_PROTECT_BEFORE;
+			},
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 3;
+		libgmallocEnabled = 0;
+		name = "OggFrog-10.4u";
+		savedGlobals = {
+		};
+		sourceDirectories = (
+		);
+		variableFormatDictionary = {
+			$cs = 1;
+			$ds = 1;
+			$eax = 1;
+			$ebp = 1;
+			$ebx = 1;
+			$ecx = 1;
+			$edi = 1;
+			$edx = 1;
+			$eflags = 1;
+			$eip = 1;
+			$es = 1;
+			$esi = 1;
+			$esp = 1;
+			$gs = 1;
+			$ss = 1;
+			"actualType-DescType-ZUtil_File::sOpenFileDialog" = 5;
+			"curTime-float-ZPCMSource_Mad::DecoderProc" = 1;
+			"fixed-mad_fixed_t-ZPCMSource_Mad::MadFixedToFloat" = 1;
+			"fraction-long unsigned int-ZPCMSource_Mad::SetTime" = 1;
+			"mChannel-int-OFMainWindow::FIFOMonitor" = 1;
+			"mFormatID-UInt32-ZPCMSink_CoreAudio::OpenOutput" = 5;
+			"refCon-long int-ZOSApp_Carbon::Internal_FixupWindows" = 1;
+			"seconds-long int-ZPCMSource_Mad::SetTime" = 1;
+			"specSize-size_t-ZFIFOMonitor_PCM::Monitor" = 1;
+			"theActualKey-AEKeyword-ZOSApp_Carbon::AppleEventHandler" = 5;
+			"theActualKey-AEKeyword-ZOSApp_MacOSX::AppleEventHandler" = 5;
+			"theActualType-DescType-ZOSApp_Carbon::AppleEventHandler" = 5;
+			"theActualType-DescType-ZOSApp_MacOSX::AppleEventHandler" = 5;
+			"theKeyword-AEKeyword-ZUtil_File::sOpenFileDialog" = 5;
+		};
+	};
+	27E0DDD20A4492DE00B4AAA0 /* OFMain.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1088, 714}}";
+			sepNavSelRange = "{1158, 0}";
+			sepNavVisRect = "{{0, 429}, {1088, 285}}";
+			sepNavWindowFrame = "{{367, 96}, {821, 764}}";
+		};
+	};
+	27E1BE5B0A74DBCB00C1E76D /* OFDebug.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {628, 605}}";
+			sepNavSelRange = "{120, 24}";
+			sepNavVisRect = "{{0, 0}, {628, 605}}";
+		};
+	};
+	27E49A810AFF07F400DFB528 /* ZPCMSource_Mad.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 7868}}";
+			sepNavSelRange = "{2416, 27}";
+			sepNavVisRect = "{{0, 3103}, {858, 630}}";
+			sepNavWindowFrame = "{{168, 77}, {897, 759}}";
+		};
+	};
+	27F5B5980B09B2F8008BB2A9 /* ZFIFOMonitor_PCM.cpp:101 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27813E7A0A6CBA77001E4224 /* ZFIFOMonitor_PCM.cpp */;
+		functionName = "ZFIFOMonitor_PCM::Add()";
+		hitCount = 1;
+		lineNumber = 101;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400271;
+		state = 2;
+	};
+	27FD066F0B083283008103AC /* ZPCMSource_Mad.cpp:441 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27E49A810AFF07F400DFB528 /* ZPCMSource_Mad.cpp */;
+		functionName = "ZPCMSource_Mad::RecordOffset()";
+		hitCount = 1;
+		lineNumber = 441;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400225;
+		state = 2;
+	};
+	27FD06760B08349A008103AC /* ZPCMSource_Mad.cpp:193 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27E49A810AFF07F400DFB528 /* ZPCMSource_Mad.cpp */;
+		functionName = "ZPCMSource_Mad::DecoderProc()";
+		hitCount = 1;
+		lineNumber = 193;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400248;
+		state = 2;
+	};
+	27FD06B50B083CE5008103AC /* ZPCMSource_Mad.cpp:146 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27E49A810AFF07F400DFB528 /* ZPCMSource_Mad.cpp */;
+		functionName = "ZPCMSource_Mad::DecoderProc()";
+		hitCount = 1;
+		lineNumber = 146;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400255;
+		state = 2;
+	};
+	27FD06C00B083DC2008103AC /* ZPCMSource_Mad.cpp:103 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27E49A810AFF07F400DFB528 /* ZPCMSource_Mad.cpp */;
+		functionName = "ZPCMSource_Mad::DecoderProc()";
+		hitCount = 1;
+		lineNumber = 103;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400261;
+		state = 2;
+	};
+	27FD06DF0B083FC3008103AC /* VorbisPlayer.cpp:120 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		delayBeforeContinue = 0;
+		fileReference = 27813E6F0A6CB9E2001E4224 /* VorbisPlayer.cpp */;
+		functionName = "VorbisPlayer::DecoderProc()";
+		hitCount = 1;
+		lineNumber = 120;
+		location = "Ogg Frog";
+		modificationTime = 186575366.400266;
+		state = 2;
+	};
+	8D0C4E960486CD37000505A6 /* Info-10.4u.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 589}}";
+			sepNavSelRange = "{694, 0}";
+			sepNavVisRect = "{{0, 0}, {1040, 589}}";
+			sepNavWindowFrame = "{{84, 92}, {1079, 718}}";
+		};
+	};
+}

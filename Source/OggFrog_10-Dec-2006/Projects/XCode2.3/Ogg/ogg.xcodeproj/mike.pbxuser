@@ -1,0 +1,75 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = QA;
+		activeTarget = 27D77A020A5B316E0046D9D6 /* ogg-10.4u */;
+		addToTargets = (
+			27D77A020A5B316E0046D9D6 /* ogg-10.4u */,
+		);
+		breakpointsGroup = 271283870A4928FA0086C4DE /* XCBreakpointsBucket */;
+		codeSenseManager = 27CF22D70A46A2F4003908E8 /* Code sense */;
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 187508984;
+			PBXWorkspaceStateSaveDate = 187508984;
+		};
+		sourceControlManager = 27CF22D60A46A2F4003908E8 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = "../../../Arch/mac-os-x";
+			SYMROOT = "../../../Arch/mac-os-x";
+		};
+	};
+	271283870A4928FA0086C4DE /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = ogg;
+		objects = (
+		);
+	};
+	27CF22D60A46A2F4003908E8 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	27CF22D70A46A2F4003908E8 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	27CF22D80A46A43A003908E8 /* bitwise.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 10962}}";
+			sepNavSelRange = "{12555, 4}";
+			sepNavVisRect = "{{0, 6271}, {740, 180}}";
+		};
+	};
+	27CF22D90A46A43A003908E8 /* framing.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {740, 24458}}";
+			sepNavSelRange = "{37700, 4}";
+			sepNavVisRect = "{{0, 12457}, {740, 180}}";
+		};
+	};
+	27CF22E00A46A492003908E8 /* os_types.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {957, 1960}}";
+			sepNavSelRange = "{2584, 0}";
+			sepNavVisRect = "{{0, 904}, {957, 138}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27D77A020A5B316E0046D9D6 /* ogg-10.4u */ = {
+		activeExec = 0;
+	};
+	8D07F2BC0486CC7A007CD1D0 /* ogg-10.3 */ = {
+		activeExec = 0;
+	};
+	8D07F2C70486CC7A007CD1D0 /* Info-10.3.plist */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+}

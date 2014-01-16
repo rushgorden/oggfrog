@@ -1,0 +1,384 @@
+# @(#) $Id: zmake.engine,v 1.9 2006/04/10 20:49:41 agreen Exp $
+
+# ====================================================================================================
+# Set up names of compiler, linker, strip and zac. Because we use conditional assignment, You can
+# override any of these in your project's realmake or makefile.
+
+ZMAKE_CXX ?= g++
+ZMAKE_CXXFLAGS ?= -pipe -D_REENTRANT
+
+ZMAKE_CXXFLAGS_DEBUG ?= -g -DDEBUG
+ZMAKE_CXXFLAGS_RELEASE ?= -O2
+ZMAKE_CXXFLAGS_PROFILE ?= -pg -g -DZOOLIB_PROFILE
+
+ZMAKE_C ?= gcc
+ZMAKE_CFLAGS ?= $(ZMAKE_CXXFLAGS)
+
+ZMAKE_CFLAGS_DEBUG ?= $(ZMAKE_CXXFLAGS_DEBUG)
+ZMAKE_CFLAGS_RELEASE ?= $(ZMAKE_CXXFLAGS_RELEASE)
+ZMAKE_CFLAGS_PROFILE ?= $(ZMAKE_CXXFLAGS_PROFILE)
+
+ZMAKE_LINK ?= g++
+ZMAKE_LINKFLAGS_RELEASE ?=
+#ZMAKE_LINKFLAGS_RELEASE ?= -Wl,-multiply_defined -Wl,suppress
+ZMAKE_LINKFLAGS_DEBUG ?=
+ZMAKE_LINKFLAGS_PROFILE ?= -pg
+
+ZMAKE_STRIP ?= strip
+
+ZMAKE_ZAC ?= zac
+
+# ====================================================================================================
+# Put the platform's lists of source files and libraries into the variables we'll actually be using.
+ifeq ($(shell uname -s), BeOS)
+	PROJECT_SOURCES += $(PROJECT_SOURCES_BE)
+	PROJECT_PATHS += $(PROJECT_PATHS_BE)
+	PROJECT_SYS_PATHS += $(PROJECT_SYS_PATHS_BE)
+	PROJECT_LIBS += $(PROJECT_LIBS_BE)
+	PROJECT_LIB_PATHS += $(PROJECT_LIB_PATHS_BE)
+	ZMAKE_IS_BEOS := yes
+else
+	ifeq ($(shell uname -s), Darwin)
+		PROJECT_SOURCES += $(PROJECT_SOURCES_MACOSX)
+		PROJECT_PATHS += $(PROJECT_PATHS_MACOSX)
+		PROJECT_SYS_PATHS += $(PROJECT_SYS_PATHS_MACOSX)
+		PROJECT_LIBS += $(PROJECT_LIBS_MACOSX)
+		PROJECT_LIB_PATHS += $(PROJECT_LIB_PATHS_MACOSX)
+		ZMAKE_IS_DARWIN := yes
+	else
+		ifeq ($(shell uname -s), Linux)
+			PROJECT_SOURCES += $(PROJECT_SOURCES_LINUX)
+			PROJECT_PATHS += $(PROJECT_PATHS_LINUX)
+			PROJECT_SYS_PATHS += $(PROJECT_SYS_PATHS_LINUX)
+			PROJECT_LIBS += $(PROJECT_LIBS_LINUX)
+			PROJECT_LIB_PATHS += $(PROJECT_LIB_PATHS_LINUX)
+			ZMAKE_IS_LINUX := yes
+		else
+			PROJECT_SOURCES += $(PROJECT_SOURCES_POSIX)
+			PROJECT_PATHS += $(PROJECT_PATHS_POSIX)
+			PROJECT_SYS_PATHS += $(PROJECT_SYS_PATHS_POSIX)
+			PROJECT_LIBS += $(PROJECT_LIBS_POSIX)
+			PROJECT_LIB_PATHS += $(PROJECT_LIB_PATHS_POSIX)
+		endif
+	endif
+endif
+
+# ====================================================================================================
+# Get the standard set of zoolib include paths.
+include $(ZOOLIB_DIR)/tools/zmake/zmake.paths
+
+# ====================================================================================================
+# Set up the names of the release and debug object directories.
+OBJECT_DIR_RELEASE := ./objects-release
+OBJECT_DIR_DEBUG := ./objects-debug
+OBJECT_DIR_PROFILE := ./objects-profile
+OBJECT_DIR_ASSETS := ./objects-assets
+
+# The names of the release and debug builds of the application.
+TARGET_RELEASE := $(PROJECT_TARGET_NAME)-release
+TARGET_DEBUG := $(PROJECT_TARGET_NAME)-debug
+TARGET_PROFILE := $(PROJECT_TARGET_NAME)-profile
+
+# ====================================================================================================
+# Generate the list of the project's C and C++ source files
+CPP_SOURCES := $(filter %.cpp, $(PROJECT_SOURCES)) $(filter %.c, $(PROJECT_SOURCES)) $(filter %.cc, $(PROJECT_SOURCES))
+
+# And the corresponding object file names in the releae and debug object directories.
+CPP_OBJECTS := $(addsuffix .o, $(foreach file, $(CPP_SOURCES), $(basename $(notdir $(file)))))
+CPP_OBJECTS_RELEASE := $(addprefix $(OBJECT_DIR_RELEASE)/, $(CPP_OBJECTS))
+CPP_OBJECTS_DEBUG := $(addprefix $(OBJECT_DIR_DEBUG)/, $(CPP_OBJECTS))
+CPP_OBJECTS_PROFILE := $(addprefix $(OBJECT_DIR_PROFILE)/, $(CPP_OBJECTS))
+
+# The corresponding dependency file names.
+CPP_DEPENDS := $(addsuffix .d, $(foreach file, $(CPP_SOURCES), $(basename $(notdir $(file)))))
+CPP_DEPENDS_RELEASE := $(addprefix $(OBJECT_DIR_RELEASE)/, $(CPP_DEPENDS))
+CPP_DEPENDS_DEBUG := $(addprefix $(OBJECT_DIR_DEBUG)/, $(CPP_DEPENDS))
+CPP_DEPENDS_PROFILE := $(addprefix $(OBJECT_DIR_PROFILE)/, $(CPP_DEPENDS))
+
+# Generate the list of the project's zas (ZooLib Asset Source) files.
+ASSET_SOURCES := $(filter %.zas, $(PROJECT_SOURCES))
+
+# And their corresponding object file names.
+ASSET_OBJECT_NAMES:= $(foreach file, $(ASSET_SOURCES), $(basename $(notdir $(file))))
+ASSET_OBJECTS := $(addsuffix .zao, $(ASSET_OBJECT_NAMES))
+ASSET_OBJECTS := $(addprefix $(OBJECT_DIR_ASSETS)/, $(ASSET_OBJECTS))
+
+# And dependency file names.
+ASSET_DEPENDS := $(addsuffix .zad, $(foreach file, $(ASSET_SOURCES), $(basename $(notdir $(file)))))
+ASSET_DEPENDS := $(addprefix $(OBJECT_DIR_ASSETS)/, $(ASSET_DEPENDS))
+
+# ====================================================================================================
+# Add all the source paths to VPATH, so make can find them without having to explicitly
+# quote a full path in every case.
+PROJECT_PATHS := $(sort $(PROJECT_PATHS) $(foreach file, $(PROJECT_SOURCES), $(dir $(file)))) $(ZOOLIB_PATHS)
+
+VPATH :=
+VPATH += $(addprefix :, $(subst ,:, $(filter-out $($(subst, :, ,$(VPATH))), $(PROJECT_PATHS))))
+
+# ====================================================================================================
+# SOURCE_INCLUDES is the set of directories to be searched for ""-delimited include statements.
+SOURCE_INCLUDES := $(foreach path, $(PROJECT_PATHS), $(addprefix -I, $(path)))
+
+# SYS_INCLUDES is the set of directories to be searched for "" _and_ <>-delimited include statements.
+SYS_INCLUDES := $(foreach path, $(PROJECT_SYS_PATHS), $(addprefix -I, $(path)))
+
+# ====================================================================================================
+# Augment passed in library paths with the paths explicitly used in any PROJECT_LIBS entries.
+# AG 2005-12-23. This needs to be modified to drop any file which doesn't have a path -- it ends
+# up being ./ and is wrong.
+
+PROJECT_LIB_PATHS := $(sort $(PROJECT_LIB_PATHS) $(foreach file, $(PROJECT_LIBS), $(dir $(file))))
+
+ifneq ($(ZMAKE_IS_DARWIN),)
+	# Darwin does not support the Xlinker switch
+	LINK_PATHS_RELEASE := $(foreach path, $(PROJECT_LIB_PATHS), $(addprefix -L, $(path)))
+else
+	LINK_PATHS_RELEASE := $(foreach path, $(PROJECT_LIB_PATHS), $(addprefix -L, $(path)) $(addprefix -Xlinker -R, $(path)))
+endif
+
+LINK_PATHS_DEBUG := $(LINK_PATHS_RELEASE)
+LINK_PATHS_PROFILE := $(LINK_PATHS_RELEASE)
+
+
+# If the libraries have a .so or .a prefix, or if they are _APP_ or _KERNEL_
+# then simply add them to the list
+LINK_LIBS := $(filter %.so %.a _APP_ _KERNEL_, $(notdir $(PROJECT_LIBS)))
+
+# If the libraries do not have suffixes and are not _APP_ or _KERNEL_
+# prepend -l to each name: be becomes -lbe
+LINK_LIBS += $(foreach lib, $(filter-out %.so %.a, $(notdir $(PROJECT_LIBS))), $(addprefix -l, $(lib)))
+
+LINK_FLAGS_RELEASE := $(ZMAKE_LINKFLAGS_RELEASE) $(LINK_PATHS_RELEASE) $(LINK_LIBS)
+LINK_FLAGS_DEBUG := $(ZMAKE_LINKFLAGS_DEBUG) $(LINK_PATHS_DEBUG) $(LINK_LIBS)
+LINK_FLAGS_PROFILE := $(ZMAKE_LINKFLAGS_PROFILE) $(LINK_PATHS_PROFILE) $(LINK_LIBS)
+
+# ====================================================================================================
+# Default target is the debug version
+default: $(TARGET_DEBUG)
+
+# ====================================================================================================
+# Rules to build the actual targets, including the step to add any assets to the executeable.
+
+$(TARGET_RELEASE): $(OBJECT_DIR_RELEASE) $(CPP_OBJECTS_RELEASE) $(OBJECT_DIR_ASSETS) $(ASSET_OBJECTS)
+	@rm -f $@
+	$(ZMAKE_LINK) -o $@ $(CPP_OBJECTS_RELEASE) $(LINK_FLAGS_RELEASE)
+	$(ZMAKE_STRIP) $@
+ifneq ($(ASSET_OBJECTS),)
+ifneq ($(ZMAKE_IS_BEOS),)
+	rm -f resource.tmp.r
+	id=1;\
+	for i in $(ASSET_OBJECT_NAMES); do\
+		echo resource \(\'ZAO_\', $$id, \"$$i\"\) \{ read \(\"$(OBJECT_DIR_ASSETS)/$$i.zao\" \) \} >> resource.tmp.r; \
+		id=$$(($$id+1));\
+	done
+	mwbres -o $@ resource.tmp.r
+	rm -f resource.tmp.r
+else
+	$(ZMAKE_ZAC) -a $(ASSET_OBJECTS) -o $@ || rm -f $@
+endif
+endif
+
+$(TARGET_DEBUG): $(OBJECT_DIR_DEBUG) $(CPP_OBJECTS_DEBUG) $(OBJECT_DIR_ASSETS) $(ASSET_OBJECTS)
+	@rm -f $@
+	$(ZMAKE_LINK) -o $@ $(CPP_OBJECTS_DEBUG) $(LINK_FLAGS_DEBUG)
+ifneq ($(ASSET_OBJECTS),)
+ifneq ($(ZMAKE_IS_BEOS),)
+	rm -f resource.tmp.r
+	id=1;\
+	for i in $(ASSET_OBJECT_NAMES); do\
+		echo resource \(\'ZAO_\', $$id, \"$$i\"\) \{ read \(\"$(OBJECT_DIR_ASSETS)/$$i.zao\" \) \} >> resource.tmp.r; \
+		id=$$(($$id+1));\
+	done
+	mwbres -o $@ resource.tmp.r
+	rm -f resource.tmp.r
+else
+	$(ZMAKE_ZAC) -a $(ASSET_OBJECTS) -o $@ || rm -f $@
+endif
+endif
+
+$(TARGET_PROFILE): $(OBJECT_DIR_PROFILE) $(CPP_OBJECTS_PROFILE) $(OBJECT_DIR_ASSETS) $(ASSET_OBJECTS)
+	@rm -f $@
+	$(ZMAKE_LINK) -o $@ $(CPP_OBJECTS_PROFILE) $(LINK_FLAGS_PROFILE)
+ifneq ($(ASSET_OBJECTS),)
+ifneq ($(ZMAKE_IS_BEOS),)
+	rm -f resource.tmp.r
+	id=1;\
+	for i in $(ASSET_OBJECT_NAMES); do\
+		echo resource \(\'ZAO_\', $$id, \"$$i\"\) \{ read \(\"$(OBJECT_DIR_ASSETS)/$$i.zao\" \) \} >> resource.tmp.r; \
+		id=$$(($$id+1));\
+	done
+	mwbres -o $@ resource.tmp.r
+	rm -f resource.tmp.r
+else
+	$(ZMAKE_ZAC) -a $(ASSET_OBJECTS) -o $@ || rm -f $@
+endif
+endif
+
+# ====================================================================================================
+# Create the object directories
+
+$(OBJECT_DIR_RELEASE)::
+	@[ -d $(OBJECT_DIR_RELEASE) ] || mkdir $(OBJECT_DIR_RELEASE) > /dev/null 2>&1
+
+$(OBJECT_DIR_DEBUG)::
+	@[ -d $(OBJECT_DIR_DEBUG) ] || mkdir $(OBJECT_DIR_DEBUG) > /dev/null 2>&1
+
+$(OBJECT_DIR_PROFILE)::
+	@[ -d $(OBJECT_DIR_PROFILE) ] || mkdir $(OBJECT_DIR_PROFILE) > /dev/null 2>&1
+
+$(OBJECT_DIR_ASSETS)::
+	@[ -d $(OBJECT_DIR_ASSETS) ] || mkdir $(OBJECT_DIR_ASSETS) > /dev/null 2>&1
+
+# ====================================================================================================
+# Compiling cpp, cc, c and zas files.
+
+$(OBJECT_DIR_RELEASE)/%.o : %.cpp
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_RELEASE) -c $< -o $@
+
+$(OBJECT_DIR_DEBUG)/%.o : %.cpp
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_DEBUG) -c $< -o $@
+
+$(OBJECT_DIR_PROFILE)/%.o : %.cpp
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_PROFILE) -c $< -o $@ -pg
+
+
+
+$(OBJECT_DIR_RELEASE)/%.o : %.cc
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_RELEASE) -c $< -o $@
+
+$(OBJECT_DIR_DEBUG)/%.o : %.cc
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_DEBUG) -c $< -o $@
+
+$(OBJECT_DIR_PROFILE)/%.o : %.cc
+	$(ZMAKE_CXX) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_PROFILE) -c $< -o $@ -pg
+
+
+
+$(OBJECT_DIR_RELEASE)/%.o : %.c
+	$(ZMAKE_C) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_RELEASE) -c $< -o $@
+
+$(OBJECT_DIR_DEBUG)/%.o : %.c
+	$(ZMAKE_C) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_DEBUG) -c $< -o $@
+
+$(OBJECT_DIR_PROFILE)/%.o : %.c
+	$(ZMAKE_C) $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_PROFILE) -c $< -o $@ -pg
+
+
+
+$(OBJECT_DIR_ASSETS)/%.zao : %.zas
+	$(ZMAKE_ZAC) -c $(SOURCE_INCLUDES) $< -o $@
+
+# ====================================================================================================
+# Generate dependency files
+
+$(OBJECT_DIR_RELEASE)/%.d : %.cpp
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_RELEASE) ] || mkdir $(OBJECT_DIR_RELEASE) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_RELEASE)/$*.o $(OBJECT_DIR_RELEASE)/$*.d " :" > $@; \
+	$(ZMAKE_CXX) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_RELEASE) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+$(OBJECT_DIR_RELEASE)/%.d : %.c
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_RELEASE) ] || mkdir $(OBJECT_DIR_RELEASE) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_RELEASE)/$*.o $(OBJECT_DIR_RELEASE)/$*.d " :" > $@; \
+	$(ZMAKE_C) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_RELEASE) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+
+
+$(OBJECT_DIR_DEBUG)/%.d : %.cpp
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_DEBUG) ] || mkdir $(OBJECT_DIR_DEBUG) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_DEBUG)/$*.o $(OBJECT_DIR_DEBUG)/$*.d " :" > $@; \
+	$(ZMAKE_CXX) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_DEBUG) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+$(OBJECT_DIR_DEBUG)/%.d : %.c
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_DEBUG) ] || mkdir $(OBJECT_DIR_DEBUG) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_DEBUG)/$*.o $(OBJECT_DIR_DEBUG)/$*.d " :" > $@; \
+	$(ZMAKE_C) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_DEBUG) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+
+
+$(OBJECT_DIR_PROFILE)/%.d : %.cpp
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_PROFILE) ] || mkdir $(OBJECT_DIR_PROFILE) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_PROFILE)/$*.o $(OBJECT_DIR_PROFILE)/$*.d " :" > $@; \
+	$(ZMAKE_CXX) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CXXFLAGS) $(ZMAKE_CXXFLAGS_PROFILE) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+$(OBJECT_DIR_PROFILE)/%.d : %.c
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_PROFILE) ] || mkdir $(OBJECT_DIR_PROFILE) > /dev/null 2>&1
+	@set -e; echo -n $(OBJECT_DIR_PROFILE)/$*.o $(OBJECT_DIR_PROFILE)/$*.d " :" > $@; \
+	$(ZMAKE_C) -MM $(SOURCE_INCLUDES) $(SYS_INCLUDES) $(ZMAKE_CFLAGS) $(ZMAKE_CFLAGS_PROFILE) -c $< \
+	| sed 's/\($*\).o[ :]//g'>> $@; \
+	[ -s $@ ] || rm -f $@
+
+
+
+$(OBJECT_DIR_ASSETS)/%.zad : %.zas
+ifeq ($(findstring s,$(MAKEFLAGS)),)
+	@echo "Making asset dependencies: " $@
+endif
+	@[ -d $(OBJECT_DIR_ASSETS) ] || mkdir $(OBJECT_DIR_ASSETS) > /dev/null 2>&1
+	@set -e; $(ZMAKE_ZAC) -M $(SOURCE_INCLUDES) $< > $@; \
+	[ -s $@ ] || rm -f $@
+
+# ====================================================================================================
+# Include any dependency files that may exist, but not if the target is 'clean'.
+
+ifneq ($(MAKECMDGOALS),clean)
+
+-include $(OBJECT_DIR_RELEASE)/*.d
+
+-include $(OBJECT_DIR_DEBUG)/*.d
+
+-include $(OBJECT_DIR_PROFILE)/*.d
+
+-include $(OBJECT_DIR_ASSETS)/*.zad
+
+endif
+
+# ====================================================================================================
+
+# empty rule. Things that depend on this rule will always get triggered
+FORCE:
+
+# The generic clean command. Delete everything in the object directories
+clean:: FORCE
+	-rm -rf $(OBJECT_DIR_RELEASE) $(OBJECT_DIR_DEBUG) $(OBJECT_DIR_PROFILE) $(OBJECT_DIR_ASSETS) $(TARGET_RELEASE) $(TARGET_DEBUG) $(TARGET_PROFILE)
+
+release: $(TARGET_RELEASE)
+
+debug: $(TARGET_DEBUG)
+
+profile: $(TARGET_PROFILE)
+
+depend-release: $(CPP_DEPENDS_RELEASE) $(ASSET_DEPENDS)
+
+depend-debug: $(CPP_DEPENDS_DEBUG) $(ASSET_DEPENDS)
+
+depend-profile: $(CPP_DEPENDS_PROFILE) $(ASSET_DEPENDS)
+
+all: depend-release depend-debug debug release

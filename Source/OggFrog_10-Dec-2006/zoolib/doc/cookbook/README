@@ -1,0 +1,106 @@
+Building the ZooLib Cookbook
+
+January 27, 2002
+
+Type "make html" to produce the ZooLib Cookbook as HTML.  The output will
+be placed in a directory named db2html-dir.  But see the note below about
+mydb2html - you will likely need to edit the pathnames in it for the 
+placement of some of the files on your particular system.
+
+You will need jade, the DocBook XML 4.1.2 DTD and Normal Walsh's DSSSL 
+stylesheets installed on your system.  You can use OpenJade instead of Jade
+if you edit doc/tools/mydb2html appropriately.  See http://www.docbook.org/
+for the starting point for all of these.
+
+Installing the DocBook tools, stylesheets and DTD's is a difficult task for
+the beginner.  It is much better if you can find the stuff pre-packaged for
+the system you use.
+
+For Slackware, you can get these if you install the sgmltools from the
+contrib CD (I think that's CD #3), or you can download it 
+from ftp.slackware.com.
+
+For Debian, you will need the docbook-xml, docbook-dsssl and jade packages.
+
+You don't need the vanilla docbook package for this, that is the classic
+DocBook SGML DTD.  I am using the DSSSL stylesheets and not the XSL stylesheets,
+although I will likely change the XSL at some time in the future (stylesheets
+are used to control the transformation of the marked-up source into 
+presentation formats like HTML or PDF; jade and openjade are DSSSL stylesheet
+processors, while xslt is an XSL stylesheet processor.)
+
+The mydb2html script is set up with pathnames to the stylesheets, XML
+declaration and such as they are installed on Slackware.  You will need
+to find where the things live on your system and change the pathnames
+appropriately.  Try looking also in /etc/sgml, /usr/lib/sgml, and
+/usr/share/sgml
+
+mydb2html is a simple modification to the popular db2html script which has
+been hacked to add the XML declaration to the jade command line.  It would
+be helpful to have a better script that would detect the type of file used
+and be able to process both DocBook XML and classic DocBook (SGML) documents
+from a single script.
+
+The Makefile is not yet set up to make PDF, postscript or other print forms
+of the document.  This will come in its time.
+
+I would like to write up more detailed notes on getting started with DocBook
+but don't have the opportunity right now.  I had a really hard time getting
+started (taking two years to get started writing the cookbook) and the posts
+I see on the mailing lists indicate others have as much trouble.
+
+You may find the docbook and docbook-apps mailing lists helpful.  Use
+the docbook lists for questions about markup or generally using the DocBook
+DTD itself.  Use docbook-apps for questions about processing your documents,
+making stylesheet customizations, using jade or openjade and so on.  You
+can find out how to subscribe at:
+
+http://www.docbook.org/mailinglist/index.html
+
+The lists are archived, maybe your question is already answered:
+
+http://lists.oasis-open.org/archives/docbook-apps/
+http://lists.oasis-open.org/archives/docbook/
+
+Note that the ZooLib cookbook is written in the newer DocBook XML DTD,
+rather than the original DocBook.  A lot of the DocBook processing software
+that is out there is not yet set up to handle DocBook XML, which is why I
+had to modify db2html.
+
+There are certain requirements a document must meet to be well-formed XML.
+This has required certain modifications to the original DocBook SGML DTD
+to make DocBook XML, and you will need to observe them if you edit this 
+document.  Most significantly, XML tags are case sensitive (use all lowercase
+for your markup), attributes must be quoted with either single or double
+quotes, and unclosed tags are not allowed.
+
+I suggest editing the XML files in Emacs using psgml and xml-mode.  You can
+get psgml from:
+
+http://www.lysator.liu.se/projects/about_psgml.html
+
+If you have the psgml library loaded before you open the XML files, I have
+emacs file variables in them that will set things up for psgml.
+
+You can find a lot of introductory documents about XML at:
+
+http://www.oasis-open.org/cover/xmlIntro.html
+
+You can read "DocBook: The Definitive Guide" online at:
+
+http://www.docbook.org/tdg/en/html/docbook.html
+
+O'Reilly publishes this book, but I think the version currently in print
+does not cover the XML DTD.  I'm not sure about that.  So far I'm not doing
+anything really weird with DocBook so it is likely the print version will 
+still be helpful.
+
+Finally, I am happy to answer your questions, and I am very appreciative
+of suggestions for how I can improve what I've written here.
+
+Michael D. Crawford
+GoingWare Inc. - Expert Software Development and Consulting
+http://www.goingware.com/
+crawford@goingware.com
+
+   Tilting at Windmills for a Better Tomorrow.

@@ -1,0 +1,45 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Development;
+		activeTarget = 0867D69CFE84028FC02AAC07 /* Vorbis */;
+		breakpointsGroup = 27CF20EE0A467377003908E8 /* XCBreakpointsBucket */;
+		codeSenseManager = 27CF20ED0A467377003908E8 /* Code sense */;
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 172389223;
+			PBXWorkspaceStateSaveDate = 172389223;
+		};
+		sourceControlManager = 27CF20EC0A467377003908E8 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	0867D69CFE84028FC02AAC07 /* Vorbis */ = {
+		activeExec = 0;
+	};
+	27CF20EC0A467377003908E8 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	27CF20ED0A467377003908E8 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	27CF20EE0A467377003908E8 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = vorbis;
+		objects = (
+		);
+	};
+	F5D8F60A03389C830112CE8F /* analysis.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 1680}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {1040, 589}}";
+			sepNavWindowFrame = "{{15, 155}, {1079, 718}}";
+		};
+	};
+}

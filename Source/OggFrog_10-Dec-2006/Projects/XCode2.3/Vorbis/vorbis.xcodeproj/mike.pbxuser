@@ -1,0 +1,68 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = QA;
+		activeTarget = 27D77A550A5B3B5D0046D9D6 /* vorbis-10.4u */;
+		addToTargets = (
+			8D07F2BC0486CC7A007CD1D0 /* vorbis-10.3 */,
+		);
+		breakpointsGroup = 271283860A4928EF0086C4DE /* XCBreakpointsBucket */;
+		codeSenseManager = 27CF22FB0A46A9BB003908E8 /* Code sense */;
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 187509016;
+			PBXWorkspaceStateSaveDate = 187509016;
+		};
+		sourceControlManager = 27CF22FA0A46A9BB003908E8 /* Source Control */;
+		userBuildSettings = {
+			OBJROOT = "../../../Arch/mac-os-x";
+			SYMROOT = "../../../Arch/mac-os-x";
+		};
+	};
+	271283860A4928EF0086C4DE /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = vorbis;
+		objects = (
+		);
+	};
+	27CF22FA0A46A9BB003908E8 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	27CF22FB0A46A9BB003908E8 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	27CF23220A46AAEF003908E8 /* floor1.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1143, 15260}}";
+			sepNavSelRange = "{13040, 40}";
+			sepNavVisRect = "{{0, 5746}, {1143, 143}}";
+		};
+	};
+	27CF23590A46AAEF003908E8 /* vorbisfile.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {722, 27748}}";
+			sepNavSelRange = "{28031, 13}";
+			sepNavVisRect = "{{0, 12693}, {722, 585}}";
+			sepNavWindowFrame = "{{642, 116}, {761, 714}}";
+		};
+	};
+	27CF23A70A46ABF9003908E8 /* vorbisfile.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 2016}}";
+			sepNavSelRange = "{4276, 56}";
+			sepNavVisRect = "{{0, 1180}, {858, 630}}";
+			sepNavWindowFrame = "{{15, 114}, {897, 759}}";
+		};
+	};
+	27D77A550A5B3B5D0046D9D6 /* vorbis-10.4u */ = {
+		activeExec = 0;
+	};
+	8D07F2BC0486CC7A007CD1D0 /* vorbis-10.3 */ = {
+		activeExec = 0;
+	};
+}

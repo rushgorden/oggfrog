@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg_dynamic", "ogg_dynamic.vcproj", "{9A563A36-778B-4D09-959E-275F8A54B435}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg_static", "ogg_static.vcproj", "{CD90ECCB-BB0A-4802-A377-F77485DAEE9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A563A36-778B-4D09-959E-275F8A54B435}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9A563A36-778B-4D09-959E-275F8A54B435}.Debug|Win32.Build.0 = Debug|Win32
+		{9A563A36-778B-4D09-959E-275F8A54B435}.Release|Win32.ActiveCfg = Release|Win32
+		{9A563A36-778B-4D09-959E-275F8A54B435}.Release|Win32.Build.0 = Release|Win32
+		{CD90ECCB-BB0A-4802-A377-F77485DAEE9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CD90ECCB-BB0A-4802-A377-F77485DAEE9E}.Debug|Win32.Build.0 = Debug|Win32
+		{CD90ECCB-BB0A-4802-A377-F77485DAEE9E}.Release|Win32.ActiveCfg = Release|Win32
+		{CD90ECCB-BB0A-4802-A377-F77485DAEE9E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

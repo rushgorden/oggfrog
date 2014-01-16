@@ -1,0 +1,1 @@
+#include "zconfig.h"#if ZCONFIG_Compiler != ZCONFIG_Compiler_CodeWarrior#	error Wrong Compiler#endif#if ZCONFIG_Processor != ZCONFIG_Processor_PPC#	error Wrong Processor#endif

@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2701F3D30AFEF58900B87012 /* bit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3BB0AFEF58900B87012 /* bit.c */; };
+		2701F3D40AFEF58A00B87012 /* bit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BC0AFEF58900B87012 /* bit.h */; };
+		2701F3D50AFEF58A00B87012 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BD0AFEF58900B87012 /* config.h */; };
+		2701F3D60AFEF58A00B87012 /* decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3BE0AFEF58900B87012 /* decoder.c */; };
+		2701F3D70AFEF58A00B87012 /* decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BF0AFEF58900B87012 /* decoder.h */; };
+		2701F3D80AFEF58A00B87012 /* fixed.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C00AFEF58900B87012 /* fixed.c */; };
+		2701F3D90AFEF58A00B87012 /* fixed.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C10AFEF58900B87012 /* fixed.h */; };
+		2701F3DA0AFEF58A00B87012 /* frame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C20AFEF58900B87012 /* frame.c */; };
+		2701F3DB0AFEF58A00B87012 /* frame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C30AFEF58900B87012 /* frame.h */; };
+		2701F3DC0AFEF58A00B87012 /* global.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C40AFEF58900B87012 /* global.h */; };
+		2701F3DD0AFEF58A00B87012 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C50AFEF58900B87012 /* huffman.c */; };
+		2701F3DE0AFEF58A00B87012 /* huffman.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C60AFEF58900B87012 /* huffman.h */; };
+		2701F3DF0AFEF58A00B87012 /* layer3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C70AFEF58900B87012 /* layer3.c */; };
+		2701F3E00AFEF58A00B87012 /* layer3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C80AFEF58900B87012 /* layer3.h */; };
+		2701F3E10AFEF58A00B87012 /* layer12.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C90AFEF58900B87012 /* layer12.c */; };
+		2701F3E20AFEF58A00B87012 /* layer12.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CA0AFEF58900B87012 /* layer12.h */; };
+		2701F3E30AFEF58A00B87012 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CB0AFEF58900B87012 /* stream.c */; };
+		2701F3E40AFEF58A00B87012 /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CC0AFEF58900B87012 /* stream.h */; };
+		2701F3E50AFEF58A00B87012 /* synth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CD0AFEF58900B87012 /* synth.c */; };
+		2701F3E60AFEF58A00B87012 /* synth.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CE0AFEF58900B87012 /* synth.h */; };
+		2701F3E70AFEF58A00B87012 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CF0AFEF58900B87012 /* timer.c */; };
+		2701F3E80AFEF58A00B87012 /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3D00AFEF58900B87012 /* timer.h */; };
+		2701F3E90AFEF58A00B87012 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3D10AFEF58900B87012 /* version.c */; };
+		2701F3EA0AFEF58A00B87012 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3D20AFEF58900B87012 /* version.h */; };
+		2701F4070AFEF87D00B87012 /* Mad_prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2701F4060AFEF87D00B87012 /* Mad_prefix.pch */; };
+		2707C8AA0B0985690021E344 /* bit.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BC0AFEF58900B87012 /* bit.h */; };
+		2707C8AB0B0985690021E344 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BD0AFEF58900B87012 /* config.h */; };
+		2707C8AC0B0985690021E344 /* decoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3BF0AFEF58900B87012 /* decoder.h */; };
+		2707C8AD0B0985690021E344 /* fixed.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C10AFEF58900B87012 /* fixed.h */; };
+		2707C8AE0B0985690021E344 /* frame.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C30AFEF58900B87012 /* frame.h */; };
+		2707C8AF0B0985690021E344 /* global.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C40AFEF58900B87012 /* global.h */; };
+		2707C8B00B0985690021E344 /* huffman.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C60AFEF58900B87012 /* huffman.h */; };
+		2707C8B10B0985690021E344 /* layer3.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3C80AFEF58900B87012 /* layer3.h */; };
+		2707C8B20B0985690021E344 /* layer12.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CA0AFEF58900B87012 /* layer12.h */; };
+		2707C8B30B0985690021E344 /* stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CC0AFEF58900B87012 /* stream.h */; };
+		2707C8B40B0985690021E344 /* synth.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3CE0AFEF58900B87012 /* synth.h */; };
+		2707C8B50B0985690021E344 /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3D00AFEF58900B87012 /* timer.h */; };
+		2707C8B60B0985690021E344 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 2701F3D20AFEF58900B87012 /* version.h */; };
+		2707C8B70B0985690021E344 /* Mad_prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 2701F4060AFEF87D00B87012 /* Mad_prefix.pch */; };
+		2707C8B90B0985690021E344 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		2707C8BB0B0985690021E344 /* bit.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3BB0AFEF58900B87012 /* bit.c */; };
+		2707C8BC0B0985690021E344 /* decoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3BE0AFEF58900B87012 /* decoder.c */; };
+		2707C8BD0B0985690021E344 /* fixed.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C00AFEF58900B87012 /* fixed.c */; };
+		2707C8BE0B0985690021E344 /* frame.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C20AFEF58900B87012 /* frame.c */; };
+		2707C8BF0B0985690021E344 /* huffman.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C50AFEF58900B87012 /* huffman.c */; };
+		2707C8C00B0985690021E344 /* layer3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C70AFEF58900B87012 /* layer3.c */; };
+		2707C8C10B0985690021E344 /* layer12.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3C90AFEF58900B87012 /* layer12.c */; };
+		2707C8C20B0985690021E344 /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CB0AFEF58900B87012 /* stream.c */; };
+		2707C8C30B0985690021E344 /* synth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CD0AFEF58900B87012 /* synth.c */; };
+		2707C8C40B0985690021E344 /* timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3CF0AFEF58900B87012 /* timer.c */; };
+		2707C8C50B0985690021E344 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 2701F3D10AFEF58900B87012 /* version.c */; };
+		8D07F2C00486CC7A007CD1D0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2701F3BB0AFEF58900B87012 /* bit.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = bit.c; path = ../../../libmad/bit.c; sourceTree = SOURCE_ROOT; };
+		2701F3BC0AFEF58900B87012 /* bit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = bit.h; path = ../../../libmad/bit.h; sourceTree = SOURCE_ROOT; };
+		2701F3BD0AFEF58900B87012 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../../../libmad/config.h; sourceTree = SOURCE_ROOT; };
+		2701F3BE0AFEF58900B87012 /* decoder.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = decoder.c; path = ../../../libmad/decoder.c; sourceTree = SOURCE_ROOT; };
+		2701F3BF0AFEF58900B87012 /* decoder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = decoder.h; path = ../../../libmad/decoder.h; sourceTree = SOURCE_ROOT; };
+		2701F3C00AFEF58900B87012 /* fixed.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = fixed.c; path = ../../../libmad/fixed.c; sourceTree = SOURCE_ROOT; };
+		2701F3C10AFEF58900B87012 /* fixed.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fixed.h; path = ../../../libmad/fixed.h; sourceTree = SOURCE_ROOT; };
+		2701F3C20AFEF58900B87012 /* frame.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = frame.c; path = ../../../libmad/frame.c; sourceTree = SOURCE_ROOT; };
+		2701F3C30AFEF58900B87012 /* frame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = frame.h; path = ../../../libmad/frame.h; sourceTree = SOURCE_ROOT; };
+		2701F3C40AFEF58900B87012 /* global.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = global.h; path = ../../../libmad/global.h; sourceTree = SOURCE_ROOT; };
+		2701F3C50AFEF58900B87012 /* huffman.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = huffman.c; path = ../../../libmad/huffman.c; sourceTree = SOURCE_ROOT; };
+		2701F3C60AFEF58900B87012 /* huffman.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = huffman.h; path = ../../../libmad/huffman.h; sourceTree = SOURCE_ROOT; };
+		2701F3C70AFEF58900B87012 /* layer3.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = layer3.c; path = ../../../libmad/layer3.c; sourceTree = SOURCE_ROOT; };
+		2701F3C80AFEF58900B87012 /* layer3.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = layer3.h; path = ../../../libmad/layer3.h; sourceTree = SOURCE_ROOT; };
+		2701F3C90AFEF58900B87012 /* layer12.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = layer12.c; path = ../../../libmad/layer12.c; sourceTree = SOURCE_ROOT; };
+		2701F3CA0AFEF58900B87012 /* layer12.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = layer12.h; path = ../../../libmad/layer12.h; sourceTree = SOURCE_ROOT; };
+		2701F3CB0AFEF58900B87012 /* stream.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = stream.c; path = ../../../libmad/stream.c; sourceTree = SOURCE_ROOT; };
+		2701F3CC0AFEF58900B87012 /* stream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = stream.h; path = ../../../libmad/stream.h; sourceTree = SOURCE_ROOT; };
+		2701F3CD0AFEF58900B87012 /* synth.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = synth.c; path = ../../../libmad/synth.c; sourceTree = SOURCE_ROOT; };
+		2701F3CE0AFEF58900B87012 /* synth.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = synth.h; path = ../../../libmad/synth.h; sourceTree = SOURCE_ROOT; };
+		2701F3CF0AFEF58900B87012 /* timer.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = timer.c; path = ../../../libmad/timer.c; sourceTree = SOURCE_ROOT; };
+		2701F3D00AFEF58900B87012 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = timer.h; path = ../../../libmad/timer.h; sourceTree = SOURCE_ROOT; };
+		2701F3D10AFEF58900B87012 /* version.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = version.c; path = ../../../libmad/version.c; sourceTree = SOURCE_ROOT; };
+		2701F3D20AFEF58900B87012 /* version.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../../../libmad/version.h; sourceTree = SOURCE_ROOT; };
+		2701F4060AFEF87D00B87012 /* Mad_prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Mad_prefix.pch; sourceTree = "<group>"; };
+		2707C8CC0B0985690021E344 /* Mad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2707C8CD0B0985690021E344 /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Info copy.plist"; sourceTree = "<group>"; };
+		8D07F2C70486CC7A007CD1D0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D07F2C80486CC7A007CD1D0 /* Mad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2707C8C60B0985690021E344 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D07F2C30486CC7A007CD1D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D07F2C80486CC7A007CD1D0 /* Mad.framework */,
+				2707C8CC0B0985690021E344 /* Mad.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* Mad */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77ACFE841707C02AAC07 /* Source */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DDFF38A45A11DB9C8B /* Products */,
+				2701F4060AFEF87D00B87012 /* Mad_prefix.pch */,
+			);
+			name = Mad;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D07F2C70486CC7A007CD1D0 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+				2707C8CD0B0985690021E344 /* Info copy.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				2701F3BB0AFEF58900B87012 /* bit.c */,
+				2701F3BC0AFEF58900B87012 /* bit.h */,
+				2701F3BD0AFEF58900B87012 /* config.h */,
+				2701F3BE0AFEF58900B87012 /* decoder.c */,
+				2701F3BF0AFEF58900B87012 /* decoder.h */,
+				2701F3C00AFEF58900B87012 /* fixed.c */,
+				2701F3C10AFEF58900B87012 /* fixed.h */,
+				2701F3C20AFEF58900B87012 /* frame.c */,
+				2701F3C30AFEF58900B87012 /* frame.h */,
+				2701F3C40AFEF58900B87012 /* global.h */,
+				2701F3C50AFEF58900B87012 /* huffman.c */,
+				2701F3C60AFEF58900B87012 /* huffman.h */,
+				2701F3C70AFEF58900B87012 /* layer3.c */,
+				2701F3C80AFEF58900B87012 /* layer3.h */,
+				2701F3C90AFEF58900B87012 /* layer12.c */,
+				2701F3CA0AFEF58900B87012 /* layer12.h */,
+				2701F3CB0AFEF58900B87012 /* stream.c */,
+				2701F3CC0AFEF58900B87012 /* stream.h */,
+				2701F3CD0AFEF58900B87012 /* synth.c */,
+				2701F3CE0AFEF58900B87012 /* synth.h */,
+				2701F3CF0AFEF58900B87012 /* timer.c */,
+				2701F3D00AFEF58900B87012 /* timer.h */,
+				2701F3D10AFEF58900B87012 /* version.c */,
+				2701F3D20AFEF58900B87012 /* version.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2707C8A90B0985690021E344 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2707C8AA0B0985690021E344 /* bit.h in Headers */,
+				2707C8AB0B0985690021E344 /* config.h in Headers */,
+				2707C8AC0B0985690021E344 /* decoder.h in Headers */,
+				2707C8AD0B0985690021E344 /* fixed.h in Headers */,
+				2707C8AE0B0985690021E344 /* frame.h in Headers */,
+				2707C8AF0B0985690021E344 /* global.h in Headers */,
+				2707C8B00B0985690021E344 /* huffman.h in Headers */,
+				2707C8B10B0985690021E344 /* layer3.h in Headers */,
+				2707C8B20B0985690021E344 /* layer12.h in Headers */,
+				2707C8B30B0985690021E344 /* stream.h in Headers */,
+				2707C8B40B0985690021E344 /* synth.h in Headers */,
+				2707C8B50B0985690021E344 /* timer.h in Headers */,
+				2707C8B60B0985690021E344 /* version.h in Headers */,
+				2707C8B70B0985690021E344 /* Mad_prefix.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D07F2BD0486CC7A007CD1D0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2701F3D40AFEF58A00B87012 /* bit.h in Headers */,
+				2701F3D50AFEF58A00B87012 /* config.h in Headers */,
+				2701F3D70AFEF58A00B87012 /* decoder.h in Headers */,
+				2701F3D90AFEF58A00B87012 /* fixed.h in Headers */,
+				2701F3DB0AFEF58A00B87012 /* frame.h in Headers */,
+				2701F3DC0AFEF58A00B87012 /* global.h in Headers */,
+				2701F3DE0AFEF58A00B87012 /* huffman.h in Headers */,
+				2701F3E00AFEF58A00B87012 /* layer3.h in Headers */,
+				2701F3E20AFEF58A00B87012 /* layer12.h in Headers */,
+				2701F3E40AFEF58A00B87012 /* stream.h in Headers */,
+				2701F3E60AFEF58A00B87012 /* synth.h in Headers */,
+				2701F3E80AFEF58A00B87012 /* timer.h in Headers */,
+				2701F3EA0AFEF58A00B87012 /* version.h in Headers */,
+				2701F4070AFEF87D00B87012 /* Mad_prefix.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2707C8A80B0985690021E344 /* Mad-10.3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2707C8C80B0985690021E344 /* Build configuration list for PBXNativeTarget "Mad-10.3" */;
+			buildPhases = (
+				2707C8A90B0985690021E344 /* Headers */,
+				2707C8B80B0985690021E344 /* Resources */,
+				2707C8BA0B0985690021E344 /* Sources */,
+				2707C8C60B0985690021E344 /* Frameworks */,
+				2707C8C70B0985690021E344 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mad-10.3";
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = Mad;
+			productReference = 2707C8CC0B0985690021E344 /* Mad.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8D07F2BC0486CC7A007CD1D0 /* Mad-10.4 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "Mad-10.4" */;
+			buildPhases = (
+				8D07F2BD0486CC7A007CD1D0 /* Headers */,
+				8D07F2BF0486CC7A007CD1D0 /* Resources */,
+				8D07F2C10486CC7A007CD1D0 /* Sources */,
+				8D07F2C30486CC7A007CD1D0 /* Frameworks */,
+				8D07F2C50486CC7A007CD1D0 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mad-10.4";
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = Mad;
+			productReference = 8D07F2C80486CC7A007CD1D0 /* Mad.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "Mad" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* Mad */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
+			projectDirPath = "";
+			targets = (
+				8D07F2BC0486CC7A007CD1D0 /* Mad-10.4 */,
+				2707C8A80B0985690021E344 /* Mad-10.3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2707C8B80B0985690021E344 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2707C8B90B0985690021E344 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D07F2BF0486CC7A007CD1D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D07F2C00486CC7A007CD1D0 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		2707C8C70B0985690021E344 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D07F2C50486CC7A007CD1D0 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2707C8BA0B0985690021E344 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2707C8BB0B0985690021E344 /* bit.c in Sources */,
+				2707C8BC0B0985690021E344 /* decoder.c in Sources */,
+				2707C8BD0B0985690021E344 /* fixed.c in Sources */,
+				2707C8BE0B0985690021E344 /* frame.c in Sources */,
+				2707C8BF0B0985690021E344 /* huffman.c in Sources */,
+				2707C8C00B0985690021E344 /* layer3.c in Sources */,
+				2707C8C10B0985690021E344 /* layer12.c in Sources */,
+				2707C8C20B0985690021E344 /* stream.c in Sources */,
+				2707C8C30B0985690021E344 /* synth.c in Sources */,
+				2707C8C40B0985690021E344 /* timer.c in Sources */,
+				2707C8C50B0985690021E344 /* version.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D07F2C10486CC7A007CD1D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2701F3D30AFEF58900B87012 /* bit.c in Sources */,
+				2701F3D60AFEF58A00B87012 /* decoder.c in Sources */,
+				2701F3D80AFEF58A00B87012 /* fixed.c in Sources */,
+				2701F3DA0AFEF58A00B87012 /* frame.c in Sources */,
+				2701F3DD0AFEF58A00B87012 /* huffman.c in Sources */,
+				2701F3DF0AFEF58A00B87012 /* layer3.c in Sources */,
+				2701F3E10AFEF58A00B87012 /* layer12.c in Sources */,
+				2701F3E30AFEF58A00B87012 /* stream.c in Sources */,
+				2701F3E50AFEF58A00B87012 /* synth.c in Sources */,
+				2701F3E70AFEF58A00B87012 /* timer.c in Sources */,
+				2701F3E90AFEF58A00B87012 /* version.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2701F3B60AFEF37400B87012 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Mad;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = YES;
+			};
+			name = QA;
+		};
+		2701F3B70AFEF37400B87012 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = QA;
+		};
+		2707C8C90B0985690021E344 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = "/Users/mike/OggFrog/Projects/XCode2.3/Mad/Info copy.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				PRODUCT_NAME = Mad;
+				SDKROOT = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		2707C8CA0B0985690021E344 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = "/Users/mike/OggFrog/Projects/XCode2.3/Mad/Info copy.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				PRODUCT_NAME = Mad;
+				SDKROOT = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = NO;
+			};
+			name = QA;
+		};
+		2707C8CB0B0985690021E344 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = "/Users/mike/OggFrog/Projects/XCode2.3/Mad/Info copy.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				PRODUCT_NAME = Mad;
+				SDKROOT = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		4FADC24308B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Mad;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		4FADC24408B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = Mad_prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				PRODUCT_NAME = Mad;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = "$(SYMROOT)/$(MACOSX_DEPLOYMENT_TARGET)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		4FADC24708B4156D00ABE55E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		4FADC24808B4156D00ABE55E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				STRIP_STYLE = debugging;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2707C8C80B0985690021E344 /* Build configuration list for PBXNativeTarget "Mad-10.3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2707C8C90B0985690021E344 /* Debug */,
+				2707C8CA0B0985690021E344 /* QA */,
+				2707C8CB0B0985690021E344 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FADC24208B4156D00ABE55E /* Build configuration list for PBXNativeTarget "Mad-10.4" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24308B4156D00ABE55E /* Debug */,
+				2701F3B60AFEF37400B87012 /* QA */,
+				4FADC24408B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FADC24608B4156D00ABE55E /* Build configuration list for PBXProject "Mad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FADC24708B4156D00ABE55E /* Debug */,
+				2701F3B70AFEF37400B87012 /* QA */,
+				4FADC24808B4156D00ABE55E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

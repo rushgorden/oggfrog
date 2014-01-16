@@ -1,0 +1,59 @@
+In this release, builds are only supported for Windows
+with CodeWarrior 8 and for Mac OS X with XCode 2.3, which 
+you can download for free if you register at 
+http://developer.apple.com/ Later versions of CodeWarrior
+should work as well; I'm not sure if earlier versions will
+be able to import the project XML files.
+
+Look in the Projects directory for the IDE projects.  The
+built libraries, frameworks and program will be in the
+appropriate subdirectory of the Arch directory.  Build the
+Ogg, Vorbis and ZooLib libraries first, then Ogg Frog, as it
+depends on each of them. 
+
+My complex directory heirarchy seems to have stimulated
+a bug in XCode which makes it impossible to use a Copy Files
+build phase to copy the appropriate ogg and vorbis
+frameworks for the build configuration into Ogg Frog's
+application bundle.  For this release, I've set it to
+always copy the Release frameworks.  In future releases I
+think I can work around it by using a Run Script build phase
+instead of the Copy Files.  
+
+If you hack on the code, delete the two frameworks from
+each target, then add the Debug frameworks to the Copy Files
+phase, or else you won't be able to debug the decoder
+libraries.
+
+If you add support for a new development system, please place 
+all products and object files under the Arch directory.  In
+particular, please don't run the ./configure scripts in any
+of the source directory.  For configure builds, write a 
+script that symbolically links each source file into a
+subdirectory of Arch and run configure there.  That's what
+I'll do when I add support for Linux soon.
+
+In the long run, I want to support as many platforms and
+development systems as I possibly can.  Release 1.0 will
+support all releases of Mac OS X, all Windows releases since
+Windows 95, BeOS for both PowerPC and Intel, several
+distributions of Linux for both PowerPC and Intel, and
+possibly Classic Mac OS and FreeBSD (definitely in 1.1).
+
+I also aim to support free compilers if they're available
+for a platform.  Thus I will provide GNU Make/GCC builds
+wherever it's supported (including MingW on Windows), BeOS 
+CodeWarrior on BeOS for PowerPC and, if its C++ compiler is 
+standards-compliant enough (I've heard in might not be),
+Macintosh Programmer's Workshop on Classic Mac OS.
+
+I'll also be providing Visual Studio 7 and 2005 workspaces
+for Windows, and I expect Eclipse/GCC for most platforms.
+
+I'll provide more detailed build instructions with the next
+source release, and on the website when 1.0a1 is released.
+
+Mike Crawford
+rippit@oggfrog.com
+http://www.oggfrog.com/
+

@@ -1,0 +1,263 @@
+<sect1 id="ZHelloWorld_App">
+	<title>ZHelloWorld_App: the Application Object</title>
+<para>
+Let's look at the class declaration for ZHelloWorld_App:
+</para>
+<para>
+<programlisting>
+<![CDATA[class ZHelloWorld_App : public ZApp
+	{
+public:
+	ZHelloWorld_App();
+	virtual ~ZHelloWorld_App();
+	
+// From ZWindowSupervisor via ZApp
+	virtual void WindowSupervisorInstallMenus(ZMenuInstall& inMenuInstall);
+
+// From ZApp
+	virtual void RunStarted(); 
+	};]]>
+</programlisting>
+</para>
+<para>
+In our case, ZHelloWorld_App has few responsibilities - it initializes the
+user interface widget factories, installs the menus, and
+responds to the RunStarted message.
+</para>
+<para>
+ZooLib needs to have its user interface factories initialized and terminated 
+when the application starts and quits.  The natural place to do this is in the
+application class' constructor and destructor:
+</para>
+<para>
+<programlisting>
+<![CDATA[ZHelloWorld_App::ZHelloWorld_App()
+	{
+	ZUIUtil::sInitializeUIFactories();
+	}
+
+ZHelloWorld_App::~ZHelloWorld_App()
+	{
+	ZUIUtil::sTearDownUIFactories();
+	}]]>
+</programlisting>
+</para>
+<para>
+ZooLib draws its UI widgets indirectly, through the use of ZUIFactories that manage
+renderers for the different standard platform appearances.  There are renderer sets
+for each of the platforms supported, so a program running on Windows looks like a native
+Windows program, for example.  For the Mac OS, two ZUIFactories are available, one
+which provides the classic Platinum look, and another which passes of responsibility to
+the Mac OS Appearance Manager, so it will adopt the appearance of the particular system
+it is running on as well as the theme selected by the user.
+</para>
+<para>
+When you create a UI widget like a button, you ask the ZUIFactory to make one for you.
+ZUIUtil::sInitializeUIFactories creates the UI factory for you according to the platform.
+</para>
+<para>
+There is a switchable UIFactory that calls through to a real one that may be changed at
+runtime.  You can also provide your own factory if you want to completely control the
+appearance of your application, for example to provide a theme.  It is more common to
+customize the appearance of certain items in your UI while letting the default factory
+handle the rest.
+</para>
+<para>
+ZApp is a subclass of ZMessageLooper, which is a class that can receive and
+dispatch ZMessages.  You use ZMessages to communicate between threads.  When a
+ZMessageLooper has started up, it sends itself the message "zoolib:RunStarted" 
+ZMessage.  ZApp responds to receiving this message by calling its RunStarted
+virtual member function.  ZHelloWorld_App overrides RunStarted, so its version is
+called instead.
+</para>
+<para>
+Now looking at RunStarted:
+</para>
+<para>
+<programlisting>
+<![CDATA[void ZHelloWorld_App::RunStarted()
+	{
+	ZWindow* theWindow = new ZHelloWorld_Window(this);
+	theWindow->Center();
+	theWindow->BringFront();
+	theWindow->GetLock().Release();
+	}]]>
+</programlisting>
+</para>
+<para>
+We see that RunStarted creates a window.  It does this by using new to dynamically
+allocate a ZHelloWorld_Window, passing its this pointer as a parameter.  It centers
+the window on the screen, moves it to the front, and then releases its lock.
+</para>
+<para>
+Since ZooLib is a multithreaded framework, we need to be concerned about locking
+objects that might be accessed simultaneously by different threads.  Windows run in
+their own threads, so we need to lock the window for a different thread to modify its
+state.  ZHelloWorld_Window is a subclass of ZWindow; ZWindows are created initially
+locked.  We call GetLock() to get a reference to the ZMutexBase that is the window's
+lock, then call its Release method to unlock it.
+</para>
+<para>
+ZWindows are created initially invisible.  While they are still locked, you can do
+what you need to prepare the window to be first shown.  Once it is unlocked, the window
+will draw and begin receiving messages.
+</para>
+<para>
+Do not delete a window's pointer.  If the user or operating system closes the window
+on the screen, ZooLib will automatically delete the pointer to the window itself.
+It is possible to programmatically close a window; I will get into this later.
+</para>
+<sect2><title>Installing the Menus</title>
+<para>
+ZHelloWorld_App is also responsible for installing menus.  Menus may be managed in
+one central location, as in the ZApp object, or each window can manage its menus on 
+its own, or they can manage the menus in combination.  ZApp can manage menus because
+it is also a subclass of ZWindowSupervisor.
+</para>
+<para>
+Note that while menus are managed by or on behalf of windows, the location of the
+menus depends on the platform-specific user interface.  On BeOS and Microsoft 
+Windows, each
+window has its own menu bar.  On Mac OS, there is a single global menu bar at the top
+of the screen.  If a window chooses to have a unique menu bar, then activating that
+window will change the menu at the top of the screen.
+</para>
+<para>
+At the time of this writing, X11 ZooLib applications are not able to have menus at all.
+This is because the code to implement them has not been written yet; hopefully it 
+will be available soon.  When X11 menus are implemented, the menu bars will be placed
+in each window.
+</para>
+<para>
+Now let's look at how menus are installed by a ZApp:
+</para>
+<para>
+<programlisting>
+<![CDATA[void ZHelloWorld_App::WindowSupervisorInstallMenus(ZMenuInstall& inMenuInstall)
+	{
+	ZApp::WindowSupervisorInstallMenus(inMenuInstall);
+
+	if (ZRef<ZMenu> appleMenu = inMenuInstall.GetAppleMenu())
+		{
+		appleMenu->RemoveAll();
+		appleMenu->Append(new ZMenuItem(mcAbout, "About " + this->GetAppName() + "..."));
+		}
+	
+	ZRef<ZMenu> fileMenu = new ZMenu;
+	inMenuInstall.Append("&File", fileMenu);
+		fileMenu->Append(mcClose, "&Close", 'W');
+		fileMenu->AppendSeparator();
+		fileMenu->Append(mcQuit, "&Quit", 'Q');
+	}]]>
+</programlisting>
+</para>
+<para>
+First we call the base class to allow it to do any menu installation it needs.
+</para>
+<para>
+Then, we check if an Apple menu is available.  This is the menu on the top-left
+corner of the screen running under the Mac OS, whose title is an apple symbol.  If
+we're running on a Macintosh, the ZRef&lt;ZMenu&gt; returned by GetAppleMenu will contain
+a pointer to the Apple menu's ZMenu; otherwise it will contain null.  If the menu exists,
+we clear it, and append a ZMenuItem pointer with the "About ZHelloWorld..." item
+in it.
+</para>
+<para>
+The individual menu items are represented by ZMenuItems.  The menus are represented
+by ZMenus.  You can either create a ZMenuItem and call ZMenu::Append to put it in the
+menu, or you can call the overloaded ZMenu::Append with the text of the item, the 
+menu command selector, and the accellerator key.
+ZMenu::AppendSeparator will append a horizontal line to the menu, useful for separating
+groups of menu items from each other.
+</para>
+<para>
+The ZMenuInstall object receives the ZMenus and takes care to put them in the menu bar
+for you.  Once you have a ZRef&lt;ZMenu&gt; you can call ZMenuInstall::Append to put the
+menu into the menu bar.  Note that you can still install menu items in the ZMenu after
+it has been placed in the ZMenuInstall.
+</para>
+</sect2>
+
+<sect2><title>ZRef: the Thread-Safe Reference Counted Smart Pointer</title>
+<para>
+In our menu code we have our first mention of a very
+ important utility template in ZooLib: the
+ZRef.  The ZRef template is a thread-safe reference counted smart pointer.  ZooLib 
+uses it for a purpose similar to auto_ptr from the standard library, or
+boost::shared_ptr from the <ulink url="http://www.boost.org/">Boost C++ library</ulink>
+- automated management of allocated memory.  All three templates share the behaviour
+that they automatically delete the pointer when you are done with it, and they provide
+for exception safety.
+</para>
+<para>
+If you allocate a pointer with new, hold it in a variable (whether a local
+variable or a member variable), and manually call delete 
+when you are done, your code will work correctly under normal circumstances.  But it
+is not exception safe.  If you hold a pointer in a local variable, and an exception is
+thrown before you get to the delete, you will leak memory, and potentially other
+important resources held by the memory, like open files, network connections or
+database locks.  Only whole objects are automatically destroyed when they go out of
+scope - pointers and references are not touched.
+</para>
+<para>  If you hold a pointer in a member variable and delete it in the 
+class' destructor, it will leak memory if an exception is thrown during the constructor -
+incompletely constructed objects are not destroyed if an exception is thrown during their
+construction.  This has to be so because the object may be in an inconsistent state that
+may have unpredictable behavior if the destructor is called.
+</para>
+<para>
+The automatic memory management and exception safety both are enabled by holding the
+pointers in objects that are possessed "by value" - as whole objects, either on the
+stack or as member variables.  Whole, "by value" objects are guaranteed to be destroyed
+if they go out of scope, whether by leaving some code inside a pair of curly braces,
+or if the object that holds them is destroyed, or an exception is thrown.  Each kind
+of smart pointer will delete the pointer it holds in its destructor, if it judges that
+you are done with it - the different types have different policies for this.
+</para>
+<para>
+Why not just use auto_ptr?  auto_ptr does not allow the sharing of resources.  If
+you copy or assign an auto_ptr, the ownership of the resource passes to the
+recipient.  This is an odd behaviour, but is necessary for simple management of
+a pointer to work.  auto_ptr is also incompatible with the Standard Template Library
+containers; a std::vector&lt; auto_ptr&lt; Foo &gt; &gt; simply will not work.
+</para>
+<para>
+To enable resource sharing, and sensible behavior upon copying and assignment, you
+need reference counting.  boost::shared_ptr does reference counting, why not use it?
+  ZooLib needs to provide its own template because ZooLib is a multithreaded framework.
+boost::shared_ptr only provides for single-threaded operation.
+The increment and decrement of the reference count must be performed with atomic
+memory operations: two threads may be acquiring or releasing the same shared object
+simultaneously.  Such operations are not directly available in C++; sometimes they
+are provided as library functions by the host OS, but often the set of atomic operations
+is not sufficient for everything ZRef does.  For that reason, the atomic functions
+needed by ZooLib are provided by assembly code, usually inline assembly, in the files
+ZAtomic.h and ZAtomic.cpp
+</para>
+<para>
+When you construct a ZRef, you pass it a pointer to an object that has just been allocated
+with new.  The ZRef holds the pointer as a data member.  Classes that can be held with
+ZRefs must inherit from ZRefCounted.  The ZRefCounted base class holds the reference
+count, so ZRef can tell the ZRefCounted object to initialize its reference count to 1.
+</para>
+<para>
+If a ZRef object is assigned or copied, the reference count is increased by one.  If
+a ZRef is destroyed, the reference count of the ZRefCounted it points to is decreased
+first.  If the reference count reaches zero, then the ZRefCounted pointer is
+deleted.
+</para>
+<para>
+Syntactically, you can mostly treat the ZRef like an ordinary pointer.  It provides
+overloads for operator-> and operator* that access the pointer.  You can also store
+NULL in a ZRef, it will act like a nil pointer.
+</para>
+</sect2>
+</sect1>
+
+<!--
+Local Variables:
+mode: xml
+sgml-doctype: "cookbook.xml"
+sgml-parent-document: ("chap2.xml" "book" "sect1")
+End:
+-->

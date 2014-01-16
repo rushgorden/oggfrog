@@ -1,0 +1,61 @@
+// !$*UTF8*$!
+{
+	20286C28FDCF999611CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Default;
+		activeExecutable = 274C65BE0B0C44CC00B66C0A /* ButtonMessage */;
+		activeTarget = 8D0C4E890486CD37000505A6 /* ButtonMessage */;
+		codeSenseManager = 274C65C40B0C44EA00B66C0A /* Code sense */;
+		executables = (
+			274C65BE0B0C44CC00B66C0A /* ButtonMessage */,
+		);
+		perUserDictionary = {
+			PBXPerProjectTemplateStateSaveDate = 185353420;
+			PBXWorkspaceStateSaveDate = 185353420;
+		};
+		sourceControlManager = 274C65C30B0C44EA00B66C0A /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	274C65BE0B0C44CC00B66C0A /* ButtonMessage */ = {
+		isa = PBXExecutable;
+		activeArgIndex = 2147483647;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = ButtonMessage;
+		sourceDirectories = (
+		);
+	};
+	274C65C30B0C44EA00B66C0A /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	274C65C40B0C44EA00B66C0A /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	8D0C4E890486CD37000505A6 /* ButtonMessage */ = {
+		activeExec = 0;
+		executables = (
+			274C65BE0B0C44CC00B66C0A /* ButtonMessage */,
+		);
+	};
+}

@@ -1,0 +1,154 @@
+PROJECT_TARGET_NAME := PainterTest
+
+PROJECT_PATHS := \
+	$(NPAINTER_DIR) \
+	$(NPAINTER_DIR)/assets \
+	$(PROJECT_DIR) \
+	$(PROJECT_DIR)/assets \
+	${ZOOLIB_DIR}/src_other/misc \
+	${ZOOLIB_DIR}/src/_deprecated \
+
+
+PROJECT_PATHS_LINUX := \
+	/usr/X11R6/include
+
+PROJECT_PATHS_MACOSX := \
+	/usr/X11R6/include
+
+PROJECT_SOURCES := \
+	PainterTest_Main.cpp \
+	PainterTest_App.cpp \
+	PainterTest_Window.cpp \
+	PainterTest_Assets_en.zas \
+\
+	NPainter.cpp \
+	NPaintDataRep.cpp \
+	NPainterStd_UI.cpp \
+	NPainter_FromPICT.cpp \
+	NPainterStd_Assets_en.zas \
+\
+	TLSdata.c \
+	TLSinside.c \
+	ZAlert.cpp \
+	ZApp.cpp \
+	ZAsset.cpp \
+	ZAsset_POSIX.cpp \
+	ZAsset_Std.cpp \
+	ZAtomic.cpp \
+	ZBRegionAlternate.cpp \
+	ZBigRegion.cpp \
+	ZByteSwap.cpp \
+	ZCommandLine.cpp \
+	ZCompare.cpp \
+	ZCursor.cpp \
+	ZDateTime.cpp \
+	ZDC.cpp \
+	ZDCFont.cpp \
+	ZDCInk.cpp \
+	ZDCPixmap.cpp \
+	ZDCPixmapCoder.cpp \
+	ZDCPixmapCoder_BMP.cpp \
+	ZDCPixmapCoder_GIF.cpp \
+	ZDCPixmapCoder_JPEGLib.cpp \
+	ZDCPixmapNS.cpp \
+	ZDCPixmap_Asset_BMP.cpp \
+	ZDCPoly.cpp \
+	ZDCRgn.cpp \
+	ZDC_Be.cpp \
+	ZDC_X.cpp \
+	ZDebug.cpp \
+	ZDragClip.cpp \
+	ZEvent.cpp \
+	ZEventHr.cpp \
+	ZFakeWindow.cpp \
+	ZFile.cpp \
+	ZFile_POSIX.cpp \
+	ZFontMenus.cpp \
+	ZGeom.cpp \
+	ZHandle.cpp \
+	ZInterest.cpp \
+	ZLog.cpp \
+	ZMain.cpp \
+	ZMemory.cpp \
+	ZMemoryBlock.cpp \
+	ZMenu.cpp \
+	ZMenu_Be.cpp \
+	ZMenu_X.cpp \
+	ZMessage.cpp \
+	ZMessageLooperImpStd.cpp \
+	ZMouseTracker.cpp \
+	ZOSWindow.cpp \
+	ZOSWindow_Be.cpp \
+	ZOSWindow_Std.cpp \
+	ZOSWindow_X.cpp \
+	ZPane.cpp \
+	ZRGBColor.cpp \
+	ZRefCount.cpp \
+	ZRegionAdorner.cpp \
+	ZStackCrawl.cpp \
+	ZStdIO.cpp \
+	ZStream.cpp \
+	ZStream_Buffered.cpp \
+	ZStream_Count.cpp \
+	ZStream_HexStrim.cpp \
+	ZStream_LZW.cpp \
+	ZStream_Memory.cpp \
+	ZStream_POSIX.cpp \
+	ZStream_String.cpp \
+	ZStreamer.cpp \
+	ZStrim.cpp \
+	ZStrim_CRLF.cpp \
+	ZStrim_Stream.cpp \
+	ZStrimR_Boundary.cpp \
+	ZStrimW_Escapify.cpp \
+	ZString.cpp \
+	ZTextCoder.cpp \
+	ZTextCoder_Unicode.cpp \
+	ZTextUtil.cpp \
+	ZThread.cpp \
+	ZThreadSimple.cpp \
+	ZTicks.cpp \
+	ZTime.cpp \
+	ZTrail.cpp \
+	ZTuple.cpp \
+	ZTypes.cpp \
+	ZUI.cpp \
+	ZUIBase.cpp \
+	ZUICartesianPlane.cpp \
+	ZUIColor.cpp \
+	ZUIDisplayState.cpp \
+	ZUIFactory.cpp \
+	ZUIFont.cpp \
+	ZUIGridPane.cpp \
+	ZUIInk.cpp \
+	ZUIMetric.cpp \
+	ZUIRendered.cpp \
+	ZUIRenderer_Appearance.cpp \
+	ZUIRenderer_Platinum.cpp \
+	ZUIRenderer_Win32.cpp \
+	ZUITextEngine.cpp \
+	ZUITextEngine_Z.cpp \
+	ZUnicode.cpp \
+	ZUtil_Asset.cpp \
+	ZUtil_Debug.cpp \
+	ZUtil_Graphics.cpp \
+	ZUtil_Stream.cpp \
+	ZUtil_Strim.cpp \
+	ZUtil_Time.cpp \
+	ZUtil_Tuple.cpp \
+	ZUtil_UI.cpp \
+	ZWindow.cpp \
+	ZXLib.cpp \
+	ZXServer.cpp \
+
+PROJECT_SOURCES_LINUX := \
+	ZDCPixmapCoder_PNG.cpp \
+
+
+PROJECT_LIBS_LINUX := stdc++ pthread c Xext X11 z png jpeg
+PROJECT_LIB_PATHS_LINUX := /usr/X11R6/lib
+
+PROJECT_LIBS_MACOSX := stdc++ pthread c Xext X11 z
+PROJECT_LIB_PATHS_MACOSX := /usr/X11R6/lib
+
+PROJECT_LIBS_BE := be stdc++.r4

@@ -1,0 +1,82 @@
+name "en"
+	{
+	name "PainterTest"
+		{
+		name "Menus"
+			{
+			name "MenuTitles"
+				{
+				name "File" string "&File"
+				name "Edit" string "&Edit"
+				name "Objects" string "&Objects"
+				name "Go" string "&Go"
+				name "Text" string "&Text"
+				name "Windows" string "&Windows"
+
+				name "Editor" string "&Editor"		
+				name "Engineer" string "Engineer"
+				}
+
+			// File Menu items
+			name "New" string "&New"
+			name "NewEllipsis" string "&New\u2026"
+			name "Open" string "&Open"
+			name "OpenEllipsis" string "Open\u2026"
+			name "Close" string "&Close"
+			name "Save" string "Save"
+			name "SaveEllipsis" string "&Save\u2026"
+			name "PageSetup" string "P&age Setup\u2026"
+			name "Print" string "&Print\u2026"
+			name "Quit" string "&Quit"
+		
+			// Edit Menu items
+			name "Undo" string "&Undo"
+			name "Cut" string "Cu&t"
+			name "Copy" string "&Copy"
+			name "Paste" string "&Paste"
+			name "Clear" string "Clea&r"
+			name "SelectAll" string "Select &All"
+			}
+		name "Windows"
+			{
+			name "Painter"
+				{
+				name "Cursors"
+					{
+					name "Hand"
+						{
+						name "HotSpot" binary { 0008 0008 }
+						name "Mono" binary "en/Cursor_Hand_Mono.bmp"
+						name "Mask" binary "en/Cursor_Hand_Mask.bmp"
+						}
+					name "HandClosed"
+						{
+						name "HotSpot" binary { 0008 0008 }
+						name "Mono" binary "en/Cursor_HandClosed_Mono.bmp"
+						name "Mask" binary "en/Cursor_HandClosed_Mask.bmp"
+						}
+					name "Crop"
+						{
+						name "HotSpot" binary { 0008 0008 }
+						name "Mono" binary "en/Cursor_Crop_Mono.bmp"
+						name "Mask" binary "en/Cursor_Crop_Mask.bmp"
+						}
+					}
+				}
+			}
+		name "Textures"
+			{
+			name "Texture_Blue" binary "en/Texture_Blue.bmp"
+			name "Texture_LightBrown" binary "en/Texture_LightBrown.bmp"
+			name "Texture_Green" binary "en/Texture_Green.bmp"
+			name "Texture_LightGreen" binary "en/Texture_LightGreen.bmp"
+			name "Texture_Drops" binary "en/Texture_Drops.bmp"
+			name "Texture_GrayLines" binary "en/Texture_GrayLines.bmp"
+			name "Texture_Leatherette" binary "en/Texture_Leatherette.bmp"
+			name "Texture_Matrix" binary "en/Texture_Matrix.bmp"
+			name "Texture_SeaBottom" binary "en/Texture_SeaBottom.bmp"
+			name "Texture_Paper" binary "en/Texture_Paper.bmp"
+			name "Texture_Paper2" binary "en/Texture_Paper2.bmp"
+			}
+		}
+	}

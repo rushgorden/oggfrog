@@ -1,0 +1,224 @@
+<chapter id="introduction">
+  <title>Introduction</title>
+<note>
+<para>
+If you make a hyperlink from one of your own web pages to a page within the ZooLib
+Cookbook on the web, be advised that this is a work in progress, and the names or
+locations of some of the HTML pages may change or disappear.  If you would like to
+link here, it is probably best to link to the title page for now.
+</para>
+</note>
+
+  <para>
+    ZooLib is a cross-platform application framework.  What it allows you
+    to do is to write a single set of C++ sources and compile for different
+    operating systems and microprocessors to produce native executable
+    applications with very little need for platform-specific client code.
+  </para>
+  <para>
+    This is of great benefit to a developer, as it allows you to support
+    your application on a variety of platforms without a lot of extra work
+    developing parallel codebases.  It also allows you to spend the bulk of
+    your time developing on whatever platform you enjoy the most while
+    delivering for the platforms your users need, even if they're not the
+    same.
+  </para>
+  <para>
+    ZooLib was written over a period of some years starting in the early
+    1990's by software consultant Andrew Green.  In later years a great deal
+    of work was contributed by Andy's clients 
+    <ulink url="http://www.learn.motion.com/">Learning in Motion</ulink> 
+    as well
+    as the <ulink url="http://www.oise.utoronto.ca/">Ontario Institute for
+    Studies in Education</ulink> (OISE).  It was
+    released as open source under the MIT License in November 2000.
+  </para>
+<para>
+  ZooLib's
+    nominal home on the web is <ulink url="http://www.zoolib.org/">
+      www.zoolib.org</ulink> but for the time
+    being it is hosted at <ulink url="http://zoolib.sourceforge.net/">
+      zoolib.sourceforge.net</ulink>.
+  </para>
+  <para>ZooLib applications are multithreaded.  This means there can be
+    multiple sequences of program execution within one application.  For the
+    most part there is a thread for each window in a GUI application and a
+    thread for the main application itself, but you can create as many
+    threads as you like, within the limits imposed by the host operating
+    system's resources.
+  </para>
+  <para>
+    It provides a graphical user interface toolkit that uses renderers
+    to provide a look appropriate to the platform the ZooLib app is running
+    on.  For example, on the Macintosh it uses the Appearance Manager if it
+    is available to enable a native Macintosh look.
+  </para>
+  <para>
+    ZooLib has a uniquely flexible and powerful method of laying out widgets
+    in the user interface.  Unfortunately, this very power makes learning to
+    lay out user interfaces in your programs somewhat challenging, but once
+    you come to understand the method (as implemented by the ZPaneLocator class)
+    you will agree that it is indeed very useful.
+  </para>
+  <para>
+    ZooLib provides platform-independent TCP networking, and also has a
+    database file format.  The combination of these two allows one to write
+    database servers with it.  As evidence that ZooLib isn't just for GUI,
+    Learning in Motion sells a client/server educational collaboration
+    system called Knowledge Forum that uses a ZooLib database server running without
+    a user interface to serve as many as several thousand ZooLib client programs
+    in a school.
+  </para>
+  <para>
+    One advantage of ZooLib's database format is that the databases are 
+    wholly contained in single files.  This allows databases to serve as
+    end user documents.  One could email a friend a database without knowing
+    it is a database, but thinking of it as an ordinary document, to be
+    opened for editing in a GUI ZooLib application.
+  </para>
+  <para>
+    ZooLib contains very helpful support for debugging.  There are helpful
+    functions and macros for checking assertions, causing debugger breaks and
+    logging error messages, and many frequently used core components contain
+    assertions that are enabled during debug builds.  In addition, there is
+    a debugging memory allocator that checks for such things as write overruns.
+    My experience with developing ZooLib applications is that the programs
+    I write in it are very reliable, because most bugs cannot get by for
+    long before they trigger an assertion.
+  </para>
+  <para>
+    To enable efficient memory management, ZooLib contains the ZRef template,
+    a reference counted smart pointer.  You can use it in cases where you 
+    might otherwise have used the more familiar auto_ptr from the C++
+    standard library, but ZRef is much better than auto_ptr.  First, because
+    it uses reference counting, it is safe to use ZRef's in STL containers.
+    That is not the case for auto_ptr.  Secondly, ZRef is thread safe; it
+    uses atomic arithmetic operations provided by the processor to increment
+    and decrement the reference count, and so it will do the right thing
+    even when two threads are accessing a ZRef simultaneously.
+  </para>
+  <para>
+    The need for atomic operations result in ZooLib's use of a small amount
+    of assembly code.  For efficiency, this is usually done as inline assembly,
+    although the implementation allows for calling the atomic operations as
+    subroutines.
+  </para>
+  <para>
+    This brings up the subject of ZooLib's portability.  ZooLib has been
+    ported to Mac OS 680x0 and PowerPC, Windows x86, BeOS x86, and Linux for
+    x86 and PowerPC.  However, bringing it to a new platform takes more than
+    a simple recompile.  Part of the work required to port ZooLib to a new
+    microprocessor involves writing the atomic arithmetic required for ZRef's
+    to work, and also one needs to write implementations of the parts of
+    ZooLib that depend on the operating system or host GUI layer.  ZooLib
+    depends in only basic ways on the host it is running on, so it should
+    be possible to fully port ZooLib to any reasonable GUI operating system in
+    a few weeks.
+  </para>
+  <para>
+    When working with Open Source software, it is important to read and
+    understand the license for each package that you use.
+    ZooLib uses the MIT License, the same license as is used for the X11
+    graphical user interface system.  You will find ZooLib's license in a
+    source code comment at the header of each source file:
+  </para>
+  <para>
+    <programlisting>
+<![CDATA[
+/* ------------------------------------------------------------
+Copyright (c) 2000 Andrew Green and Learning in Motion, Inc.
+http://www.zoolib.org
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+------------------------------------------------------------ */
+]]>
+    </programlisting>
+  </para>
+  <para>
+    You can find the text of a number of Open Source software licenses
+    as well as a discussion of what they mean on the
+    <ulink url="http://www.opensource.org/">Open Source Initiative's 
+      web page</ulink>.  You can also find an in-depth discussion of
+    some of the different licenses at the Free Software Foundation's website
+    at <ulink url="http://www.gnu.org/philosophy/philosophy.html#LicensingFreeSoftware">
+    Licensing Free Software</ulink>.
+  </para>
+
+  <para>
+    Most of the software that has been developed for ZooLib so far has been
+    proprietary, closed source software.  There is not yet a lot of sample
+    code for new developers to learn from.  At the time of its release, just
+    two demo applications were made available for download, ZHelloWorld and
+    ButtonMessage, both of them being very simple programs.
+  </para>
+  <para>
+    My plan for this book as I write it is to explain each sample program in
+    detail, and later to write more sample programs, one for each important
+    concept in ZooLib.  At the time of this first writing we just have the
+    two, but eventually there will be more and by reading this book you will
+    gain a solid grasp of how to write a ZooLib application.
+  </para>
+  <para>
+    I have a special reason for writing this manual: I wanted to use ZooLib
+    before it was available as open source, but when Andy was thinking of
+    releasing it sometime soon.  I encouraged him to release it to a small
+    number of developers who could use it in real products and give him 
+    feedback
+    to enable him to get the final kinks worked out, and in addition I promised
+    him that if he let me at the source code, I'd write a programmer's manual
+    for it.
+    </para>
+  <para>For various reasons its taken me a long time to get started, so 
+    documentation was unfortunately completely unavailable at the initial
+    Open Source release of ZooLib.  For that I accept complete responsibility
+    and apologize to the many developers who have struggled to understand
+    ZooLib without a manual.
+  </para>
+  <para>
+    I learned to work with ZooLib by actually writing an application in it, 
+    simultaneously for Mac OS and Windows.  The application was a special
+    purpose graphic editor called Instant Makeover.  The "special purpose"
+    was the application of simulated cosmetics to JPEG photos of the user's
+    face, or the faces of famous women.  It was to be given away for free over
+    the Internet to promote the sale of real cosmetics, but unfortunately due
+    to the catastrophic decline in Internet investment late in the year 2000
+    I was never able to complete the program (my client, BeautyRiot.com, 
+    eventually released the prototype of Instant Makeover, which was written
+    in Macromedia Director).
+  </para>
+  <para>
+    It took me a few weeks to learn to work with ZooLib effectively, but once
+    I did I found it uniquely powerful and easy to develop with.  Instant
+    Makeover was intended to run on low-end consumer computers, and so it
+    was important that my program run fast.  It was my experience that ZooLib
+    was extremely efficient.  I was able to do real-time resizing and moving
+    of alpha blended images on a 150 MHz PowerPC 604 Macintosh and find the
+    program responsive.  In addition, Instant Makeover had a complex layout in
+    its main window, and screen updates always happened very quickly.  ZooLib
+    is not guilty of the poor performance that some other cross-platform
+    solutions are sometimes accused of.
+</para>
+</chapter>
+
+<!--
+Local Variables:
+sgml-doctype: "cookbook.xml"
+sgml-parent-document: ("cookbook.xml" "book" "chapter")
+End:
+-->
+

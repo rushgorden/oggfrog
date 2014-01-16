@@ -1,0 +1,49 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//OASIS/DTD DocBook XML V4.1.2//EN" 
+	"/opt/sgml/share/sgml/dtd/docbook-xml-4.0/docbookx.dtd" [
+<!ENTITY mdc "Michael D. Crawford">
+<!ENTITY chap1 SYSTEM "chap1.xml">
+<!ENTITY chap2-main SYSTEM "chap2_main.xml">
+<!ENTITY chap2-app SYSTEM "chap2_app.xml">
+<!ENTITY chap2-window SYSTEM "chap2_window.xml">
+<!ENTITY chap2 SYSTEM "chap2.xml">
+<!ENTITY gfdl SYSTEM "gfdl.xml">
+]>
+
+
+<book id="index">
+<bookinfo>
+    <title>The ZooLib Cookbook</title>
+    <author>
+      <firstname>Michael</firstname>
+      <othername>D.</othername>
+      <surname>Crawford</surname>
+    </author>
+    <copyright>
+      <year>2001</year>
+      <holder>Michael D. Crawford</holder>
+    </copyright>
+    <legalnotice>
+	<simpara>
+	Permission is granted to copy, distribute and/or modify this document
+	under the terms of the GNU Free Documentation License, Version 1.1
+	or any later version published by the Free Software Foundation;
+	with no Invariant Sections, with the
+	Front-Cover Texts being "Part of the ZooLib cross-platform
+	application framework at www.zoolib.org", and with no Back-Cover Texts.
+	A copy of the license is included in the section entitled "GNU
+	Free Documentation License".
+	</simpara>
+    </legalnotice>
+  </bookinfo>
+
+  &chap1;
+  &chap2;
+  &gfdl;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+End:
+-->

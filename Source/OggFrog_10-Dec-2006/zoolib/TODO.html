@@ -1,0 +1,343 @@
+<p>$Id: TODO.html,v 1.10 2006/06/02 19:08:53 agreen Exp $</p>
+
+<h1>Missing features and bugs</h1>
+
+	<h3>X11</h3>
+		<p>Implement menus and menu bars</p>
+
+		<p>Keystroke and character delivery. This hasn't happened yet because it
+		was just as I was about to do the keystroke support for X11 that I realized
+		we needed a different model, one that supports high level text events as
+		well as keystroke events.</p>
+
+		<p><font color=#888888>DONE. Mouse tracking needs to deliver 'linger' events,
+		so scroll bar buttons work without having to jiggle the mouse.</font><p>
+
+	<h3>MacOS</h3>
+		<p>Carbon/MacOSX has a full suite of window layering and grouping
+		capabilities. ZooLib does not yet use them because they're not available
+		on Carbon/MacClassic. I'm currently thinking in terms of having window
+		management on Carbon handled with a runtime-selected manager that
+		does the work with Classic's anemic facilities or defers to MacOS X's
+		native facilities.</p>
+
+		<p><font color=#888888>DONE. QuickDraw and the Window Manager don't like
+		it when the current port
+		is left referencing an offscreen port. Previously ZooLib created a
+		scratch window that was never shown but was always available when we
+		needed a safe port of some sort, especially when disposing an offscreen.
+		To support operation in a plugin environment I had to ditch the scratch
+		window, and on carbon we can't reset the port to the window manager port,
+		because it isn't available. How to handle this?</font></p>
+
+		<p>Fix squirrely message delivery when no windows are visible.</p>
+
+		<p>Use FileRef API, to allow access to Unicode and long filenames.</p>
+
+		<p>Appearance Manager on MacOS X touches pixels outside the bounds of
+		controls, especially pushbuttons. We need to compensate for this.</p>
+
+	<h3>Win32</h3>
+		<p>Improved Win32-specific UI features, implemented as a plug-in
+		behavior -- keystroke navigation of the UI, ALT-equivalents for
+		buttons etc.</p>
+		
+		<p>Clean up the Win32 open/save file dialogs -- they currently behave
+		pseudo-non-modally, but that's really just an accidental side effect
+		of the way they're invoked from the low-level message loop.</p>
+		
+	<h3>General</h3>
+		<p>Some window layering, idling and message dispatch bugs have crept
+		in since we've been concentrating on faceless server applications.</p>
+
+		<p>Fonts. How to deal with them more sensibly. There's some real
+		architectural issues on X, where the server hosting a window
+		determines what fonts are actually available. Rendering of unicode
+		text will also require use of multiple system-level fonts for a single
+		API-level font choice. This is what ATSUI already provides on Mac, as
+		does Pango on X.</p>
+
+		<p>We're using Unicode just about everywhere, but there are still places
+		where we're not translating it to a system 'codepage' when passing it
+		to system APIs. This is an issue on MacOS, Windows 9X and POSIX.<p>
+
+<h1>Enhancements</h1>
+	<h3>Reference counting</h3>
+		<p><font color=#888888>DONE. I discussed a problem with assigning to and
+		from a ZRef visible to more
+		than one thread, and the race that can cause problems when it's at
+		a count of one. I was thinking that an atomic swap might be able to make it safe.
+		That turned out to be a dead-end. The real problem was in handling asymmetric
+		assigns, where g=a and b=g, rather than g=a and g=b, or a=g and b=g. The solution
+		I adopted was to create a separate type, ZRefSafe<>, whose assignment to and from
+		ZRef<> is protected by a mutex on the ZRefSafe<>.
+		</font></p>
+
+	<h3>Strims</h3>
+		<p>Add ZStrimB, a subclass of ZStrimU. It's the interface to a bidirectional
+		strim, one which adds DecRead to the normal Read(UCS4& OCP) method, and
+		is of use with boost regular expression parsing.</p>
+
+	<h3>Tuplebase</h3>
+		<p><font color=#888888>DONE. To finish off tuplestore I need to be able
+		to have finer grained clock
+		ticks for validation submission. Ideally we'll push every read/write through
+		to the tuplestore to know when it occurred relative to other operations, but
+		the latency will be very bad. If we instead have a looser scheme then we'll
+		not always be able to determine what happened earliest, but much of the time
+		we will.</font></p>
+
+		<p>I think that perhaps ZTBSpec should be promoted to become ZTupleSpec. It's not
+		TB-specific. <p>
+
+		<font color=#888888>DONE. Perhaps ZTBSpec should be extended so
+		that criteria applied to vectors are matched against any entry in the vector,
+		rather than treating the vector as a value itself which is generally not very useful.
+		This would require that ZTupleIndex would add/remove multiple entries for a single tuple
+		if the tuple has an indexed property whose type is a vector.</font></p>
+
+	<h3>Mac</h3>
+		<p>Look at window layers and window modality. Allow for
+		window-modality, where one window is designated as being modal with
+		respect to another window or windows. This might provide the hook
+		whereby we can take advantage of sheets on MacOS X without requiring
+		that an exact equivalent be available on all platforms.</p>
+
+		<p>There are now a multiplicity of MacOS targets: InterfaceLib-on-Classic,
+		Carbon-on-Classic, Carbon-on-OSX using CFM, Carbon-on-OSX using Mach,
+		Cocoa. We've also got a choice of threading environments. I'd like
+		for code to be able to run pre-emptively on MacOS X, using the posix
+		APIs for file and networking, but still have access to Carbon. This
+		requires rationalizing ZMacMP, ZMacOSX and ZUtil_Mac_XX. With much
+		stuff still being global and thread-unsafe we might be able to
+		do something with a global lock, and an analog of the ZThreadTM
+		SwitchProc stuff, where we acquire the global lock and call
+		switch-in, later calling switch-out and releasing the global lock.</p>
+
+		<p>Flesh out use of navigation services API. In particular allow for
+		use of file open/save panels non-modally -- where the panel behaves as
+		an independent window, sending a ZMessage to a receiver when okayed or
+		cancelled.</p>
+		
+		<p>Use RAEL rather than GetNextEvent.</p>
+
+	<h3>Events and messages</h3>
+		<p>Rework the key/menu event delivery model. Currently the low level
+		message loop/event loop determines which ZMessageLooper should receive
+		the event or translated version of the event. Once this determination
+		is made that's it. The message is posted and ultimately is pulled from
+		the message loopers queue (some messages are synthesized rather than
+		being posted explicitly, but that's doesn't affect the basic model.)
+		The receiving message looper will generally be either a window or the
+		app itself. In the case of a window it handles key strokes, menu-setup
+		and menu-selection events by maintaining a current target pane and
+		passing the message directly to that panes HandleXX method. The pane
+		then passes the message back up the enclosing chain to the window a
+		couple of times, as a kind of pre/post notification. Enclosing panes
+		can thus absorb the message before it's acted on by the target, or
+		after the target has decided not to handle it. This model has stood us
+		in good stead for the last eight years or so. There is an issue with
+		ZWindoid, which provides a pseudo-MDI facility -- ZWindoidPane can
+		create ZOSWindow-derivatives that live within the bounds of the pane.
+		Where our problem comes in is in handling the conversion of
+		messages/events delivered to ZWindoidPane *back* into messages
+		suitable for delivery to a ZOSWindow, which then passes them on to its
+		owner, in this case ZWindow derivatives living inside the
+		ZWindoidPane. It's just rather messy, and is currently impossible for
+		the windoids to decline to handle a message and to defer it to the
+		windoid pane (drag-and-drop for example). My current thinking is that
+		instead of ZFakeWindow maintaining a current target instead all
+		entities that enclose sub-entities will be responsible for maintaining
+		a child to which messages should be delivered. This allows a
+		ZSuperPane to 'remember' which child it would like to deliver messages
+		to, making maintenance of focus in tab panes a lot simpler, and also
+		makes it less complicated to support pre and post handling of messages
+		-- parents see every message delivered to their children regardless of
+		their children's decision as to whether to handle the event or
+		not.</p>
+
+		<p>Simplify keystroke messages -- up/down/auto with repeat count.
+		Also need a text-generated event.</p>
+
+		<p>Separate the notion of key-stroke delivery from text-input -- we
+		need to hook into platform input methods, which fortunately all look
+		to have very similar architectures. This does complicate matters in
+		that we need to maintain a text input context for entities that are
+		interested in text input, whilst not burdening those entities that are
+		really only interested in key strokes.</p>
+		
+		<p>Clean up mouse events and mouse tracking, potentially merge at least
+		some of it with drag and drop tracking.</p>
+		
+		<p>Support mouse wheel events. Do we need to allow for
+		focus-follows-mouse style of delivery (ie the scroll is delivered to
+		the pane the mouse is over) as well as for delivery to the current
+		target?</p>
+
+		<p>Should ZMessage be canonized as the communication medium for events
+		passed to panes? Right now key strokes and mouse events are passed in
+		objects of type ZEvent_Key and ZEvent_Mouse, which simply wrap a
+		ZMessage. However, those classes have been around for years and years
+		and do provide the option of hosting ZooLib stuff in a non
+		ZMessage-based environment.</p>
+
+	<h3>Pixmaps</h3>
+		<p>Implement the Pixmap iterators that Michael Crawford suggested
+		on the boost mailing list. We've already got RowAccessors which can
+		efficiently access any pixval from a row, but they still repeat a bunch
+		of work when used to write pixvals -- they read the old data and apply
+		a change to it before writing it back. A Pixmap iterator should hold
+		a pixval as a local until we know if we're going to overwrite a complete
+		storage unit. See the library
+		<a href="http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/">VIGRA</a></p>
+
+		<p><font color=#888888>DONE. The region, ellipse and polygon decomposition
+		code should be refactored
+		to allow one to iterate over line segments -- then we just blit from a
+		source based on the line segments, and have full drawing capabilities without
+		any native support required.</font></p>
+
+		<p><font color=#888888>DONE. Pixmap blitting that respects and uses alpha
+		channels. Allow both
+		pre-multiplied and non pre-multiplied alpha. Allow tiling -- using a
+		constant background outside the bounds, mirroring/flipping etc.</font></p>
+
+		<p><font color=#888888>DONE. Have ZDCPixmapRep have a ZDCPixmapRepCache field. It's something that
+		can be assigned by any user of the rep and is released when the
+		pixmap is touched. ZXServer could use it to manage server-side copies
+		of X pixmaps.</font></p>
+
+		<p>Expand the pixmap coding API. Encoders should take a PixelDesc, size,
+		and a stream. In a loop the caller asks the encoder which scanline it wants,
+		and passes a stream, that scanline and source PixvalDesc/PixelDesc to the encoder.
+		Decoders take a stream and fill out a PixelDesc, PixvalDesc and size. The
+		caller again in a loop asks which scanline will be provided next, and passes
+		a stream, a target scanline, PixelDesc and PixvalDesc to the decder.</p>
+
+		<p>Have a ZDCPixmapCoder API. Instances are registered with the library. Those
+		instances know what mime-types their coders handle, can sniff a stream to
+		determine if it contains data that its decoder would recognize, and can
+		produce instances of coders.</p>
+
+	<h3>UI</h3>
+		<p>Contextual menus, and general popup menus. Currently we work quite
+		hard to support the original mac-style of popup menu, where code can
+		invoke the menu and the return value of the invocation is the selected
+		item. With ZMessenger having been implemented we can allow for
+		async use of popups across platforms.</p>
+
+
+	<h3>Compilation and building</h3>
+		<p>Put together lists of source files necessary to support subsets of
+		ZooLib: networking, UI, filesystem, text handling. Have the subsets
+		be named and have the make engine union the lists together to create
+		a master builld list.</p>
+
+		<p><font color=#888888>DONE, at least as far as having POSIX, Linux,
+		MacOSX and BeOS libraries, paths and source files.
+		I thought more work needed to be done to support building on
+		platforms other than Linux. In fact if you're using gcc then it
+		works pretty smoothly. But there's still no mechanism to specify
+		platform or debug/release specific libraries and required source files.
+		One can always use multiple makefile/realmake files, but it would be
+		nice to have a general mechanism for conditionalizing more stuff.
+		The problem's not as bad with ZooLib as it is with other libraries,
+		in that all the source files themselves can be compiled anywhere,
+		conditions in the files themselves causing chunks of code to be
+		dropped out depending on the platform. The only ZooLib-specific build
+		tool is zac, the ZooLib Asset Compiler.</font></p>
+
+	<h3>Other</h3>
+		<p>Flesh out HTTP/MIME apis. Some progress made.</p>
+
+		<p><font color=#888888>DONE. ZDateTime/ZTicks -- harmonize them. Also
+		make it a type that's
+		explicitly supported by ZTuple.</font></p>
+
+		<p>Put in place proper calendar I18N support, using ZTime as the representation
+		of dates/times.</p>
+		
+		<p>Lose ZInterest completely -- rework PainterTest to use the
+		ZMessenger framework instead.</p>
+
+		<p><font color=#888888>DONE. (Although the using directive remains in
+		place by default (disable by #defining ZCONFIG_NamespaceHack 0 in
+		your zconfig.h), and I check only sporadically that ZooLib builds without
+		it.) Explicitly use std namespace in ZooLib API, rather than requiring
+		the gross 'using namespace std' directive in zconfigl.h</font></p>
+
+		<p><font color=#888888>
+		DONE. As we build apps that run as daemons as well as others that are
+		regular UI-based apps it's becoming increasingly clear that we need a
+		more flexible mechanism for error reporting and logging. ZAssert et al
+		have served us pretty well, but I'm thinking of something along the
+		lines of a per-app and/or per-thread 'paranoia' dial that can be
+		adjusted at runtime. Code can be peppered with assertions and logging
+		statements and the handling of those different statements be different
+		from one app to another, or even one thread to another.</font></p>
+		
+<h1>New stuff</h1>
+		<p>Text editor. Three pieces: backing store/editing, text layout, UI
+		behavior (key bindings, drag/drop/move, graphical representation of
+		states).</p>
+
+		<p>Our support for text rendering is somewhat behind the times. We've
+		never addressed the font issue on X11, but the availability and general
+		acceptance of FreeType has perhaps saved us from having to really deal
+		comprehensively with the issues associated with dealing simultaneously
+		with multiple font repertoires on multiple X11 servers. We need a
+		font repertoire API, and need to be able to work with Unicode source
+		text. Use floating point coords for positioning text.</p>
+
+		<p>Accessibility framework -- how to beef up existing entities to
+		allow for various aspects of accesibility to be easily supported.
+		Dynamically determined but overridable key bindings for UI elements,
+		variable metrics for improved visibility etc.</p>
+		
+		<p>GUI layout engine. We can use normal ZPanes, but pass them a
+		special ZPaneLocator that gets its information from the layout engine
+		rather than having to write custom code all the time.
+		Perhaps this is something we attach to ZSuperPane instances only?</p>
+		
+		<p><font color=#888888>
+		DONE. Implement an NT service framework, which requires that we be able
+		to deal efficiently with threads not created by ZThread. We've made
+		some progress on this, but need to check that it really will work as
+		expected.</font></p>
+	
+
+
+<h1>Possibilities</h1>
+	<h3>Tuples and assets</h3>
+		<p>Extend ZTupleValue with a type eZType_Virtual which contains
+		a refcounted entity with virtual methods paralleling ZTupleValue's.
+		We could then have a call that instantiates a tuplevalue from an asset,
+		and walking the tuple actually creates these virtual tuplevalues on the
+		fly. Zac can be extended to recognize the tuple textual serialization
+		format and have serialized tuples as data assets of type !tuple. Or
+		we could extend the range of data asset types to include more than just
+		string, stringtable and data -- it could include all the data types
+		that ZTupleValue supports, and would allow for richer data expression
+		in assets. Doing the latter would allow ZTupleValues instantiated from
+		assets to take advantage of the table-based name-sharing that the
+		ZAsset binary format uses, and would allow for copy-on-write semantics.
+		This also raises, in my mind at least, the harmonization of ZAsset,
+		ZFileSpec and ZTuple.
+		</p>
+	
+	<h3>Networking</h3>
+		<p>Revamp the ZNetAddressLookup and ZNetNameLookup stuff to use the
+		smart iterator pattern that's emerged, as in ZAssetIter and ZFileIter.</p>
+
+	<h3>Other</h3>
+		<p><font color=#888888>DONE. (See ZML::Reader and ZML::StrimR in ZML.cpp/ZML.h)
+		Wrap up basic ML parsing.</font></p>
+
+		<p>ZUITextContainer should perhaps have its API revamped to that
+		ranges are designated with begin/end rather than start/length. This
+		would be more in line with STL usage and allows for primary and
+		secondary selection anchors to be communicated.</p>
+
+		<p>General 'Waitable' API? Network endpoints, file system, mutex,
+		semaphore, general.</p>
+		

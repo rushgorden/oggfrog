@@ -1,0 +1,64 @@
+# $Id: realmake,v 1.1 2006/10/13 18:35:02 agreen Exp $
+
+PROJECT_TARGET_NAME := RAMUse
+
+PROJECT_PATHS := \
+	$(PROJECT_DIR) \
+\
+	${ZOOLIB_DIR}/src_other/misc \
+	${ZOOLIB_DIR}/src_other/tuplebase \
+\
+	$(BOOST_DIR)
+
+
+PROJECT_SOURCES := \
+	RAMUse_Main.cpp \
+\
+	ZAtomic.cpp \
+	ZByteSwap.cpp \
+	ZCommandLine.cpp \
+	ZCompare.cpp \
+	ZDebug.cpp \
+	ZFile.cpp \
+	ZFile_POSIX.cpp \
+	ZMain.cpp \
+	ZMemory.cpp \
+	ZMemoryBlock.cpp \
+	ZRefCount.cpp \
+	ZStdIO.cpp \
+	ZStream.cpp \
+	ZStream_Buffered.cpp \
+	ZStream_HexStrim.cpp \
+	ZStream_Memory.cpp \
+	ZStream_POSIX.cpp \
+	ZStreamer.cpp \
+	ZStrim.cpp \
+	ZStrimR_Boundary.cpp \
+	ZStrimW_Escapify.cpp \
+	ZStrim_CRLF.cpp \
+	ZStrim_Stream.cpp \
+	ZString.cpp \
+	ZTextCoder.cpp \
+	ZTextCoder_Unicode.cpp \
+	ZTextCollator.cpp \
+	ZTextCollator_ASCII.cpp \
+	ZThread.cpp \
+	ZTime.cpp \
+	ZTrail.cpp \
+	ZTBSpec.cpp \
+	ZTS_RAM.cpp \
+	ZTS.cpp \
+	ZTuple.cpp \
+	ZTupleIndex.cpp \
+	ZTupleIndex_General.cpp \
+	ZTupleIndex_String.cpp \
+	ZTypes.cpp \
+	ZUnicode.cpp \
+	ZUtil_Strim.cpp \
+	ZUtil_TS.cpp \
+	ZUtil_Time.cpp \
+	ZUtil_Tuple.cpp \
+	ZUtil_TupleIndex.cpp \
+
+
+PROJECT_LIBS := stdc++ pthread c

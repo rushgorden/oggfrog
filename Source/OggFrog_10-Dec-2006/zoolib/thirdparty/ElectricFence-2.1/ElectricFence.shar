@@ -1,0 +1,2354 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh file".  Note, it may
+# create directories; files and directories will be owned by you and
+# have default permissions.
+#
+# This archive contains:
+#
+#	README
+#	libefence.3
+#	Makefile
+#	efence.h
+#	efence.c
+#	page.c
+#	print.c
+#	eftest.c
+#	tstheap.c
+#	CHANGES
+#	COPYING
+#
+echo x - README
+sed 's/^X//' >README << 'END-of-README'
+XThis is Electric Fence 2.1
+X
+XElectric Fence is a different kind of malloc() debugger. It uses the virtual
+Xmemory hardware of your system to detect when software overruns the boundaries
+Xof a malloc() buffer. It will also detect any accesses of memory that has
+Xbeen released by free(). Because it uses the VM hardware for detection,
+XElectric Fence stops your program on the first instruction that causes
+Xa bounds violation. It's then trivial to use a debugger to display the
+Xoffending statement.
+X
+XThis version will run on:
+X	Linux kernel version 1.1.83 and above. Earlier kernels have problems
+X	with the memory protection implementation.
+X
+X	All System V Revision 4 platforms (and possibly earlier revisions)
+X	including:
+X		Every 386 System V I've heard of.
+X		Solaris 2.x
+X		SGI IRIX 5.0 (but not 4.x)
+X
+X	IBM AIX on the RS/6000.
+X
+X	SunOS 4.X (using an ANSI C compiler and probably static linking).
+X
+X	HP/UX 9.01, and possibly earlier versions.
+X
+X	OSF 1.3 (and possibly earlier versions) on a DECalpha.
+X
+XOn some of these platforms, you'll have to uncomment lines in the Makefile
+Xthat apply to your particular system.
+X
+XIf you test Electric Fence on a platform not mentioned here, please send me a
+Xreport.
+X
+XIt will probably port to any ANSI/POSIX system that provides mmap(), and
+Xmprotect(), as long as mprotect() has the capability to turn off all access
+Xto a memory page, and mmap() can use /dev/zero or the MAP_ANONYMOUS flag
+Xto create virtual memory pages.
+X
+XComplete information on the use of Electric Fence is in the manual page
+Xlibefence.3 .
+X
+X	Thanks
+X
+X	Bruce Perens
+X	Bruce@Pixar.com
+END-of-README
+echo x - libefence.3
+sed 's/^X//' >libefence.3 << 'END-of-libefence.3'
+X.TH efence 3 27-April-1993
+X.SH NAME
+Xefence \- Electric Fence Malloc Debugger
+X.SH SYNOPSIS
+X.nf
+X.ft B
+X#include <stdlib.h>
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid * malloc (size_t size);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid free (void *ptr);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid * realloc (void *ptr, size_t size);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid * calloc (size_t nelem, size_t elsize);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid * memalign (size_t alignment, size_t size);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xvoid * valloc (size_t size);
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xextern int EF_ALIGNMENT;
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xextern int EF_PROTECT_BELOW;
+X.ft
+X.fi
+X.LP
+X.nf
+X.ft B
+Xextern int EF_PROTECT_FREE;
+X.ft
+X.fi
+X.SH DESCRIPTION
+X.I Electric Fence
+Xhelps you detect two common programming bugs:
+Xsoftware that overruns the boundaries of a malloc() memory
+Xallocation, and software that touches a memory allocation that has been
+Xreleased by free(). Unlike other malloc() debuggers, Electric Fence will
+Xdetect
+X.I read
+Xaccesses as well as writes, and it will pinpoint the exact instruction that
+Xcauses an error. It has been in use at Pixar since 1987, and at many other
+Xsites for years.
+X.LP
+XElectric Fence uses the virtual memory hardware of your computer to place an
+Xinaccessible memory page immediately after (or before, at the user's option)
+Xeach memory allocation. When software reads or writes this inaccessible page,
+Xthe
+Xhardware issues a segmentation fault, stopping the program at the offending
+Xinstruction. It is then trivial to find the erroneous statement using your
+Xfavorite debugger. In a similar manner, memory that has been released by
+Xfree() is made inaccessible, and any code that touches it will get a
+Xsegmentation fault.
+X.LP
+XSimply linking your application with libefence.a will allow you to detect
+Xmost, but not all, malloc buffer overruns and accesses of free memory.
+XIf you want to be reasonably sure that you've found
+X.I all
+Xbugs of this type, you'll have to read and understand the rest of this
+Xman page.
+X.SH USAGE
+XLink your program with the library
+X.B libefence.a .
+XMake sure you are
+X.I not
+Xlinking with
+X.B -lmalloc,
+X.B -lmallocdebug,
+Xor with other malloc-debugger or malloc-enhancer libraries.
+XYou can only use one at a time.
+XIf your system administrator
+Xhas installed Electric Fence for public use, you'll be able to use the
+X.B -lefence
+Xargument to the linker, otherwise you'll have to put the path-name for
+X.B libefence.a
+Xin the linker's command line.
+XSome systems will require special arguments to the linker to assure that
+Xyou are using the Electric Fence malloc() and not the one from your C library.
+XOn AIX systems, you may have to use the flags
+X.br
+X.B -bnso
+X.B -bnodelcsect
+X.B -bI:/lib/syscalls.exp
+X.br
+XOn Sun systems running SunOS 4.X, you'll probably have to use
+X.B -Bstatic.
+X.LP
+XRun your program
+X.I using a debugger. 
+XIt's easier to work this way than to create a
+X.B core
+Xfile and post-mortem debug it. Electric Fence can create
+X.I huge
+Xcore files, and some operating systems will thus take minutes simply to dump
+Xcore! Some operating systems will not create usable core files from programs
+Xthat are linked with Electric Fence.
+XIf your program has one of the errors detected by Electric Fence, it will
+Xget a segmentation fault (SIGSEGV) at the offending instruction. Use the
+Xdebugger to locate the erroneous statement, and repair it.
+X.SH GLOBAL AND ENVIRONMENT VARIABLES
+XElectric Fence has four configuration switches that can be enabled via
+Xthe shell environment, or by setting the value of global integer variables
+Xusing a debugger. These switches change what bugs Electric Fence will detect,
+Xso it's important that you know how to use them.
+X.TP
+XEF_ALIGNMENT
+XThis is an integer that specifies the alignment for any memory allocations
+Xthat will be returned by malloc(), calloc(), and realloc().
+XThe value is specified in
+Xbytes, thus a value of 4 will cause memory to be aligned to 32-bit boundaries
+Xunless your system doesn't have a 8-bit characters. EF_ALIGNMENT is set to
+Xsizeof(int) by default, since that is generally the word-size of your CPU.
+XIf your program requires that allocations be aligned to 64-bit
+Xboundaries and you have a 32-bit
+X.B int
+Xyou'll have to set this value to 8. This is the case when compiling with the
+X.B -mips2
+Xflag on MIPS-based systems such as those from SGI.
+XThe memory allocation that is returned by Electric Fence malloc() is aligned
+Xusing the value in EF_ALIGNMENT, and
+X.I its size the multiple of
+X.I that value
+Xthat is greater than or equal to the requested size.
+XFor this reason, you will sometimes want to set EF_ALIGNMENT to 0 (no
+Xalignment), so that
+Xyou can detect overruns of less than your CPU's word size. Be sure to read
+Xthe section
+X.I WORD-ALIGNMENT AND OVERRUN DETECTION
+Xin this manual page before you try this.
+XTo change this value, set EF_ALIGNMENT in the shell environment to an
+Xinteger value, or assign
+Xto the global integer variable EF_ALIGNMENT using a debugger.
+X.TP
+XEF_PROTECT_BELOW
+XElectric Fence usually places an inaccessible page immediately after each
+Xmemory allocation, so that software that runs past the end of the allocation
+Xwill be detected. Setting EF_PROTECT_BELOW to 1 causes Electric Fence
+Xto place the inaccessible page
+X.I before
+Xthe allocation in the address space, so that under-runs will be detected
+Xinstead of over-runs.
+XWhen EF_PROTECT_BELOW is set, the EF_ALIGNMENT parameter is ignored.
+XAll allocations will be aligned to virtual-memory-page boundaries, and
+Xtheir size will be the exact size that was requested.
+XTo change this value, set EF_PROTECT_BELOW in the shell environment to an
+Xinteger value, or assign to the global integer variable EF_PROTECT_BELOW using
+Xa debugger.
+X.TP
+XEF_PROTECT_FREE
+XElectric Fence usually returns free memory to a pool from which it may be
+Xre-allocated. If you suspect that a program may be touching free memory,
+Xset EF_PROTECT_FREE to 1. This will cause Electric Fence to never re-allocate
+Xmemory once it has been freed, so that any access to free memory will be
+Xdetected. Some programs will use tremendous amounts of memory when this
+Xparameter is set.
+XTo change this value, set EF_PROTECT_FREE in the shell environment to an
+Xinteger value, or assign to the global integer variable EF_PROTECT_FREE using
+Xa debugger.
+X.TP
+XEF_ALLOW_MALLOC_0
+XBy default, Electric Fence traps calls to malloc() with a size of zero, because
+Xthey are often the result of a software bug. If EF_ALLOW_MALLOC_0 is non-zero,
+Xthe software will not trap calls to malloc() with a size of zero.
+XTo change this value, set EF_ALLOC_MALLOC_0 in the shell environment to an
+Xinteger value, or assign to the global integer variable EF_ALLOC_MALLOC_0 using
+Xa debugger.
+X.SH WORD-ALIGNMENT AND OVERRUN DETECTION
+XThere is a conflict between the alignment restrictions that malloc() operates
+Xunder and the debugging strategy used by Electric Fence. When detecting
+Xoverruns, Electric Fence malloc() allocates two or more virtual memory
+Xpages for each allocation. The last page is made inaccessible in such a way
+Xthat any read, write, or execute access will cause a segmentation fault.
+XThen, Electric Fence malloc() will return an address such that the first
+Xbyte after
+Xthe end of the allocation is on the inaccessible page.
+XThus, any overrun
+Xof the allocation will cause a segmentation fault.
+X.LP
+XIt follows that the
+Xaddress returned by malloc() is the address of the inaccessible page minus
+Xthe size of the memory allocation.
+XUnfortunately, malloc() is required to return
+X.I word-aligned
+Xallocations, since many CPUs can only access a word when its address is aligned.
+XThe conflict happens when software makes a memory allocation using a size that
+Xis not a multiple of the word size, and expects to do word accesses to that
+Xallocation. The location of the inaccessible page is fixed by hardware at
+Xa word-aligned address. If Electric Fence malloc() is to return an aligned
+Xaddress, it must increase the size of the allocation to a multiple of the
+Xword size.
+XIn addition, the functions memalign() and valloc() must honor explicit
+Xspecifications on the alignment of the memory allocation, and this, as well
+Xcan only be implemented by increasing the size of the allocation.
+XThus, there will be situations in which the end of a memory allocation
+Xcontains some padding space, and accesses of that padding space will not
+Xbe detected, even if they are overruns.
+X.LP
+XElectric Fence provides the variable EF_ALIGNMENT so that the user can
+Xcontrol the default alignment used by malloc(), calloc(), and realloc().
+XTo debug overruns as small as a single byte, you can set EF_ALIGNMENT to
+Xzero. This will result in Electric Fence malloc() returning unaligned
+Xaddresses for allocations with sizes that are not a multiple of the word
+Xsize. This is not a problem in most cases, because compilers must pad the
+Xsize of objects so that alignment restrictions are honored when storing
+Xthose objects in arrays. The problem surfaces when software allocates
+Xodd-sized buffers for objects that must be word-aligned. One case of this
+Xis software that allocates a buffer to contain a structure and a
+Xstring, and the string has an odd size (this example was in a popular TIFF
+Xlibrary). If word references are made to un-aligned buffers, you will see
+Xa bus error (SIGBUS) instead of a segmentation fault. The only way to fix
+Xthis is to re-write the offending code to make byte references or not make
+Xodd-sized allocations, or to set EF_ALIGNMENT to the word size.
+X.LP
+XAnother example of software incompatible with
+XEF_ALIGNMENT < word-size
+Xis the strcmp() function and other string functions on SunOS (and probably
+XSolaris), which make word-sized accesses to character strings, and may
+Xattempt to access up to three bytes beyond the end of a string. These
+Xresult in a segmentation fault (SIGSEGV). The only way around this is to
+Xuse versions of the string functions that perform byte references instead
+Xof word references.
+X.SH INSTRUCTIONS FOR DEBUGGING YOUR PROGRAM
+X.TP
+X1.
+XLink with libefence.a as explained above.
+X.TP
+X2.
+XRun your program in a debugger and fix any overruns or accesses to free memory.
+X.TP
+X3.
+XQuit the debugger.
+X.TP
+X4.
+XSet EF_PROTECT_BELOW = 1 in the shell environment.
+X.TP
+X5.
+XRepeat step 2, this time repairing underruns if they occur.
+X.TP
+X6.
+XQuit the debugger.
+X.TP
+X7.
+XRead the restrictions in the section on
+X.I WORD-ALIGNMENT AND OVERRUN DETECTION.
+XSee if you can
+Xset EF_ALIGNMENT to 0 and repeat step 2. Sometimes this will be too much work,
+Xor there will be problems with library routines for which you don't have the
+Xsource, that will prevent you from doing this.
+X.SH MEMORY USAGE AND EXECUTION SPEED
+XSince Electric Fence uses at least two virtual memory pages for each of its
+Xallocations, it's a terrible memory hog. I've sometimes found it necessary to
+Xadd a swap file using swapon(8) so that the system would have enough virtual
+Xmemory to debug my program. Also, the way we manipulate memory results in
+Xvarious cache and translation buffer entries being flushed with each call
+Xto malloc or free. The end result is that your program will be much slower
+Xand use more resources while you are debugging it with Electric Fence.
+X.LP
+XDon't leave libefence.a linked into production software! Use it only
+Xfor debugging.
+X.SH PORTING
+XElectric Fence is written for ANSI C. You should be able to port it with
+Xsimple changes to the Makefile and to page.c,
+Xwhich contains the memory management primitives .
+XMany POSIX platforms will require only a re-compile.
+XThe operating system facilities required to port Electric Fence are:
+X.IP
+XA way to allocate memory pages
+X.br
+XA way to make selected pages inaccessible.
+X.br
+XA way to make the pages accessible again.
+X.br
+XA way to detect when a program touches an inaccessible page.
+X.br
+XA way to print messages.
+X.LP
+XPlease e-mail me a copy of any changes you have to make, so that I can
+Xmerge them into the distribution.
+X.SH AUTHOR
+XBruce Perens
+X.SH WARNINGS
+XI have tried to do as good a job as I can on this software, but I doubt
+Xthat it is even theoretically possible to make it bug-free.
+XThis software has no warranty. It will not detect some bugs that you might
+Xexpect it to detect, and will indicate that some non-bugs are bugs.
+XBruce Perens and/or Pixar will not be liable to any claims resulting
+Xfrom the use of this software or the ideas within it.
+XThe entire responsibility for its use must
+Xbe assumed by the user. If you use it and it results in loss of life
+Xand/or property, tough. If it leads you on a wild goose chase and you waste
+Xtwo weeks debugging something, too bad.
+XIf you can't deal with the above, please don't use the software! I've written
+Xthis in an attempt to help other people, not to get myself sued or prosecuted.
+X.SH LICENSE
+XCopyright 1987-1995 Bruce Perens. All rights reserved.
+X.br
+XThis program is free software; you can redistribute it and/or modify
+Xit under the terms of the GNU General Public License, Version 2,
+Xas published by the Free Software Foundation. A copy of this license is
+Xdistributed with this software in the file "COPYING".
+X
+XThis program is distributed in the hope that it will be useful,
+Xbut WITHOUT ANY WARRANTY; without even the implied warranty of
+XMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Read the
+Xfile "COPYING" for more details.
+X.SH CONTACTING THE AUTHOR
+X.nf
+XBruce Perens
+Xc/o Pixar
+X1001 West Cutting Blvd., Suite 200
+XRichmond, CA 94804
+X
+XTelephone: 510-215-3502
+XFax: 510-236-0388
+XInternet: Bruce@Pixar.com
+X.fi
+X.ft
+X.SH FILES
+X/dev/zero: Source of memory pages (via mmap(2)).
+X.SH SEE ALSO
+Xmalloc(3), mmap(2), mprotect(2), swapon(8)
+X.SH DIAGNOSTICS
+XSegmentation Fault: Examine the offending statement for violation of the
+Xboundaries of a memory allocation.
+X.br
+XBus Error: See the section on
+X.I WORD-ALIGNMENT AND OVERRUN DETECTION.
+Xin this manual page.
+X.SH BUGS
+XMy explanation of the alignment issue could be improved.
+X.LP
+XSome Sun systems running SunOS 4.1 are reported to signal an access to a
+Xprotected page with
+X.B  SIGBUS
+Xrather than
+X.B SIGSEGV,
+XI suspect this is an undocumented feature of a particular Sun hardware
+Xversion, not just the operating system.
+XOn these systems, eftest will fail with a bus error until you modify the
+XMakefile to define
+X.B PAGE_PROTECTION_VIOLATED_SIGNAL
+Xas
+X.B SIGBUS.
+X.LP
+XThere are, without doubt, other bugs and porting issues. Please contact me via
+Xe-mail if you have any bug reports, ideas, etc.
+X.SH WHAT'S BETTER
+XPURIFY, from Purify Systems, does a much better job than Electric Fence, and
+Xdoes much more. It's available at this writing on SPARC and HP.
+XI'm not affiliated with Purify, I just think it's a wonderful product
+Xand you should check it out.
+END-of-libefence.3
+echo x - Makefile
+sed 's/^X//' >Makefile << 'END-of-Makefile'
+XASFLAGS= -mips2
+XCC= cc
+XAR= ar
+XINSTALL= install
+XMV= mv
+XCHMOD= chmod
+XCFLAGS= -g
+XLIB_INSTALL_DIR= /usr/lib
+XMAN_INSTALL_DIR= /usr/man/man3
+X
+XPACKAGE_SOURCE= README libefence.3 Makefile efence.h \
+X	efence.c page.c print.c eftest.c tstheap.c CHANGES COPYING
+X
+X# Un-comment the following if you are running HP/UX.
+X# CFLAGS= -Aa -g -D_HPUX_SOURCE -DPAGE_PROTECTION_VIOLATED_SIGNAL=SIGBUS
+X
+X# Un-comment the following if you are running AIX. This makes sure you won't
+X# get the shared-library malloc() rather than the Electric Fence malloc().
+X# COMPILE THE PROGRAMS YOU ARE DEBUGGING WITH THESE FLAGS, TOO.
+X# CFLAGS= -g -bnso -bnodelcsect -bI:/lib/syscalls.exp
+X
+X# Un-comment the following if you are running SunOS 4.X
+X# Note the definition of PAGE_PROTECTION_VIOLATED_SIGNAL. This may vary
+X# depend on what version of Sun hardware you have.
+X# You'll probably have to link the program you are debugging with -Bstatic
+X# as well if using Sun's compiler, -static if using GCC.
+X# CFLAGS= -g -Bstatic -DPAGE_PROTECTION_VIOLATED_SIGNAL=SIGBUS
+X
+XOBJECTS= efence.o page.o print.o
+X
+Xall:	libefence.a tstheap eftest
+X	@ echo
+X	@ echo "Testing Electric Fence."
+X	@ echo "After the last test, it should print that the test has PASSED."
+X	./eftest
+X	./tstheap 3072
+X	@ echo
+X	@ echo "Electric Fence confidence test PASSED." 
+X	@ echo
+X
+Xinstall: libefence.a libefence.3
+X	$(MV) libefence.a $(LIB_INSTALL_DIR)
+X	$(CHMOD) 644 $(LIB_INSTALL_DIR)/libefence.a
+X	$(INSTALL) libefence.3 $(MAN_INSTALL_DIR)/libefence.3
+X	$(CHMOD) 644 $(MAN_INSTALL_DIR)/libefence.3
+X
+Xclean:
+X	- rm -f $(OBJECTS) tstheap.o eftest.o tstheap eftest libefence.a \
+X	 libefence.cat ElectricFence.shar
+X
+Xroff:
+X	nroff -man < libefence.3 > libefence.cat
+X
+X
+XElectricFence.shar: $(PACKAGE_SOURCE)
+X	shar $(PACKAGE_SOURCE) > ElectricFence.shar
+X
+Xshar: ElectricFence.shar
+X
+Xlibefence.a: $(OBJECTS)
+X	- rm -f libefence.a
+X	$(AR) crv libefence.a $(OBJECTS)
+X
+Xtstheap: libefence.a tstheap.o
+X	- rm -f tstheap
+X	$(CC) $(CFLAGS) tstheap.o libefence.a -o tstheap
+X
+Xeftest: libefence.a eftest.o
+X	- rm -f eftest
+X	$(CC) $(CFLAGS) eftest.o libefence.a -o eftest
+X
+X$(OBJECTS) tstheap.o eftest.o: efence.h
+END-of-Makefile
+echo x - efence.h
+sed 's/^X//' >efence.h << 'END-of-efence.h'
+X#include <sys/types.h>
+X#include <sys/param.h>
+X
+X/*
+X * ef_number is the largest unsigned integer we'll need. On systems that
+X * support 64-bit pointers, this may be "unsigned long long".
+X */
+X#if defined(USE_LONG_LONG)
+Xtypedef unsigned long long	ef_number;
+X#else
+Xtypedef unsigned long		ef_number;
+X#endif
+X
+X/*
+X * NBBY is the number of bits per byte. Some systems define it in
+X * <sys/param.h> .
+X */
+X#ifndef	NBBY
+X#define	NBBY	8
+X#endif
+X
+X/*
+X * This is used to declare functions with "C" linkage if we are compiling
+X * with C++ .
+X */
+X#ifdef	__cplusplus
+X#define	C_LINKAGE	"C"
+X#else
+X#define	C_LINKAGE
+X#endif
+X
+Xvoid			Page_AllowAccess(void * address, size_t size);
+Xvoid *			Page_Create(size_t size);
+Xvoid			Page_Delete(void * address, size_t size);
+Xvoid			Page_DenyAccess(void * address, size_t size);
+Xsize_t			Page_Size(void);
+X
+Xvoid			EF_Abort(const char * message, ...);
+Xvoid			EF_Exit(const char * message, ...);
+Xvoid			EF_Print(const char * message, ...);
+Xvoid			EF_Lock();
+Xvoid			EF_UnLock();
+END-of-efence.h
+echo x - efence.c
+sed 's/^X//' >efence.c << 'END-of-efence.c'
+X/*
+X * Electric Fence - Red-Zone memory allocator.
+X * Bruce Perens, 1988, 1993
+X * 
+X * This is a special version of malloc() and company for debugging software
+X * that is suspected of overrunning or underrunning the boundaries of a
+X * malloc buffer, or touching free memory.
+X *
+X * It arranges for each malloc buffer to be followed (or preceded)
+X * in the address space by an inaccessable virtual memory page,
+X * and for free memory to be inaccessable. If software touches the
+X * inaccessable page, it will get an immediate segmentation
+X * fault. It is then trivial to uncover the offending code using a debugger.
+X *
+X * An advantage of this product over most malloc debuggers is that this one
+X * detects reading out of bounds as well as writing, and this one stops on
+X * the exact instruction that causes the error, rather than waiting until the
+X * next boundary check.
+X *
+X * There is one product that debugs malloc buffer overruns
+X * better than Electric Fence: "Purify" from Purify Systems, and that's only
+X * a small part of what Purify does. I'm not affiliated with Purify, I just
+X * respect a job well done.
+X *
+X * This version of malloc() should not be linked into production software,
+X * since it tremendously increases the time and memory overhead of malloc().
+X * Each malloc buffer will consume a minimum of two virtual memory pages,
+X * this is 16 kilobytes on many systems. On some systems it will be necessary
+X * to increase the amount of swap space in order to debug large programs that
+X * perform lots of allocation, because of the per-buffer overhead.
+X */
+X#include "efence.h"
+X#include <stdlib.h>
+X#include <unistd.h>
+X#include <memory.h>
+X#include <string.h>
+X
+X#ifdef	malloc
+X#undef	malloc
+X#endif
+X
+X#ifdef	calloc
+X#undef	calloc
+X#endif
+X
+Xstatic const char	version[] = "\n  Electric Fence 2.0.5"
+X " Copyright (C) 1987-1998 Bruce Perens.\n";
+X
+X/*
+X * MEMORY_CREATION_SIZE is the amount of memory to get from the operating
+X * system at one time. We'll break that memory down into smaller pieces for
+X * malloc buffers. One megabyte is probably a good value.
+X */
+X#define			MEMORY_CREATION_SIZE	1024 * 1024
+X
+X/*
+X * Enum Mode indicates the status of a malloc buffer.
+X */
+Xenum _Mode {
+X	NOT_IN_USE = 0,	/* Available to represent a malloc buffer. */
+X	FREE,		/* A free buffer. */
+X	ALLOCATED,	/* A buffer that is in use. */
+X	PROTECTED,	/* A freed buffer that can not be allocated again. */
+X	INTERNAL_USE	/* A buffer used internally by malloc(). */
+X};
+Xtypedef enum _Mode	Mode;
+X
+X/*
+X * Struct Slot contains all of the information about a malloc buffer except
+X * for the contents of its memory.
+X */
+Xstruct _Slot {
+X	void *		userAddress;
+X	void *		internalAddress;
+X	size_t		userSize;
+X	size_t		internalSize;
+X	Mode		mode;
+X};
+Xtypedef struct _Slot	Slot;
+X
+X/*
+X * EF_ALIGNMENT is a global variable used to control the default alignment
+X * of buffers returned by malloc(), calloc(), and realloc(). It is all-caps
+X * so that its name matches the name of the environment variable that is used
+X * to set it. This gives the programmer one less name to remember.
+X * If the value is -1, it will be set from the environment or sizeof(int)
+X * at run time.
+X */
+Xint		EF_ALIGNMENT = -1;
+X
+X/*
+X * EF_PROTECT_FREE is a global variable used to control the disposition of
+X * memory that is released using free(). It is all-caps so that its name
+X * matches the name of the environment variable that is used to set it.
+X * If its value is greater non-zero, memory released by free is made
+X * inaccessable and never allocated again. Any software that touches free
+X * memory will then get a segmentation fault. If its value is zero, freed
+X * memory will be available for reallocation, but will still be inaccessable
+X * until it is reallocated.
+X * If the value is -1, it will be set from the environment or to 0 at run-time.
+X */
+Xint		EF_PROTECT_FREE = -1;
+X
+X/*
+X * EF_PROTECT_BELOW is used to modify the behavior of the allocator. When
+X * its value is non-zero, the allocator will place an inaccessable page
+X * immediately _before_ the malloc buffer in the address space, instead
+X * of _after_ it. Use this to detect malloc buffer under-runs, rather than
+X * over-runs. It won't detect both at the same time, so you should test your
+X * software twice, once with this value clear, and once with it set.
+X * If the value is -1, it will be set from the environment or to zero at
+X * run-time
+X */
+Xint		EF_PROTECT_BELOW = -1;
+X
+X/*
+X * EF_ALLOW_MALLOC_0 is set if Electric Fence is to allow malloc(0). I
+X * trap malloc(0) by default because it is a common source of bugs.
+X */
+Xint		EF_ALLOW_MALLOC_0 = -1;
+X
+X/*
+X * allocationList points to the array of slot structures used to manage the
+X * malloc arena.
+X */
+Xstatic Slot *		allocationList = 0;
+X
+X/*
+X * allocationListSize is the size of the allocation list. This will always
+X * be a multiple of the page size.
+X */
+Xstatic size_t		allocationListSize = 0;
+X
+X/*
+X * slotCount is the number of Slot structures in allocationList.
+X */
+Xstatic size_t		slotCount = 0;
+X
+X/*
+X * unUsedSlots is the number of Slot structures that are currently available
+X * to represent new malloc buffers. When this number gets too low, we will
+X * create new slots.
+X */
+Xstatic size_t		unUsedSlots = 0;
+X
+X/*
+X * slotsPerPage is the number of slot structures that fit in a virtual
+X * memory page.
+X */
+Xstatic size_t		slotsPerPage = 0;
+X
+X/*
+X * internalUse is set when allocating and freeing the allocatior-internal
+X * data structures.
+X */
+Xstatic int		internalUse = 0;
+X
+X/*
+X * noAllocationListProtection is set to tell malloc() and free() not to
+X * manipulate the protection of the allocation list. This is only set in
+X * realloc(), which does it to save on slow system calls, and in
+X * allocateMoreSlots(), which does it because it changes the allocation list.
+X */
+Xstatic int		noAllocationListProtection = 0;
+X
+X/*
+X * bytesPerPage is set at run-time to the number of bytes per virtual-memory
+X * page, as returned by Page_Size().
+X */
+Xstatic size_t		bytesPerPage = 0;
+X
+X/*
+X * internalError is called for those "shouldn't happen" errors in the
+X * allocator.
+X */
+Xstatic void
+XinternalError(void)
+X{
+X	EF_Abort("Internal error in allocator.");
+X}
+X
+X/*
+X * initialize sets up the memory allocation arena and the run-time
+X * configuration information.
+X */
+Xstatic void
+Xinitialize(void)
+X{
+X	size_t	size = MEMORY_CREATION_SIZE;
+X	size_t	slack;
+X	char *	string;
+X	Slot *	slot;
+X
+X	EF_Print(version);
+X
+X	/*
+X	 * Import the user's environment specification of the default
+X	 * alignment for malloc(). We want that alignment to be under
+X	 * user control, since smaller alignment lets us catch more bugs,
+X	 * however some software will break if malloc() returns a buffer
+X	 * that is not word-aligned.
+X	 *
+X	 * I would like
+X	 * alignment to be zero so that we could catch all one-byte
+X	 * overruns, however if malloc() is asked to allocate an odd-size
+X	 * buffer and returns an address that is not word-aligned, or whose
+X	 * size is not a multiple of the word size, software breaks.
+X	 * This was the case with the Sun string-handling routines,
+X	 * which can do word fetches up to three bytes beyond the end of a
+X	 * string. I handle this problem in part by providing
+X	 * byte-reference-only versions of the string library functions, but
+X	 * there are other functions that break, too. Some in X Windows, one
+X	 * in Sam Leffler's TIFF library, and doubtless many others.
+X	 */
+X	if ( EF_ALIGNMENT == -1 ) {
+X		if ( (string = getenv("EF_ALIGNMENT")) != 0 )
+X			EF_ALIGNMENT = (size_t)atoi(string);
+X		else
+X			EF_ALIGNMENT = sizeof(int);
+X	}
+X
+X	/*
+X	 * See if the user wants to protect the address space below a buffer,
+X	 * rather than that above a buffer.
+X	 */
+X	if ( EF_PROTECT_BELOW == -1 ) {
+X		if ( (string = getenv("EF_PROTECT_BELOW")) != 0 )
+X			EF_PROTECT_BELOW = (atoi(string) != 0);
+X		else
+X			EF_PROTECT_BELOW = 0;
+X	}
+X
+X	/*
+X	 * See if the user wants to protect memory that has been freed until
+X	 * the program exits, rather than until it is re-allocated.
+X	 */
+X	if ( EF_PROTECT_FREE == -1 ) {
+X		if ( (string = getenv("EF_PROTECT_FREE")) != 0 )
+X			EF_PROTECT_FREE = (atoi(string) != 0);
+X		else
+X			EF_PROTECT_FREE = 0;
+X	}
+X
+X	/*
+X	 * See if the user wants to allow malloc(0).
+X	 */
+X	if ( EF_ALLOW_MALLOC_0 == -1 ) {
+X		if ( (string = getenv("EF_ALLOW_MALLOC_0")) != 0 )
+X			EF_ALLOW_MALLOC_0 = (atoi(string) != 0);
+X		else
+X			EF_ALLOW_MALLOC_0 = 0;
+X	}
+X
+X	/*
+X	 * Get the run-time configuration of the virtual memory page size.
+X 	 */
+X	bytesPerPage = Page_Size();
+X
+X	/*
+X	 * Figure out how many Slot structures to allocate at one time.
+X	 */
+X	slotCount = slotsPerPage = bytesPerPage / sizeof(Slot);
+X	allocationListSize = bytesPerPage;
+X
+X	if ( allocationListSize > size )
+X		size = allocationListSize;
+X
+X	if ( (slack = size % bytesPerPage) != 0 )
+X		size += bytesPerPage - slack;
+X
+X	/*
+X	 * Allocate memory, and break it up into two malloc buffers. The
+X	 * first buffer will be used for Slot structures, the second will
+X	 * be marked free.
+X	 */
+X	slot = allocationList = (Slot *)Page_Create(size);
+X	memset((char *)allocationList, 0, allocationListSize);
+X
+X	slot[0].internalSize = slot[0].userSize = allocationListSize;
+X	slot[0].internalAddress = slot[0].userAddress = allocationList;
+X	slot[0].mode = INTERNAL_USE;
+X	if ( size > allocationListSize ) {
+X		slot[1].internalAddress = slot[1].userAddress
+X		 = ((char *)slot[0].internalAddress) + slot[0].internalSize;
+X		slot[1].internalSize
+X		 = slot[1].userSize = size - slot[0].internalSize;
+X		slot[1].mode = FREE;
+X	}
+X
+X	/*
+X	 * Deny access to the free page, so that we will detect any software
+X	 * that treads upon free memory.
+X	 */
+X	Page_DenyAccess(slot[1].internalAddress, slot[1].internalSize);
+X
+X	/*
+X	 * Account for the two slot structures that we've used.
+X	 */
+X	unUsedSlots = slotCount - 2;
+X}
+X
+X/*
+X * allocateMoreSlots is called when there are only enough slot structures
+X * left to support the allocation of a single malloc buffer.
+X */
+Xstatic void
+XallocateMoreSlots(void)
+X{
+X	size_t	newSize = allocationListSize + bytesPerPage;
+X	void *	newAllocation;
+X	void *	oldAllocation = allocationList;
+X
+X	Page_AllowAccess(allocationList, allocationListSize);
+X	noAllocationListProtection = 1;
+X	internalUse = 1;
+X
+X	newAllocation = malloc(newSize);
+X	memcpy(newAllocation, allocationList, allocationListSize);
+X	memset(&(((char *)newAllocation)[allocationListSize]), 0, bytesPerPage);
+X
+X	allocationList = (Slot *)newAllocation;
+X	allocationListSize = newSize;
+X	slotCount += slotsPerPage;
+X	unUsedSlots += slotsPerPage;
+X
+X	free(oldAllocation);
+X
+X	/*
+X	 * Keep access to the allocation list open at this point, because
+X	 * I am returning to memalign(), which needs that access.
+X 	 */
+X	noAllocationListProtection = 0;
+X	internalUse = 0;
+X}
+X
+X/*
+X * This is the memory allocator. When asked to allocate a buffer, allocate
+X * it in such a way that the end of the buffer is followed by an inaccessable
+X * memory page. If software overruns that buffer, it will touch the bad page
+X * and get an immediate segmentation fault. It's then easy to zero in on the
+X * offending code with a debugger.
+X *
+X * There are a few complications. If the user asks for an odd-sized buffer,
+X * we would have to have that buffer start on an odd address if the byte after
+X * the end of the buffer was to be on the inaccessable page. Unfortunately,
+X * there is lots of software that asks for odd-sized buffers and then
+X * requires that the returned address be word-aligned, or the size of the
+X * buffer be a multiple of the word size. An example are the string-processing
+X * functions on Sun systems, which do word references to the string memory
+X * and may refer to memory up to three bytes beyond the end of the string.
+X * For this reason, I take the alignment requests to memalign() and valloc()
+X * seriously, and 
+X * 
+X * Electric Fence wastes lots of memory. I do a best-fit allocator here
+X * so that it won't waste even more. It's slow, but thrashing because your
+X * working set is too big for a system's RAM is even slower. 
+X */
+Xextern C_LINKAGE void *
+Xmemalign(size_t alignment, size_t userSize)
+X{
+X	register Slot *	slot;
+X	register size_t	count;
+X	Slot *		fullSlot = 0;
+X	Slot *		emptySlots[2];
+X	size_t		internalSize;
+X	size_t		slack;
+X	char *		address;
+X
+X	if ( allocationList == 0 )
+X		initialize();
+X
+X	if ( userSize == 0 && !EF_ALLOW_MALLOC_0 )
+X		EF_Abort("Allocating 0 bytes, probably a bug.");
+X
+X	/*
+X	 * If EF_PROTECT_BELOW is set, all addresses returned by malloc()
+X	 * and company will be page-aligned.
+X 	 */
+X	if ( !EF_PROTECT_BELOW && alignment > 1 ) {
+X		if ( (slack = userSize % alignment) != 0 )
+X			userSize += alignment - slack;
+X	}
+X
+X	/*
+X	 * The internal size of the buffer is rounded up to the next page-size
+X	 * boudary, and then we add another page's worth of memory for the
+X	 * dead page.
+X	 */
+X	internalSize = userSize + bytesPerPage;
+X	if ( (slack = internalSize % bytesPerPage) != 0 )
+X		internalSize += bytesPerPage - slack;
+X
+X	/*
+X	 * These will hold the addresses of two empty Slot structures, that
+X	 * can be used to hold information for any memory I create, and any
+X	 * memory that I mark free.
+X	 */
+X	emptySlots[0] = 0;
+X	emptySlots[1] = 0;
+X
+X	/*
+X	 * The internal memory used by the allocator is currently
+X	 * inaccessable, so that errant programs won't scrawl on the
+X	 * allocator's arena. I'll un-protect it here so that I can make
+X	 * a new allocation. I'll re-protect it before I return.
+X 	 */
+X	if ( !noAllocationListProtection )
+X		Page_AllowAccess(allocationList, allocationListSize);
+X
+X	/*
+X	 * If I'm running out of empty slots, create some more before
+X	 * I don't have enough slots left to make an allocation.
+X	 */
+X	if ( !internalUse && unUsedSlots < 7 ) {
+X		allocateMoreSlots();
+X	}
+X	
+X	/*
+X	 * Iterate through all of the slot structures. Attempt to find a slot
+X	 * containing free memory of the exact right size. Accept a slot with
+X	 * more memory than we want, if the exact right size is not available.
+X	 * Find two slot structures that are not in use. We will need one if
+X	 * we split a buffer into free and allocated parts, and the second if
+X	 * we have to create new memory and mark it as free.
+X	 *
+X	 */
+X	
+X	for ( slot = allocationList, count = slotCount ; count > 0; count-- ) {
+X		if ( slot->mode == FREE
+X		 && slot->internalSize >= internalSize ) {
+X			if ( !fullSlot
+X			 ||slot->internalSize < fullSlot->internalSize){
+X				fullSlot = slot;
+X				if ( slot->internalSize == internalSize
+X				 && emptySlots[0] )
+X					break;	/* All done, */
+X			}
+X		}
+X		else if ( slot->mode == NOT_IN_USE ) {
+X			if ( !emptySlots[0] )
+X				emptySlots[0] = slot;
+X			else if ( !emptySlots[1] )
+X				emptySlots[1] = slot;
+X			else if ( fullSlot
+X			 && fullSlot->internalSize == internalSize )
+X				break;	/* All done. */
+X		}
+X		slot++;
+X	}
+X	if ( !emptySlots[0] )
+X		internalError();
+X
+X	if ( !fullSlot ) {
+X		/*
+X		 * I get here if I haven't been able to find a free buffer
+X		 * with all of the memory I need. I'll have to create more
+X		 * memory. I'll mark it all as free, and then split it into
+X		 * free and allocated portions later.
+X		 */
+X		size_t	chunkSize = MEMORY_CREATION_SIZE;
+X
+X		if ( !emptySlots[1] )
+X			internalError();
+X
+X		if ( chunkSize < internalSize )
+X			chunkSize = internalSize;
+X
+X		if ( (slack = chunkSize % bytesPerPage) != 0 )
+X			chunkSize += bytesPerPage - slack;
+X
+X		/* Use up one of the empty slots to make the full slot. */
+X		fullSlot = emptySlots[0];
+X		emptySlots[0] = emptySlots[1];
+X		fullSlot->internalAddress = Page_Create(chunkSize);
+X		fullSlot->internalSize = chunkSize;
+X		fullSlot->mode = FREE;
+X		unUsedSlots--;
+X	}
+X
+X	/*
+X	 * If I'm allocating memory for the allocator's own data structures,
+X	 * mark it INTERNAL_USE so that no errant software will be able to
+X	 * free it.
+X	 */
+X	if ( internalUse )
+X		fullSlot->mode = INTERNAL_USE;
+X	else
+X		fullSlot->mode = ALLOCATED;
+X
+X	/*
+X	 * If the buffer I've found is larger than I need, split it into
+X	 * an allocated buffer with the exact amount of memory I need, and
+X	 * a free buffer containing the surplus memory.
+X	 */
+X	if ( fullSlot->internalSize > internalSize ) {
+X		emptySlots[0]->internalSize
+X		 = fullSlot->internalSize - internalSize;
+X		emptySlots[0]->internalAddress
+X		 = ((char *)fullSlot->internalAddress) + internalSize;
+X		emptySlots[0]->mode = FREE;
+X		fullSlot->internalSize = internalSize;
+X		unUsedSlots--;
+X	}
+X
+X	if ( !EF_PROTECT_BELOW ) {
+X		/*
+X		 * Arrange the buffer so that it is followed by an inaccessable
+X		 * memory page. A buffer overrun that touches that page will
+X		 * cause a segmentation fault.
+X		 */
+X		address = (char *)fullSlot->internalAddress;
+X
+X		/* Set up the "live" page. */
+X		if ( internalSize - bytesPerPage > 0 )
+X				Page_AllowAccess(
+X				 fullSlot->internalAddress
+X				,internalSize - bytesPerPage);
+X			
+X		address += internalSize - bytesPerPage;
+X
+X		/* Set up the "dead" page. */
+X		Page_DenyAccess(address, bytesPerPage);
+X
+X		/* Figure out what address to give the user. */
+X		address -= userSize;
+X	}
+X	else {	/* EF_PROTECT_BELOW != 0 */
+X		/*
+X		 * Arrange the buffer so that it is preceded by an inaccessable
+X		 * memory page. A buffer underrun that touches that page will
+X		 * cause a segmentation fault.
+X		 */
+X		address = (char *)fullSlot->internalAddress;
+X
+X		/* Set up the "dead" page. */
+X		Page_DenyAccess(address, bytesPerPage);
+X			
+X		address += bytesPerPage;
+X
+X		/* Set up the "live" page. */
+X		if ( internalSize - bytesPerPage > 0 )
+X			Page_AllowAccess(address, internalSize - bytesPerPage);
+X	}
+X
+X	fullSlot->userAddress = address;
+X	fullSlot->userSize = userSize;
+X
+X	/*
+X	 * Make the pool's internal memory inaccessable, so that the program
+X	 * being debugged can't stomp on it.
+X	 */
+X	if ( !internalUse )
+X		Page_DenyAccess(allocationList, allocationListSize);
+X
+X	return address;
+X}
+X
+X/*
+X * Find the slot structure for a user address.
+X */
+Xstatic Slot *
+XslotForUserAddress(void * address)
+X{
+X	register Slot *	slot = allocationList;
+X	register size_t	count = slotCount;
+X	
+X	for ( ; count > 0; count-- ) {
+X		if ( slot->userAddress == address )
+X			return slot;
+X		slot++;
+X	}
+X
+X	return 0;
+X}
+X
+X/*
+X * Find the slot structure for an internal address.
+X */
+Xstatic Slot *
+XslotForInternalAddress(void * address)
+X{
+X	register Slot *	slot = allocationList;
+X	register size_t	count = slotCount;
+X	
+X	for ( ; count > 0; count-- ) {
+X		if ( slot->internalAddress == address )
+X			return slot;
+X		slot++;
+X	}
+X	return 0;
+X}
+X
+X/*
+X * Given the internal address of a buffer, find the buffer immediately
+X * before that buffer in the address space. This is used by free() to
+X * coalesce two free buffers into one.
+X */
+Xstatic Slot *
+XslotForInternalAddressPreviousTo(void * address)
+X{
+X	register Slot *	slot = allocationList;
+X	register size_t	count = slotCount;
+X	
+X	for ( ; count > 0; count-- ) {
+X		if ( ((char *)slot->internalAddress)
+X		 + slot->internalSize == address )
+X			return slot;
+X		slot++;
+X	}
+X	return 0;
+X}
+X
+Xextern C_LINKAGE void
+Xfree(void * address)
+X{
+X	Slot *	slot;
+X	Slot *	previousSlot = 0;
+X	Slot *	nextSlot = 0;
+X
+X	if ( address == 0 )
+X		return;
+X
+X	if ( allocationList == 0 )
+X		EF_Abort("free() called before first malloc().");
+X
+X	if ( !noAllocationListProtection )
+X		Page_AllowAccess(allocationList, allocationListSize);
+X
+X	slot = slotForUserAddress(address);
+X
+X	if ( !slot )
+X		EF_Abort("free(%a): address not from malloc().", address);
+X
+X	if ( slot->mode != ALLOCATED ) {
+X		if ( internalUse && slot->mode == INTERNAL_USE )
+X			/* Do nothing. */;
+X		else {
+X			EF_Abort(
+X			 "free(%a): freeing free memory."
+X			,address);
+X		}
+X	}
+X
+X	if ( EF_PROTECT_FREE )
+X		slot->mode = PROTECTED;
+X	else
+X		slot->mode = FREE;
+X
+X	previousSlot = slotForInternalAddressPreviousTo(slot->internalAddress);
+X	nextSlot = slotForInternalAddress(
+X	 ((char *)slot->internalAddress) + slot->internalSize);
+X
+X	if ( previousSlot
+X	 && (previousSlot->mode == FREE || previousSlot->mode == PROTECTED) ) {
+X		/* Coalesce previous slot with this one. */
+X		previousSlot->internalSize += slot->internalSize;
+X		if ( EF_PROTECT_FREE )
+X			previousSlot->mode = PROTECTED;
+X
+X		slot->internalAddress = slot->userAddress = 0;
+X		slot->internalSize = slot->userSize = 0;
+X		slot->mode = NOT_IN_USE;
+X		slot = previousSlot;
+X		unUsedSlots++;
+X	}
+X	if ( nextSlot
+X	 && (nextSlot->mode == FREE || nextSlot->mode == PROTECTED) ) {
+X		/* Coalesce next slot with this one. */
+X		slot->internalSize += nextSlot->internalSize;
+X		nextSlot->internalAddress = nextSlot->userAddress = 0;
+X		nextSlot->internalSize = nextSlot->userSize = 0;
+X		nextSlot->mode = NOT_IN_USE;
+X		unUsedSlots++;
+X	}
+X
+X	slot->userAddress = slot->internalAddress;
+X	slot->userSize = slot->internalSize;
+X
+X	/*
+X	 * Free memory is _always_ set to deny access. When EF_PROTECT_FREE
+X	 * is true, free memory is never reallocated, so it remains access
+X	 * denied for the life of the process. When EF_PROTECT_FREE is false, 
+X	 * the memory may be re-allocated, at which time access to it will be
+X	 * allowed again.
+X	 */
+X	Page_DenyAccess(slot->internalAddress, slot->internalSize);
+X
+X	if ( !noAllocationListProtection )
+X		Page_DenyAccess(allocationList, allocationListSize);
+X}
+X
+Xextern C_LINKAGE void *
+Xrealloc(void * oldBuffer, size_t newSize)
+X{
+X	void *	newBuffer = malloc(newSize);
+X
+X	if ( oldBuffer ) {
+X		size_t	size;
+X		Slot *	slot;
+X
+X		Page_AllowAccess(allocationList, allocationListSize);
+X		noAllocationListProtection = 1;
+X		
+X		slot = slotForUserAddress(oldBuffer);
+X
+X		if ( slot == 0 )
+X			EF_Abort(
+X			 "realloc(%a, %d): address not from malloc()."
+X			,oldBuffer
+X			,newSize);
+X
+X		if ( newSize < (size = slot->userSize) )
+X			size = newSize;
+X
+X		if ( size > 0 )
+X			memcpy(newBuffer, oldBuffer, size);
+X
+X		free(oldBuffer);
+X		noAllocationListProtection = 0;
+X		Page_DenyAccess(allocationList, allocationListSize);
+X
+X		if ( size < newSize )
+X			memset(&(((char *)newBuffer)[size]), 0, newSize - size);
+X		
+X		/* Internal memory was re-protected in free() */
+X	}
+X
+X	return newBuffer;
+X}
+X
+Xextern C_LINKAGE void *
+Xmalloc(size_t size)
+X{
+X	if ( allocationList == 0 )
+X		initialize();	/* This sets EF_ALIGNMENT */
+X
+X	return memalign(EF_ALIGNMENT, size);
+X}
+X
+Xextern C_LINKAGE void *
+Xcalloc(size_t nelem, size_t elsize)
+X{
+X	size_t	size = nelem * elsize;
+X	void *	allocation = malloc(size);
+X
+X	memset(allocation, 0, size);
+X	return allocation;
+X}
+X
+X/*
+X * This will catch more bugs if you remove the page alignment, but it
+X * will break some software.
+X */
+Xextern C_LINKAGE void *
+Xvalloc (size_t size)
+X{
+X	return memalign(bytesPerPage, size);
+X}
+END-of-efence.c
+echo x - page.c
+sed 's/^X//' >page.c << 'END-of-page.c'
+X#include "efence.h"
+X#include <stdlib.h>
+X#include <unistd.h>
+X#include <fcntl.h>
+X#include <sys/mman.h>
+X#include <stdio.h>
+X#include <errno.h>
+X#include <string.h>
+X
+X/*
+X * Lots of systems are missing the definition of PROT_NONE.
+X */
+X#ifndef	PROT_NONE
+X#define	PROT_NONE	0
+X#endif
+X
+X/*
+X * 386 BSD has MAP_ANON instead of MAP_ANONYMOUS.
+X */
+X#if ( !defined(MAP_ANONYMOUS) && defined(MAP_ANON) )
+X#define	MAP_ANONYMOUS	MAP_ANON
+X#endif
+X
+X/*
+X * For some reason, I can't find mprotect() in any of the headers on
+X * IRIX or SunOS 4.1.2
+X */
+X/* extern C_LINKAGE int mprotect(void * addr, size_t len, int prot); */
+X
+Xstatic caddr_t	startAddr = (caddr_t) 0;
+X
+X#if ( !defined(sgi) && !defined(_AIX) )
+Xextern int	sys_nerr;
+Xextern char *	sys_errlist[];
+X#endif
+X
+Xstatic const char *
+XstringErrorReport(void)
+X{
+X#if ( defined(sgi) )
+X	return strerror(oserror());
+X#elif ( defined(_AIX) )
+X	return strerror(errno);
+X#else
+X	if ( errno > 0 && errno < sys_nerr )
+X		return sys_errlist[errno];
+X	else
+X		return "Unknown error.\n";
+X#endif
+X}
+X
+X/*
+X * Create memory.
+X */
+X#if defined(MAP_ANONYMOUS)
+Xvoid *
+XPage_Create(size_t size)
+X{
+X	caddr_t		allocation;
+X
+X	/*
+X	 * In this version, "startAddr" is a _hint_, not a demand.
+X	 * When the memory I map here is contiguous with other
+X	 * mappings, the allocator can coalesce the memory from two
+X	 * or more mappings into one large contiguous chunk, and thus
+X	 * might be able to find a fit that would not otherwise have
+X	 * been possible. I could _force_ it to be contiguous by using
+X	 * the MMAP_FIXED flag, but I don't want to stomp on memory mappings
+X	 * generated by other software, etc.
+X	 */
+X	allocation = (caddr_t) mmap(
+X	 startAddr
+X	,(int)size
+X	,PROT_READ|PROT_WRITE
+X	,MAP_PRIVATE|MAP_ANONYMOUS
+X	,-1
+X	,0);
+X
+X#ifndef	__hpux
+X	/*
+X	 * Set the "address hint" for the next mmap() so that it will abut
+X	 * the mapping we just created.
+X	 *
+X	 * HP/UX 9.01 has a kernel bug that makes mmap() fail sometimes
+X	 * when given a non-zero address hint, so we'll leave the hint set
+X	 * to zero on that system. HP recently told me this is now fixed.
+X	 * Someone please tell me when it is probable to assume that most
+X	 * of those systems that were running 9.01 have been upgraded.
+X	 */
+X	startAddr = allocation + size;
+X#endif
+X
+X	if ( allocation == (caddr_t)-1 )
+X		EF_Exit("mmap() failed: %s", stringErrorReport());
+X
+X	return (void *)allocation;
+X}
+X#else
+Xvoid *
+XPage_Create(size_t size)
+X{
+X	static int	devZeroFd = -1;
+X	caddr_t		allocation;
+X
+X	if ( devZeroFd == -1 ) {
+X		devZeroFd = open("/dev/zero", O_RDWR);
+X		if ( devZeroFd < 0 )
+X			EF_Exit(
+X			 "open() on /dev/zero failed: %s"
+X			,stringErrorReport());
+X	}
+X
+X	/*
+X	 * In this version, "startAddr" is a _hint_, not a demand.
+X	 * When the memory I map here is contiguous with other
+X	 * mappings, the allocator can coalesce the memory from two
+X	 * or more mappings into one large contiguous chunk, and thus
+X	 * might be able to find a fit that would not otherwise have
+X	 * been possible. I could _force_ it to be contiguous by using
+X	 * the MMAP_FIXED flag, but I don't want to stomp on memory mappings
+X	 * generated by other software, etc.
+X	 */
+X	allocation = (caddr_t) mmap(
+X	 startAddr
+X	,(int)size
+X	,PROT_READ|PROT_WRITE
+X	,MAP_PRIVATE
+X	,devZeroFd
+X	,0);
+X
+X	startAddr = allocation + size;
+X
+X	if ( allocation == (caddr_t)-1 )
+X		EF_Exit("mmap() failed: %s", stringErrorReport());
+X
+X	return (void *)allocation;
+X}
+X#endif
+X
+Xstatic void
+XmprotectFailed(void)
+X{
+X	EF_Exit("mprotect() failed: %s", stringErrorReport());
+X}
+X
+Xvoid
+XPage_AllowAccess(void * address, size_t size)
+X{
+X	if ( mprotect((caddr_t)address, size, PROT_READ|PROT_WRITE) < 0 )
+X		mprotectFailed();
+X}
+X
+Xvoid
+XPage_DenyAccess(void * address, size_t size)
+X{
+X	if ( mprotect((caddr_t)address, size, PROT_NONE) < 0 )
+X		mprotectFailed();
+X}
+X
+Xvoid
+XPage_Delete(void * address, size_t size)
+X{
+X	Page_DenyAccess(address, size);
+X}
+X
+X#if defined(_SC_PAGESIZE)
+Xsize_t
+XPage_Size(void)
+X{
+X	return (size_t)sysconf(_SC_PAGESIZE);
+X}
+X#elif defined(_SC_PAGE_SIZE)
+Xsize_t
+XPage_Size(void)
+X{
+X	return (size_t)sysconf(_SC_PAGE_SIZE);
+X}
+X#else
+X/* extern int	getpagesize(); */
+Xsize_t
+XPage_Size(void)
+X{
+X	return getpagesize();
+X}
+X#endif
+END-of-page.c
+echo x - print.c
+sed 's/^X//' >print.c << 'END-of-print.c'
+X#include "efence.h"
+X#include <stdlib.h>
+X#include <unistd.h>
+X#include <stdarg.h>
+X#include <string.h>
+X#include <signal.h>
+X
+X/*
+X * These routines do their printing without using stdio. Stdio can't
+X * be used because it calls malloc(). Internal routines of a malloc()
+X * debugger should not re-enter malloc(), so stdio is out.
+X */
+X
+X/*
+X * NUMBER_BUFFER_SIZE is the longest character string that could be needed
+X * to represent an unsigned integer, assuming we might print in base 2.
+X */
+X#define	NUMBER_BUFFER_SIZE	(sizeof(ef_number) * NBBY)
+X
+Xstatic void
+XprintNumber(ef_number number, ef_number base)
+X{
+X	char		buffer[NUMBER_BUFFER_SIZE];
+X	char *		s = &buffer[NUMBER_BUFFER_SIZE];
+X	int		size;
+X	
+X	do {
+X		ef_number	digit;
+X
+X		if ( --s == buffer )
+X			EF_Abort("Internal error printing number.");
+X
+X		digit = number % base;
+X
+X		if ( digit < 10 )
+X			*s = '0' + digit;
+X		else
+X			*s = 'a' + digit - 10;
+X
+X	} while ( (number /= base) > 0 );
+X
+X	size = &buffer[NUMBER_BUFFER_SIZE] - s;
+X
+X	if ( size > 0 )
+X		write(2, s, size);
+X}
+X
+Xstatic void
+Xvprint(const char * pattern, va_list args)
+X{
+X	static const char	bad_pattern[] =
+X	 "\nBad pattern specifier %%%c in EF_Print().\n";
+X	const char *	s = pattern;
+X	char		c;
+X
+X	while ( (c = *s++) != '\0' ) {
+X		if ( c == '%' ) {
+X			c = *s++;
+X			switch ( c ) {
+X			case '%':
+X				(void) write(2, &c, 1);
+X				break;
+X			case 'a':
+X				/*
+X				 * Print an address passed as a void pointer.
+X				 * The type of ef_number must be set so that
+X				 * it is large enough to contain all of the
+X				 * bits of a void pointer.
+X				 */
+X				printNumber(
+X				 (ef_number)va_arg(args, void *)
+X				,0x10);
+X				break;
+X			case 's':
+X				{
+X					const char *	string;
+X					size_t		length;
+X
+X					string = va_arg(args, char *);
+X					length = strlen(string);
+X
+X					(void) write(2, string, length);
+X				}
+X				break;
+X			case 'd':
+X				{
+X					int	n = va_arg(args, int);
+X
+X					if ( n < 0 ) {
+X						char	c = '-';
+X						write(2, &c, 1);
+X						n = -n;
+X					}
+X					printNumber(n, 10);
+X				}
+X				break;
+X			case 'x':
+X				printNumber(va_arg(args, u_int), 0x10);
+X				break;
+X			case 'c':
+X				{
+X					char	c = va_arg(args, char);
+X					
+X					(void) write(2, &c, 1);
+X				}
+X				break;
+X			default:
+X				{
+X					EF_Print(bad_pattern, c);
+X				}
+X		
+X			}
+X		}
+X		else
+X			(void) write(2, &c, 1);
+X	}
+X}
+X
+Xvoid
+XEF_Abort(const char * pattern, ...)
+X{
+X	va_list	args;
+X
+X	va_start(args, pattern);
+X
+X	EF_Print("\nElectricFence Aborting: ");
+X	vprint(pattern, args);
+X	EF_Print("\n");
+X
+X	va_end(args);
+X
+X	/*
+X	 * I use kill(getpid(), SIGILL) instead of abort() because some
+X	 * mis-guided implementations of abort() flush stdio, which can
+X	 * cause malloc() or free() to be called.
+X	 */
+X	kill(getpid(), SIGILL);
+X	/* Just in case something handles SIGILL and returns, exit here. */
+X	_exit(-1);
+X}
+X
+Xvoid
+XEF_Exit(const char * pattern, ...)
+X{
+X	va_list	args;
+X
+X	va_start(args, pattern);
+X
+X	EF_Print("\nElectricFence Exiting: ");
+X	vprint(pattern, args);
+X	EF_Print("\n");
+X
+X	va_end(args);
+X
+X	/*
+X	 * I use _exit() because the regular exit() flushes stdio,
+X	 * which may cause malloc() or free() to be called.
+X	 */
+X	_exit(-1);
+X}
+X
+Xvoid
+XEF_Print(const char * pattern, ...)
+X{
+X	va_list	args;
+X
+X	va_start(args, pattern);
+X	vprint(pattern, args);
+X	va_end(args);
+X}
+END-of-print.c
+echo x - eftest.c
+sed 's/^X//' >eftest.c << 'END-of-eftest.c'
+X#include <stdlib.h>
+X#include <stdio.h>
+X#include <string.h>
+X#include <unistd.h>
+X#include <setjmp.h>
+X#include <signal.h>
+X#include "efence.h"
+X
+X/*
+X * Electric Fence confidence tests.
+X * Make sure all of the various functions of Electric Fence work correctly.
+X */
+X
+X#ifndef	PAGE_PROTECTION_VIOLATED_SIGNAL
+X#define	PAGE_PROTECTION_VIOLATED_SIGNAL	SIGSEGV
+X#endif
+X
+Xstruct diagnostic {
+X	int		(*test)(void);
+X	int		expectedStatus;
+X	const char *	explanation;
+X};
+X
+Xextern int	EF_PROTECT_BELOW;
+Xextern int	EF_ALIGNMENT;
+X
+Xstatic jmp_buf	env;
+X
+X/*
+X * There is still too little standardization of the arguments and return
+X * type of signal handler functions.
+X */
+Xstatic
+Xvoid
+XsegmentationFaultHandler(
+Xint signalNumber
+X#if ( defined(_AIX) )
+X, ...
+X#endif
+X)
+X {
+X	signal(PAGE_PROTECTION_VIOLATED_SIGNAL, SIG_DFL);
+X	longjmp(env, 1);
+X}
+X
+Xstatic int
+XgotSegmentationFault(int (*test)(void))
+X{
+X	if ( setjmp(env) == 0 ) {
+X		int			status;
+X
+X		signal(PAGE_PROTECTION_VIOLATED_SIGNAL
+X		,segmentationFaultHandler);
+X		status = (*test)();
+X		signal(PAGE_PROTECTION_VIOLATED_SIGNAL, SIG_DFL);
+X		return status;
+X	}
+X	else
+X		return 1;
+X}
+X
+Xstatic char *	allocation;
+X/* c is global so that assignments to it won't be optimized out. */
+Xchar	c;
+X
+Xstatic int
+XtestSizes(void)
+X{
+X	/*
+X	 * If ef_number can't hold all of the bits of a void *, have the user
+X	 * add -DUSE_ LONG_LONG to the compiler flags so that ef_number will be
+X	 * declared as "unsigned long long" instead of "unsigned long".
+X	 */
+X	return ( sizeof(ef_number) < sizeof(void *) );
+X}
+X
+Xstatic int
+XallocateMemory(void)
+X{
+X	allocation = (char *)malloc(1);
+X
+X	if ( allocation != 0 )
+X		return 0;
+X	else
+X		return 1;
+X}
+X
+Xstatic int
+XfreeMemory(void)
+X{
+X	free(allocation);
+X	return 0;
+X}
+X
+Xstatic int
+XprotectBelow(void)
+X{
+X	EF_PROTECT_BELOW = 1;
+X	return 0;
+X}
+X
+Xstatic int
+Xread0(void)
+X{
+X	c = *allocation;
+X
+X	return 0;
+X}
+X
+Xstatic int
+Xwrite0(void)
+X{
+X	*allocation = 1;
+X
+X	return 0;
+X}
+X
+Xstatic int
+Xread1(void)
+X{
+X	c = allocation[1];
+X
+X	return 0;
+X}
+X
+Xstatic int
+XreadMinus1(void)
+X{
+X	c = allocation[-1];
+X	return 0;
+X}
+X
+Xstatic struct diagnostic diagnostics[] = {
+X	{
+X		testSizes, 0,
+X		"Please add -DLONG_LONG to the compiler flags and recompile."
+X	},
+X	{
+X		allocateMemory, 0,
+X		"Allocation 1: This test allocates a single byte of memory."
+X	},
+X	{
+X		read0, 0,
+X		"Read valid memory 1: This test reads the allocated memory."
+X	},
+X	{
+X		write0, 0,
+X		"Write valid memory 1: This test writes the allocated memory."
+X	},
+X	{
+X		read1, 1,
+X		"Read overrun: This test reads beyond the end of the buffer."
+X	},
+X	{
+X		freeMemory, 0,
+X		"Free memory: This test frees the allocated memory."
+X	},
+X	{
+X		protectBelow, 0,
+X		"Protect below: This sets Electric Fence to protect\n"
+X		"the lower boundary of a malloc buffer, rather than the\n"
+X		"upper boundary."
+X	},
+X	{
+X		allocateMemory, 0,
+X		"Allocation 2: This allocates memory with the lower boundary"
+X		" protected."
+X	},
+X	{
+X		read0, 0,
+X		"Read valid memory 2: This test reads the allocated memory."
+X	},
+X	{
+X		write0, 0,
+X		"Write valid memory 2: This test writes the allocated memory."
+X	},
+X	{
+X		readMinus1, 1,
+X		"Read underrun: This test reads before the beginning of the"
+X		" buffer."
+X	},
+X	{
+X		0, 0, 0
+X	}
+X};
+X
+Xstatic const char	failedTest[]
+X = "Electric Fence confidence test failed.\n";
+X
+Xstatic const char	newline = '\n';
+X
+Xint
+Xmain(int argc, char * * argv)
+X{
+X	static const struct diagnostic *	diag = diagnostics;
+X	
+X
+X	EF_PROTECT_BELOW = 0;
+X	EF_ALIGNMENT = 0;
+X
+X	while ( diag->explanation != 0 ) {
+X		int	status = gotSegmentationFault(diag->test);
+X
+X		if ( status != diag->expectedStatus ) {
+X			/*
+X			 * Don't use stdio to print here, because stdio
+X			 * uses malloc() and we've just proven that malloc()
+X			 * is broken. Also, use _exit() instead of exit(),
+X			 * because _exit() doesn't flush stdio.
+X			 */
+X			write(2, failedTest, sizeof(failedTest) - 1);
+X			write(2, diag->explanation, strlen(diag->explanation));
+X			write(2, &newline, 1);
+X			_exit(-1);
+X		}
+X		diag++;
+X	}
+X	return 0;
+X}
+END-of-eftest.c
+echo x - tstheap.c
+sed 's/^X//' >tstheap.c << 'END-of-tstheap.c'
+X#include <stdlib.h>
+X#include <stdio.h>
+X#include <math.h>
+X#include <limits.h>
+X#include "efence.h"
+X
+X/*
+X * This is a simple program to exercise the allocator. It allocates and frees
+X * memory in a pseudo-random fashion. It should run silently, using up time
+X * and resources on your system until you stop it or until it has gone
+X * through TEST_DURATION (or the argument) iterations of the loop.
+X */
+X
+Xextern C_LINKAGE double drand48(void); /* For pre-ANSI C systems */
+X
+X#define	POOL_SIZE	1024
+X#define	LARGEST_BUFFER	30000
+X#define	TEST_DURATION	1000000
+X
+Xvoid *	pool[POOL_SIZE];
+X
+X#ifdef	FAKE_DRAND48
+X/*
+X * Add -DFAKE_DRAND48 to your compile flags if your system doesn't
+X * provide drand48().
+X */
+X
+X#ifndef	ULONG_MAX
+X#define	ULONG_MAX	~(1L)
+X#endif
+X
+Xdouble
+Xdrand48(void)
+X{
+X	return (random() / (double)ULONG_MAX);
+X}
+X#endif
+X
+Xint
+Xmain(int argc, char * * argv)
+X{
+X	int	count = 0;
+X	int	duration = TEST_DURATION;
+X
+X	if ( argc >= 2 )
+X		duration = atoi(argv[1]);
+X
+X	for ( ; count < duration; count++ ) {
+X		void * *	element = &pool[(int)(drand48() * POOL_SIZE)];
+X		size_t		size = (size_t)(drand48() * (LARGEST_BUFFER + 1));
+X
+X		if ( *element ) {
+X			free( *element );
+X			*element = 0;
+X		}
+X		else if ( size > 0 ) {
+X			*element = malloc(size);
+X		}
+X	}
+X	return 0;
+X}
+END-of-tstheap.c
+echo x - CHANGES
+sed 's/^X//' >CHANGES << 'END-of-CHANGES'
+X2.1	Remove work-arounds, most operating systems and C libraries have
+X	been fixed now.
+X
+X2.0.1
+X	Add work-arounds for kernel and library bugs under HP-UX.	
+X	HP has been notified and will repair these soon.
+X
+X2.0.2
+X	Add support for DEC Alpha. Add %a pattern for printing addresses, which
+X	assumes they are passed in a void *.
+X
+X2.0.3 30-Sep-1993
+X	When realloc is passed a zero address, it should work the same
+X	way as malloc(). Fix forward declaration of mprotect() in page.c to
+X	use void *, not caddr_t, for addresses. IRIX 5.0.1 complained about that.
+X
+X2.0.4 29-May-1994
+X	Don't attempt to allow access to a zero-sized page when
+X	EF_ALLOW_MALLOC_0 is set. Attempt to un-map memory from
+X	Page_Delete(). If that doesn't work, fall back by protecting the
+X	page from all references. Un-mapping small segments of a mapping
+X	used to crash my SGI IRIX 5.0 system. I assume that nobody is running
+X	5.0 any longer.
+X
+X2.0.5 20-January-1995
+X	Port to Linux.
+END-of-CHANGES
+echo x - COPYING
+sed 's/^X//' >COPYING << 'END-of-COPYING'
+X		    GNU GENERAL PUBLIC LICENSE
+X		       Version 2, June 1991
+X
+X Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+X                          675 Mass Ave, Cambridge, MA 02139, USA
+X Everyone is permitted to copy and distribute verbatim copies
+X of this license document, but changing it is not allowed.
+X
+X			    Preamble
+X
+X  The licenses for most software are designed to take away your
+Xfreedom to share and change it.  By contrast, the GNU General Public
+XLicense is intended to guarantee your freedom to share and change free
+Xsoftware--to make sure the software is free for all its users.  This
+XGeneral Public License applies to most of the Free Software
+XFoundation's software and to any other program whose authors commit to
+Xusing it.  (Some other Free Software Foundation software is covered by
+Xthe GNU Library General Public License instead.)  You can apply it to
+Xyour programs, too.
+X
+X  When we speak of free software, we are referring to freedom, not
+Xprice.  Our General Public Licenses are designed to make sure that you
+Xhave the freedom to distribute copies of free software (and charge for
+Xthis service if you wish), that you receive source code or can get it
+Xif you want it, that you can change the software or use pieces of it
+Xin new free programs; and that you know you can do these things.
+X
+X  To protect your rights, we need to make restrictions that forbid
+Xanyone to deny you these rights or to ask you to surrender the rights.
+XThese restrictions translate to certain responsibilities for you if you
+Xdistribute copies of the software, or if you modify it.
+X
+X  For example, if you distribute copies of such a program, whether
+Xgratis or for a fee, you must give the recipients all the rights that
+Xyou have.  You must make sure that they, too, receive or can get the
+Xsource code.  And you must show them these terms so they know their
+Xrights.
+X
+X  We protect your rights with two steps: (1) copyright the software, and
+X(2) offer you this license which gives you legal permission to copy,
+Xdistribute and/or modify the software.
+X
+X  Also, for each author's protection and ours, we want to make certain
+Xthat everyone understands that there is no warranty for this free
+Xsoftware.  If the software is modified by someone else and passed on, we
+Xwant its recipients to know that what they have is not the original, so
+Xthat any problems introduced by others will not reflect on the original
+Xauthors' reputations.
+X
+X  Finally, any free program is threatened constantly by software
+Xpatents.  We wish to avoid the danger that redistributors of a free
+Xprogram will individually obtain patent licenses, in effect making the
+Xprogram proprietary.  To prevent this, we have made it clear that any
+Xpatent must be licensed for everyone's free use or not licensed at all.
+X
+X  The precise terms and conditions for copying, distribution and
+Xmodification follow.
+X
+X		    GNU GENERAL PUBLIC LICENSE
+X   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+X
+X  0. This License applies to any program or other work which contains
+Xa notice placed by the copyright holder saying it may be distributed
+Xunder the terms of this General Public License.  The "Program", below,
+Xrefers to any such program or work, and a "work based on the Program"
+Xmeans either the Program or any derivative work under copyright law:
+Xthat is to say, a work containing the Program or a portion of it,
+Xeither verbatim or with modifications and/or translated into another
+Xlanguage.  (Hereinafter, translation is included without limitation in
+Xthe term "modification".)  Each licensee is addressed as "you".
+X
+XActivities other than copying, distribution and modification are not
+Xcovered by this License; they are outside its scope.  The act of
+Xrunning the Program is not restricted, and the output from the Program
+Xis covered only if its contents constitute a work based on the
+XProgram (independent of having been made by running the Program).
+XWhether that is true depends on what the Program does.
+X
+X  1. You may copy and distribute verbatim copies of the Program's
+Xsource code as you receive it, in any medium, provided that you
+Xconspicuously and appropriately publish on each copy an appropriate
+Xcopyright notice and disclaimer of warranty; keep intact all the
+Xnotices that refer to this License and to the absence of any warranty;
+Xand give any other recipients of the Program a copy of this License
+Xalong with the Program.
+X
+XYou may charge a fee for the physical act of transferring a copy, and
+Xyou may at your option offer warranty protection in exchange for a fee.
+X
+X  2. You may modify your copy or copies of the Program or any portion
+Xof it, thus forming a work based on the Program, and copy and
+Xdistribute such modifications or work under the terms of Section 1
+Xabove, provided that you also meet all of these conditions:
+X
+X    a) You must cause the modified files to carry prominent notices
+X    stating that you changed the files and the date of any change.
+X
+X    b) You must cause any work that you distribute or publish, that in
+X    whole or in part contains or is derived from the Program or any
+X    part thereof, to be licensed as a whole at no charge to all third
+X    parties under the terms of this License.
+X
+X    c) If the modified program normally reads commands interactively
+X    when run, you must cause it, when started running for such
+X    interactive use in the most ordinary way, to print or display an
+X    announcement including an appropriate copyright notice and a
+X    notice that there is no warranty (or else, saying that you provide
+X    a warranty) and that users may redistribute the program under
+X    these conditions, and telling the user how to view a copy of this
+X    License.  (Exception: if the Program itself is interactive but
+X    does not normally print such an announcement, your work based on
+X    the Program is not required to print an announcement.)
+X
+XThese requirements apply to the modified work as a whole.  If
+Xidentifiable sections of that work are not derived from the Program,
+Xand can be reasonably considered independent and separate works in
+Xthemselves, then this License, and its terms, do not apply to those
+Xsections when you distribute them as separate works.  But when you
+Xdistribute the same sections as part of a whole which is a work based
+Xon the Program, the distribution of the whole must be on the terms of
+Xthis License, whose permissions for other licensees extend to the
+Xentire whole, and thus to each and every part regardless of who wrote it.
+X
+XThus, it is not the intent of this section to claim rights or contest
+Xyour rights to work written entirely by you; rather, the intent is to
+Xexercise the right to control the distribution of derivative or
+Xcollective works based on the Program.
+X
+XIn addition, mere aggregation of another work not based on the Program
+Xwith the Program (or with a work based on the Program) on a volume of
+Xa storage or distribution medium does not bring the other work under
+Xthe scope of this License.
+X
+X  3. You may copy and distribute the Program (or a work based on it,
+Xunder Section 2) in object code or executable form under the terms of
+XSections 1 and 2 above provided that you also do one of the following:
+X
+X    a) Accompany it with the complete corresponding machine-readable
+X    source code, which must be distributed under the terms of Sections
+X    1 and 2 above on a medium customarily used for software interchange; or,
+X
+X    b) Accompany it with a written offer, valid for at least three
+X    years, to give any third party, for a charge no more than your
+X    cost of physically performing source distribution, a complete
+X    machine-readable copy of the corresponding source code, to be
+X    distributed under the terms of Sections 1 and 2 above on a medium
+X    customarily used for software interchange; or,
+X
+X    c) Accompany it with the information you received as to the offer
+X    to distribute corresponding source code.  (This alternative is
+X    allowed only for noncommercial distribution and only if you
+X    received the program in object code or executable form with such
+X    an offer, in accord with Subsection b above.)
+X
+XThe source code for a work means the preferred form of the work for
+Xmaking modifications to it.  For an executable work, complete source
+Xcode means all the source code for all modules it contains, plus any
+Xassociated interface definition files, plus the scripts used to
+Xcontrol compilation and installation of the executable.  However, as a
+Xspecial exception, the source code distributed need not include
+Xanything that is normally distributed (in either source or binary
+Xform) with the major components (compiler, kernel, and so on) of the
+Xoperating system on which the executable runs, unless that component
+Xitself accompanies the executable.
+X
+XIf distribution of executable or object code is made by offering
+Xaccess to copy from a designated place, then offering equivalent
+Xaccess to copy the source code from the same place counts as
+Xdistribution of the source code, even though third parties are not
+Xcompelled to copy the source along with the object code.
+X
+X  4. You may not copy, modify, sublicense, or distribute the Program
+Xexcept as expressly provided under this License.  Any attempt
+Xotherwise to copy, modify, sublicense or distribute the Program is
+Xvoid, and will automatically terminate your rights under this License.
+XHowever, parties who have received copies, or rights, from you under
+Xthis License will not have their licenses terminated so long as such
+Xparties remain in full compliance.
+X
+X  5. You are not required to accept this License, since you have not
+Xsigned it.  However, nothing else grants you permission to modify or
+Xdistribute the Program or its derivative works.  These actions are
+Xprohibited by law if you do not accept this License.  Therefore, by
+Xmodifying or distributing the Program (or any work based on the
+XProgram), you indicate your acceptance of this License to do so, and
+Xall its terms and conditions for copying, distributing or modifying
+Xthe Program or works based on it.
+X
+X  6. Each time you redistribute the Program (or any work based on the
+XProgram), the recipient automatically receives a license from the
+Xoriginal licensor to copy, distribute or modify the Program subject to
+Xthese terms and conditions.  You may not impose any further
+Xrestrictions on the recipients' exercise of the rights granted herein.
+XYou are not responsible for enforcing compliance by third parties to
+Xthis License.
+X
+X  7. If, as a consequence of a court judgment or allegation of patent
+Xinfringement or for any other reason (not limited to patent issues),
+Xconditions are imposed on you (whether by court order, agreement or
+Xotherwise) that contradict the conditions of this License, they do not
+Xexcuse you from the conditions of this License.  If you cannot
+Xdistribute so as to satisfy simultaneously your obligations under this
+XLicense and any other pertinent obligations, then as a consequence you
+Xmay not distribute the Program at all.  For example, if a patent
+Xlicense would not permit royalty-free redistribution of the Program by
+Xall those who receive copies directly or indirectly through you, then
+Xthe only way you could satisfy both it and this License would be to
+Xrefrain entirely from distribution of the Program.
+X
+XIf any portion of this section is held invalid or unenforceable under
+Xany particular circumstance, the balance of the section is intended to
+Xapply and the section as a whole is intended to apply in other
+Xcircumstances.
+X
+XIt is not the purpose of this section to induce you to infringe any
+Xpatents or other property right claims or to contest validity of any
+Xsuch claims; this section has the sole purpose of protecting the
+Xintegrity of the free software distribution system, which is
+Ximplemented by public license practices.  Many people have made
+Xgenerous contributions to the wide range of software distributed
+Xthrough that system in reliance on consistent application of that
+Xsystem; it is up to the author/donor to decide if he or she is willing
+Xto distribute software through any other system and a licensee cannot
+Ximpose that choice.
+X
+XThis section is intended to make thoroughly clear what is believed to
+Xbe a consequence of the rest of this License.
+X
+X  8. If the distribution and/or use of the Program is restricted in
+Xcertain countries either by patents or by copyrighted interfaces, the
+Xoriginal copyright holder who places the Program under this License
+Xmay add an explicit geographical distribution limitation excluding
+Xthose countries, so that distribution is permitted only in or among
+Xcountries not thus excluded.  In such case, this License incorporates
+Xthe limitation as if written in the body of this License.
+X
+X  9. The Free Software Foundation may publish revised and/or new versions
+Xof the General Public License from time to time.  Such new versions will
+Xbe similar in spirit to the present version, but may differ in detail to
+Xaddress new problems or concerns.
+X
+XEach version is given a distinguishing version number.  If the Program
+Xspecifies a version number of this License which applies to it and "any
+Xlater version", you have the option of following the terms and conditions
+Xeither of that version or of any later version published by the Free
+XSoftware Foundation.  If the Program does not specify a version number of
+Xthis License, you may choose any version ever published by the Free Software
+XFoundation.
+X
+X  10. If you wish to incorporate parts of the Program into other free
+Xprograms whose distribution conditions are different, write to the author
+Xto ask for permission.  For software which is copyrighted by the Free
+XSoftware Foundation, write to the Free Software Foundation; we sometimes
+Xmake exceptions for this.  Our decision will be guided by the two goals
+Xof preserving the free status of all derivatives of our free software and
+Xof promoting the sharing and reuse of software generally.
+X
+X			    NO WARRANTY
+X
+X  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+XFOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+XOTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+XPROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+XOR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+XMERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
+XTO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+XPROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+XREPAIR OR CORRECTION.
+X
+X  12. IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+XWILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
+XREDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES,
+XINCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING
+XOUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED
+XTO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY
+XYOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+XPROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+XPOSSIBILITY OF SUCH DAMAGES.
+X
+X		     END OF TERMS AND CONDITIONS
+X
+X	    How to Apply These Terms to Your New Programs
+X
+X  If you develop a new program, and you want it to be of the greatest
+Xpossible use to the public, the best way to achieve this is to make it
+Xfree software which everyone can redistribute and change under these terms.
+X
+X  To do so, attach the following notices to the program.  It is safest
+Xto attach them to the start of each source file to most effectively
+Xconvey the exclusion of warranty; and each file should have at least
+Xthe "copyright" line and a pointer to where the full notice is found.
+X
+X    <one line to give the program's name and a brief idea of what it does.>
+X    Copyright (C) 19yy  <name of author>
+X
+X    This program is free software; you can redistribute it and/or modify
+X    it under the terms of the GNU General Public License as published by
+X    the Free Software Foundation; either version 2 of the License, or
+X    (at your option) any later version.
+X
+X    This program is distributed in the hope that it will be useful,
+X    but WITHOUT ANY WARRANTY; without even the implied warranty of
+X    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+X    GNU General Public License for more details.
+X
+X    You should have received a copy of the GNU General Public License
+X    along with this program; if not, write to the Free Software
+X    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+X
+XAlso add information on how to contact you by electronic and paper mail.
+X
+XIf the program is interactive, make it output a short notice like this
+Xwhen it starts in an interactive mode:
+X
+X    Gnomovision version 69, Copyright (C) 19yy name of author
+X    Gnomovision comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+X    This is free software, and you are welcome to redistribute it
+X    under certain conditions; type `show c' for details.
+X
+XThe hypothetical commands `show w' and `show c' should show the appropriate
+Xparts of the General Public License.  Of course, the commands you use may
+Xbe called something other than `show w' and `show c'; they could even be
+Xmouse-clicks or menu items--whatever suits your program.
+X
+XYou should also get your employer (if you work as a programmer) or your
+Xschool, if any, to sign a "copyright disclaimer" for the program, if
+Xnecessary.  Here is a sample; alter the names:
+X
+X  Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+X  `Gnomovision' (which makes passes at compilers) written by James Hacker.
+X
+X  <signature of Ty Coon>, 1 April 1989
+X  Ty Coon, President of Vice
+X
+XThis General Public License does not permit incorporating your program into
+Xproprietary programs.  If your program is a subroutine library, you may
+Xconsider it more useful to permit linking proprietary applications with the
+Xlibrary.  If this is what you want to do, use the GNU Library General
+XPublic License instead of this License.
+END-of-COPYING
+exit
+

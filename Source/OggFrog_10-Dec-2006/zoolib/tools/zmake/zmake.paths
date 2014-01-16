@@ -1,0 +1,21 @@
+# @(#) $Id: zmake.paths,v 1.7 2006/07/17 18:19:05 agreen Exp $
+
+ZOOLIB_PATHS +=\
+		${ZOOLIB_DIR}/src/asset \
+		${ZOOLIB_DIR}/src/compat \
+		${ZOOLIB_DIR}/src/config \
+		${ZOOLIB_DIR}/src/config_choices \
+		${ZOOLIB_DIR}/src/file \
+		${ZOOLIB_DIR}/src/foundation \
+		${ZOOLIB_DIR}/src/graphics \
+		${ZOOLIB_DIR}/src/net \
+		${ZOOLIB_DIR}/src/platform/beos \
+		${ZOOLIB_DIR}/src/platform/macos \
+		${ZOOLIB_DIR}/src/platform/posix \
+		${ZOOLIB_DIR}/src/platform/win32 \
+		${ZOOLIB_DIR}/src/printing \
+		${ZOOLIB_DIR}/src/stream \
+		${ZOOLIB_DIR}/src/text \
+		${ZOOLIB_DIR}/src/thread \
+		${ZOOLIB_DIR}/src/uicore \
+		${ZOOLIB_DIR}/src/uiextra \

@@ -1,0 +1,163 @@
+name "en"
+	{
+	name "NPainterStd"
+		{
+		name "MonoPatterns" binary "en/MonoPatterns.bmp"
+		name "ColorTable" binary "en/ColorTable.bmp"
+		name "ColorTable256" binary "en/ColorTable256.bmp"
+
+		name "Cursors"
+			{
+			name "PaintBucket"
+				{
+				name "HotSpot" binary { 0002 000F }
+				name "Mono" binary "en/Cursor_PaintBucket_Mono.bmp"
+				name "Mask" binary "en/Cursor_PaintBucket_Mask.bmp"
+				}
+
+			name "CrossHairs"
+				{
+				name "HotSpot" binary { 0008 0008 }
+				name "Mono" binary "en/Cursor_CrossHairs_Mono.bmp"
+				}
+
+			name "Select"
+				{
+				name "HotSpot" binary { 0008 0008 }
+				name "Mono" binary "en/Cursor_Select_Mono.bmp"
+				}
+
+			name "Lasso"
+				{
+				name "HotSpot" binary { 0003 000D }
+				name "Mono" binary "en/Cursor_Lasso_Mono.bmp"
+				}
+
+			name "Dropper"
+				{
+				name "HotSpot" binary { 0001 000F }
+				name "Mono" binary "en/Cursor_Dropper_Mono.bmp"
+				name "Mask" binary "en/Cursor_Dropper_Mask.bmp"
+				}
+
+			name "Eraser"
+				{
+				name "HotSpot" binary { 0008 0008 }
+				name "Mono" binary "en/Cursor_Eraser_Mono.bmp"
+				name "Mask" binary "en/Cursor_Eraser_Mask.bmp"
+				}
+
+			name "PaintBrush"
+				{
+				name "HotSpot" binary { 0000 000F }
+				name "Mono" binary "en/Cursor_PaintBrush_Mono.bmp"
+				name "Mask" binary "en/Cursor_PaintBrush_Mask.bmp"
+				}
+			}
+
+		name "Buttons"
+			{
+			name "Arrow"
+				{
+				name "Color" binary "en/Btn_Arrow_Color.bmp"
+				name "Mask" binary "en/Btn_Arrow_Mask.bmp"
+				}
+
+			name "Text"
+				{
+				name "Color" binary "en/Btn_Text_Color.bmp"
+				name "Mask" binary "en/Btn_Text_Mask.bmp"
+				}
+
+			name "PaintBucket"
+				{
+				name "Color" binary "en/Btn_PaintBucket_Color.bmp"
+				name "Mask" binary "en/Btn_PaintBucket_Mask.bmp"
+				}
+
+			name "PaintBrush"
+				{
+				name "Color" binary "en/Btn_PaintBrush_Color.bmp"
+				name "Mask" binary "en/Btn_PaintBrush_Mask.bmp"
+				}
+
+			name "Rect"
+				{
+				name "Color" binary "en/Btn_Rect_Color.bmp"
+				name "Mask" binary "en/Btn_Rect_Mask.bmp"
+				}
+
+			name "FrameRect"
+				{
+				name "Color" binary "en/Btn_FrameRect_Color.bmp"
+				name "Mask" binary "en/Btn_FrameRect_Mask.bmp"
+				}
+
+			name "Oval"
+				{
+				name "Color" binary "en/Btn_Oval_Color.bmp"
+				name "Mask" binary "en/Btn_Oval_Mask.bmp"
+				}
+
+			name "FrameOval"
+				{
+				name "Color" binary "en/Btn_FrameOval_Color.bmp"
+				name "Mask" binary "en/Btn_FrameOval_Mask.bmp"
+				}
+
+			name "Polygon"
+				{
+				name "Color" binary "en/Btn_Polygon_Color.bmp"
+				name "Mask" binary "en/Btn_Polygon_Mask.bmp"
+				}
+
+			name "FramePoly"
+				{
+				name "Color" binary "en/Btn_FramePoly_Color.bmp"
+				name "Mask" binary "en/Btn_FramePoly_Mask.bmp"
+				}
+
+			name "Freeform"
+				{
+				name "Color" binary "en/Btn_Freeform_Color.bmp"
+				name "Mask" binary "en/Btn_Freeform_Mask.bmp"
+				}
+
+			name "Line"
+				{
+				name "Color" binary "en/Btn_Line_Color.bmp"
+				name "Mask" binary "en/Btn_Line_Mask.bmp"
+				}
+
+			name "Eraser"
+				{
+				name "Color" binary "en/Btn_Eraser_Color.bmp"
+				name "Mask" binary "en/Btn_Eraser_Mask.bmp"
+				}
+
+			name "Select"
+				{
+				name "Color" binary "en/Btn_Select_Color.bmp"
+				name "Mask" binary "en/Btn_Select_Mask.bmp"
+				}
+
+			name "Lasso"
+				{
+				name "Color" binary "en/Btn_Lasso_Color.bmp"
+				name "Mask" binary "en/Btn_Lasso_Mask.bmp"
+				}
+
+			name "Hiliter"
+				{
+				name "Color" binary "en/Btn_Hiliter_Color.bmp"
+				name "Mask" binary "en/Btn_Hiliter_Mask.bmp"
+				}
+
+			name "Dropper"
+				{
+				name "Color" binary "en/Btn_Dropper_Color.bmp"
+				name "Mask" binary "en/Btn_Dropper_Mask.bmp"
+				}
+			}
+		}
+	}

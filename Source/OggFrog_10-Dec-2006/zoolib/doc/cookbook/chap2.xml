@@ -1,0 +1,22 @@
+<chapter id="ZHelloWorld">
+  <title>ZHelloWorld</title>
+  <para>
+    Our first ZooLib application must of course be the proverbial "Hello, World".
+    With ZooLib we display a window with those words, and menu items that 
+    show how to retrieve the text from a resource file, and display a BMP graphic.
+  </para>
+
+&chap2-main;
+&chap2-app;
+&chap2-window;
+
+</chapter>
+
+
+<!--
+Local Variables:
+mode: xml
+sgml-doctype: "cookbook.xml"
+sgml-parent-document: ("cookbook.xml" "book" "chapter")
+End:
+-->

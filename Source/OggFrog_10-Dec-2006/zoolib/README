@@ -1,0 +1,123 @@
+/*  @(#) $Id: README,v 1.4 2003/06/11 14:52:01 agreen Exp $ */
+
+http://www.zoolib.org
+
+ZooLib is a C++ cross platform development library, distributed as
+open source under the MIT license. It encapsulates user interface,
+networking, files and threads, and provides a wide range of
+facilities built using only the portable foundation. ZooLib can
+be used to build entire applications, or subsets can be used to
+augment existing code.
+
+Operating systems explictly supported by ZooLib are
+  * Linux
+  * Windows 9X, NT, 2K, XP etc
+  * MacOS Classic, using InterfaceLib or Carbon APIs
+  * MacOS X, using Carbon APIs
+  * BeOS
+using x86, PPC and 68K processors.
+
+And if your system supports POSIX and X11 then ZooLib will
+likely work for you, and if it doesn't we'll help you fix it.
+
+On a day-to-day basis we use CodeWarrior for MacOS and Windows, and
+gcc 2.95 and above. We've also used Visual C++, but it's not one
+of our regular build tools -- again, problem reports will help us
+to help you.
+
+ZooLib uses the Standard C++ Library, and especially relies on parts
+of the STL. ZooLib does not define many templates itself, but there
+are some places where we require template member function support
+from the compiler.
+
+Use CVS!
+--------
+ZooLib is under active development, primarily in support of
+projects at Learning in Motion and the Ontario Institue for Studies
+in Education at the University of Toronto. Because these live
+projects depend on ZooLib the cvs source is almost never broken.
+Given that it took two and half years between the 0.8.1 and 0.9 releases
+we strongly recommend that you toss the tarball you just downloaded
+and fetch the current source from cvs.
+
+First log into to the repository, hit return when prompted for a password:
+  cvs -d:pserver:anonymous@cvs.zoolib.org:/cvsroot/zoolib login 
+
+Then check out the top-level directory:
+  cvs -z3 -d:pserver:anonymous@cvs.zoolib.org:/cvsroot/zoolib co zoolib
+
+
+To keep up to date with changes we also recommend that you subscribe
+to the CVS checkins mailing list by visiting
+  <http://lists.sourceforge.net/lists/listinfo/zoolib-checkins>
+
+The checkins mailing list's archives are online at
+  <http://sourceforge.net/mailarchive/forum.php?forum=zoolib-checkins>
+
+There's also a discussion list to which you can subscribe by visiting
+  <http://lists.sourceforge.net/lists/listinfo/zoolib-dev>
+
+and whose archives are at
+  <http://sourceforge.net/mailarchive/forum.php?forum=zoolib-dev>
+
+
+Getting started
+---------------
+The source tree is not set up in a 'normal' unix-ish fashion. Instead
+it's organized to make it easy to have a single copy of the source
+on a file server, accessible from multiple build machines via NFS,
+SMB or AppleShare.
+
+ZooLib itself does not require any special build tools, but if you
+wish to make use of ZAssets you'll need to use the ZooLib Asset
+Compiler.
+
+There are pre-built versions of zac for CodeWarrior on MacOS and
+Windows in zoolib/tools/zac/zac-build-cw. The MacOS version (zac.hqx)
+is packaged as a binhex file to preserve its file type/creator and
+resource fork. The windows version (zac.dll) is just a regular dll.
+Put the appropriate one in CodeWarrior's compiler plugins directory.
+
+There's a prebuilt version of zac for x86 Linux in
+zoolib/tools/zac/zac-build-posix. The file is named zac-linux-x86,
+but for use you should ensure its execute bit is set, and that it's
+renamed 'zac' and moved to somewhere on your PATH, so that make
+will be able to find it.
+
+There are two sample applications. ButtonMessage is very minimalist,
+but will at least let you see ZooLib running. PainterTest is a larger
+application that does bitmap painting and demonstrates at least
+one way of handling some more complex issues. We're not super-proud
+of either one, but building samples has taken a distant second place
+to working on the library itself.
+
+
+Getting started on POSIX
+------------------------
+You can simply cd to zoolib/samples/buttonmessage/buttonmessage_build_posix
+and type 'make'. The makefile therein is set up with relative paths
+and will build ButtonMessage in situ.
+
+For your own projects you will likely want to keep your application's
+source, its build directory and ZooLib separate from one another.
+To do so with ButtonMessage, copy
+  zoolib/samples/buttonmessage/buttonmessage_src
+to some location outside of ZooLib. Do the same with
+  zoolib/samples/buttonmessage/buttonmessage_build_posix
+and its contained makefile. Then edit the makefile so that the
+ZOOLIB_DIR variable points to the root of the zoolib tree, and
+the PROJECT_DIR variable points to your copy of buttonmessage_src.
+
+
+Getting started with CodeWarrior
+--------------------------------
+The two sample apps and zac make use of CodeWarrior's source tree
+feature. In "IDE Preferences", go to the "General"/"Source Trees"
+panel and add an entry called "zoolib" that points at wherever
+you've placed your copy of the ZooLib. Next create a folder which
+will contain your application's project file and the assorted data
+that gets created. The sample applications have exported xml project
+files in their respective xxx_build_cw folders. Simply import one of
+them, telling CodeWarrior to put the real project file in your build
+folder. The {zoolib} source tree entry will enable CodeWarrior to
+find both ZooLib and the source for the sample applications.

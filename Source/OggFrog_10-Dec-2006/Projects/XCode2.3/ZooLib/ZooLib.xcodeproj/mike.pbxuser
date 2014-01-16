@@ -1,0 +1,1008 @@
+// !$*UTF8*$!
+{
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeTarget = 279E85D80A5B654C00F8A2C0 /* ZooLib-10.4u */;
+		addToTargets = (
+			27E0DE030A4498D600B4AAA0 /* ZooLib-10.3 */,
+			279E85D80A5B654C00F8A2C0 /* ZooLib-10.4u */,
+		);
+		breakpoints = (
+		);
+		breakpointsGroup = 27E0E05F0A44AD9600B4AAA0 /* XCBreakpointsBucket */;
+		codeSenseManager = 27E0DA120A44876B00B4AAA0 /* Code sense */;
+		perUserDictionary = {
+			"PBXConfiguration.PBXBreakpointsDataSource.v1:1CA1AED706398EBD00589147" = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBreakpointsDataSource_BreakpointID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					20,
+					210,
+					20,
+					110,
+					109,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBreakpointsDataSource_ActionID,
+					PBXBreakpointsDataSource_TypeID,
+					PBXBreakpointsDataSource_BreakpointID,
+					PBXBreakpointsDataSource_UseID,
+					PBXBreakpointsDataSource_LocationID,
+					PBXBreakpointsDataSource_ConditionID,
+					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					315,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					200,
+					63,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 187509072;
+			PBXWorkspaceStateSaveDate = 187509072;
+		};
+		perUserProjectItems = {
+			276224A80B2D2C2D003AE8A0 /* PBXTextBookmark */ = 276224A80B2D2C2D003AE8A0 /* PBXTextBookmark */;
+			276224AA0B2D2C2D003AE8A0 /* PBXTextBookmark */ = 276224AA0B2D2C2D003AE8A0 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 27E0DA110A44876B00B4AAA0 /* Source Control */;
+		userBookmarkGroup = 272B7B400AF5962600D6B70F /* PBXBookmarkGroup */;
+		userBuildSettings = {
+			OBJROOT = "../../../Arch/mac-os-x";
+			SYMROOT = "../../../Arch/mac-os-x";
+		};
+	};
+	270398C60B0C6777000BD7C8 /* ZUtil_MacOSX.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 1540}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 963}, {781, 577}}";
+			sepNavWindowFrame = "{{15, 167}, {820, 706}}";
+		};
+	};
+	2707B9CC0AFD9EE600F01B24 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 272B7B4E0AF5975C00D6B70F /* ZMenu_Mac.cpp */;
+	};
+	272B7B400AF5962600D6B70F /* PBXBookmarkGroup */ = {
+		isa = PBXBookmarkGroup;
+		children = (
+			272B7C350AF5C36300D6B70F /* PBXBookmark */,
+			2707B9CC0AFD9EE600F01B24 /* PBXBookmark */,
+			276048BA0AFDA71900F76AC9 /* PBXTextBookmark */,
+		);
+		name = Root;
+	};
+	272B7B4D0AF5975C00D6B70F /* ZMenu_Carbon.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1226, 6902}}";
+			sepNavSelRange = "{13253, 27}";
+			sepNavVisRect = "{{0, 5852}, {858, 630}}";
+			sepNavWindowFrame = "{{377, 82}, {897, 759}}";
+		};
+	};
+	272B7B4E0AF5975C00D6B70F /* ZMenu_Mac.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1214, 11802}}";
+			sepNavSelRange = "{242, 0}";
+			sepNavVisRect = "{{0, 0}, {858, 630}}";
+		};
+	};
+	272B7B4F0AF5975C00D6B70F /* ZOSWindow_Mac.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1172, 52920}}";
+			sepNavSelRange = "{67106, 15}";
+			sepNavVisRect = "{{0, 31521}, {758, 616}}";
+			sepNavWindowFrame = "{{412, 103}, {797, 745}}";
+		};
+	};
+	272B7C350AF5C36300D6B70F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 27E0DACA0A448A7D00B4AAA0 /* ZDebug_Mac.cpp */;
+	};
+	276048BA0AFDA71900F76AC9 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 27E0DBC70A448A7D00B4AAA0 /* ZWindow.cpp */;
+		rLen = 19;
+		rLoc = 10904;
+		rType = 0;
+	};
+	276224A80B2D2C2D003AE8A0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: typedef 'gid_t' is initialized (use __typeof__ instead)";
+		fRef = 276224A90B2D2C2D003AE8A0 /* unistd.h */;
+		rLen = 1;
+		rLoc = 77;
+		rType = 1;
+	};
+	276224A90B2D2C2D003AE8A0 /* unistd.h */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = sourcecode.c.h;
+		name = unistd.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/unistd.h;
+		sourceTree = "<absolute>";
+	};
+	276224AA0B2D2C2D003AE8A0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 276224AB0B2D2C2D003AE8A0 /* unistd.h */;
+		name = "typedef __darwin_gid_t\t\tgid_t;";
+		rLen = 31;
+		rLoc = 3359;
+		rType = 0;
+		vrLen = 596;
+		vrLoc = 3012;
+	};
+	276224AB0B2D2C2D003AE8A0 /* unistd.h */ = {
+		isa = PBXFileReference;
+		name = unistd.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/unistd.h;
+		sourceTree = "<absolute>";
+	};
+	279E85D80A5B654C00F8A2C0 /* ZooLib-10.4u */ = {
+		activeExec = 0;
+	};
+	27E0DA110A44876B00B4AAA0 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+		scmType = "";
+	};
+	27E0DA120A44876B00B4AAA0 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	27E0DA250A448A7D00B4AAA0 /* ZASParser.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1109, 12600}}";
+			sepNavSelRange = "{1333, 9}";
+			sepNavVisRect = "{{0, 0}, {1109, 578}}";
+		};
+	};
+	27E0DA260A448A7D00B4AAA0 /* ZASParser.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1109, 2436}}";
+			sepNavSelRange = "{1351, 7}";
+			sepNavVisRect = "{{0, 0}, {1109, 578}}";
+			sepNavWindowFrame = "{{107, 82}, {1148, 707}}";
+		};
+	};
+	27E0DA280A448A7D00B4AAA0 /* ZAsset.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1100, 3906}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {842, 611}}";
+			sepNavWindowFrame = "{{38, 112}, {881, 740}}";
+		};
+	};
+	27E0DA2C0A448A7D00B4AAA0 /* ZAsset_Std.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1316, 4410}}";
+			sepNavSelRange = "{1378, 6}";
+			sepNavVisRect = "{{0, 0}, {842, 611}}";
+		};
+	};
+	27E0DA2D0A448A7D00B4AAA0 /* ZUtil_Asset.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 6986}}";
+			sepNavSelRange = "{5122, 0}";
+			sepNavVisRect = "{{0, 1930}, {1054, 422}}";
+		};
+	};
+	27E0DA370A448A7D00B4AAA0 /* ZCONFIG_API.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{38, 88}, {821, 764}}";
+		};
+	};
+	27E0DA380A448A7D00B4AAA0 /* ZCONFIG_API_Definitions.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DA3B0A448A7D00B4AAA0 /* zconfigd.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 1232}}";
+			sepNavSelRange = "{3183, 18}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DA3C0A448A7D00B4AAA0 /* zconfigl.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {758, 5236}}";
+			sepNavSelRange = "{3708, 0}";
+			sepNavVisRect = "{{0, 678}, {628, 605}}";
+			sepNavWindowFrame = "{{220, 83}, {667, 734}}";
+		};
+	};
+	27E0DA3F0A448A7D00B4AAA0 /* ZCONFIG_API_Choices.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{61, 67}, {821, 764}}";
+		};
+	};
+	27E0DA420A448A7D00B4AAA0 /* ZFile.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 10234}}";
+			sepNavSelRange = "{18933, 0}";
+			sepNavVisRect = "{{0, 9449}, {1040, 589}}";
+			sepNavWindowFrame = "{{61, 113}, {1079, 718}}";
+		};
+	};
+	27E0DA430A448A7D00B4AAA0 /* ZFile.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 8526}}";
+			sepNavSelRange = "{4424, 13}";
+			sepNavVisRect = "{{0, 1729}, {1040, 589}}";
+		};
+	};
+	27E0DA440A448A7D00B4AAA0 /* ZUtil_File.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1109, 6440}}";
+			sepNavSelRange = "{8796, 22}";
+			sepNavVisRect = "{{0, 3876}, {1109, 578}}";
+			sepNavWindowFrame = "{{220, 110}, {1148, 707}}";
+		};
+	};
+	27E0DA450A448A7D00B4AAA0 /* ZUtil_File.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 756}}";
+			sepNavSelRange = "{1375, 16}";
+			sepNavVisRect = "{{0, 0}, {1040, 589}}";
+			sepNavWindowFrame = "{{277, 57}, {1079, 718}}";
+		};
+	};
+	27E0DA470A448A7D00B4AAA0 /* ZAtomic.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 7056}}";
+			sepNavSelRange = "{9791, 33}";
+			sepNavVisRect = "{{0, 6634}, {1054, 422}}";
+		};
+	};
+	27E0DA480A448A7D00B4AAA0 /* ZAtomic.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {842, 7994}}";
+			sepNavSelRange = "{15162, 4}";
+			sepNavVisRect = "{{0, 7248}, {842, 611}}";
+			sepNavWindowFrame = "{{38, 159}, {800, 693}}";
+		};
+	};
+	27E0DA4D0A448A7D00B4AAA0 /* ZDebug.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {814, 2268}}";
+			sepNavSelRange = "{3574, 20}";
+			sepNavVisRect = "{{0, 1462}, {814, 394}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DA4E0A448A7D00B4AAA0 /* ZDebug.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 1540}}";
+			sepNavSelRange = "{3742, 20}";
+			sepNavVisRect = "{{0, 737}, {782, 635}}";
+		};
+	};
+	27E0DA510A448A7D00B4AAA0 /* ZMain.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {842, 4536}}";
+			sepNavSelRange = "{6246, 6}";
+			sepNavVisRect = "{{0, 2572}, {842, 611}}";
+			sepNavWindowFrame = "{{84, 70}, {881, 740}}";
+		};
+	};
+	27E0DA570A448A7D00B4AAA0 /* ZMessage.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1109, 2800}}";
+			sepNavSelRange = "{2965, 22}";
+			sepNavVisRect = "{{0, 852}, {1109, 578}}";
+			sepNavWindowFrame = "{{38, 145}, {1148, 707}}";
+		};
+	};
+	27E0DA580A448A7D00B4AAA0 /* ZMessage.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 2394}}";
+			sepNavSelRange = "{4394, 22}";
+			sepNavVisRect = "{{0, 1748}, {782, 635}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DA620A448A7D00B4AAA0 /* ZRefCount.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 5740}}";
+			sepNavSelRange = "{5289, 9}";
+			sepNavVisRect = "{{0, 1972}, {782, 635}}";
+			sepNavWindowFrame = "{{105, 88}, {821, 764}}";
+		};
+	};
+	27E0DA660A448A7D00B4AAA0 /* ZString.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 1638}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 705}, {782, 635}}";
+			sepNavWindowFrame = "{{127, 29}, {821, 764}}";
+		};
+	};
+	27E0DA670A448A7D00B4AAA0 /* ZTicks.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 966}}";
+			sepNavSelRange = "{1621, 0}";
+			sepNavVisRect = "{{0, 125}, {1054, 422}}";
+		};
+	};
+	27E0DA680A448A7D00B4AAA0 /* ZTicks.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1526}}";
+			sepNavSelRange = "{1572, 0}";
+			sepNavVisRect = "{{0, 230}, {1054, 422}}";
+			sepNavWindowFrame = "{{15, 159}, {761, 714}}";
+		};
+	};
+	27E0DA690A448A7D00B4AAA0 /* ZTime.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 3178}}";
+			sepNavSelRange = "{1628, 0}";
+			sepNavVisRect = "{{0, 178}, {1054, 422}}";
+		};
+	};
+	27E0DA6E0A448A7D00B4AAA0 /* ZTuple.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 25634}}";
+			sepNavSelRange = "{3418, 11}";
+			sepNavVisRect = "{{0, 1246}, {782, 635}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DA800A448A7D00B4AAA0 /* ZDC.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 9156}}";
+			sepNavSelRange = "{4862, 4}";
+			sepNavVisRect = "{{0, 1986}, {782, 635}}";
+			sepNavWindowFrame = "{{346, 57}, {821, 764}}";
+		};
+	};
+	27E0DA830A448A7D00B4AAA0 /* ZDCFont.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 3248}}";
+			sepNavSelRange = "{1542, 0}";
+			sepNavVisRect = "{{0, 244}, {1054, 422}}";
+		};
+	};
+	27E0DA840A448A7D00B4AAA0 /* ZDCFont.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1666}}";
+			sepNavSelRange = "{1545, 0}";
+			sepNavVisRect = "{{0, 244}, {1054, 422}}";
+		};
+	};
+	27E0DA8A0A448A7D00B4AAA0 /* ZDCInk.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 2492}}";
+			sepNavSelRange = "{2419, 5}";
+			sepNavVisRect = "{{0, 530}, {782, 635}}";
+		};
+	};
+	27E0DA9E0A448A7D00B4AAA0 /* ZDCPoly.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 14182}}";
+			sepNavSelRange = "{4056, 0}";
+			sepNavVisRect = "{{0, 902}, {1054, 422}}";
+		};
+	};
+	27E0DAA00A448A7D00B4AAA0 /* ZDCRgn.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 42070}}";
+			sepNavSelRange = "{4130, 11}";
+			sepNavVisRect = "{{0, 1028}, {1054, 422}}";
+			sepNavWindowFrame = "{{130, 87}, {797, 745}}";
+		};
+	};
+	27E0DAA10A448A7D00B4AAA0 /* ZDCRgn.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 4928}}";
+			sepNavSelRange = "{1539, 0}";
+			sepNavVisRect = "{{0, 258}, {1054, 422}}";
+		};
+	};
+	27E0DAA30A448A7D00B4AAA0 /* ZGeom.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 11242}}";
+			sepNavSelRange = "{1672, 0}";
+			sepNavVisRect = "{{0, 258}, {1054, 422}}";
+		};
+	};
+	27E0DAA50A448A7D00B4AAA0 /* ZRGBColor.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 7280}}";
+			sepNavSelRange = "{1507, 0}";
+			sepNavVisRect = "{{0, 230}, {1054, 422}}";
+		};
+	};
+	27E0DAC60A448A7D00B4AAA0 /* ZAsset_MacOS.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 812}}";
+			sepNavSelRange = "{1518, 0}";
+			sepNavVisRect = "{{0, 167}, {1054, 422}}";
+		};
+	};
+	27E0DAC70A448A7D00B4AAA0 /* ZAsset_MacOS.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 812}}";
+			sepNavSelRange = "{1592, 0}";
+			sepNavVisRect = "{{0, 306}, {1054, 422}}";
+			sepNavWindowFrame = "{{15, 133}, {881, 740}}";
+		};
+	};
+	27E0DAC80A448A7D00B4AAA0 /* ZDC_QD.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1118, 35476}}";
+			sepNavSelRange = "{2188, 0}";
+			sepNavVisRect = "{{0, 454}, {1054, 422}}";
+		};
+	};
+	27E0DAC90A448A7D00B4AAA0 /* ZDC_QD.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 4494}}";
+			sepNavSelRange = "{1522, 0}";
+			sepNavVisRect = "{{0, 272}, {1054, 422}}";
+			sepNavWindowFrame = "{{38, 112}, {881, 740}}";
+		};
+	};
+	27E0DACA0A448A7D00B4AAA0 /* ZDebug_Mac.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {836, 2548}}";
+			sepNavSelRange = "{3015, 0}";
+			sepNavVisRect = "{{0, 796}, {782, 635}}";
+			sepNavWindowFrame = "{{211, 68}, {821, 764}}";
+		};
+	};
+	27E0DACB0A448A7D00B4AAA0 /* ZDebug_Mac.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{130, 72}, {821, 764}}";
+		};
+	};
+	27E0DACC0A448A7D00B4AAA0 /* ZFile_MacClassic.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 33880}}";
+			sepNavSelRange = "{13767, 0}";
+			sepNavVisRect = "{{0, 6880}, {1054, 422}}";
+			sepNavWindowFrame = "{{84, 70}, {881, 740}}";
+		};
+	};
+	27E0DACD0A448A7D00B4AAA0 /* ZFile_MacClassic.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 4564}}";
+			sepNavSelRange = "{1864, 0}";
+			sepNavVisRect = "{{0, 371}, {1040, 589}}";
+			sepNavWindowFrame = "{{277, 57}, {1079, 718}}";
+		};
+	};
+	27E0DAD00A448A7D00B4AAA0 /* ZMacOSX.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 2156}}";
+			sepNavSelRange = "{1330, 7}";
+			sepNavVisRect = "{{0, 146}, {1040, 589}}";
+			sepNavWindowFrame = "{{15, 155}, {1079, 718}}";
+		};
+	};
+	27E0DAD10A448A7D00B4AAA0 /* ZMacOSX.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 1036}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 447}, {1040, 589}}";
+			sepNavWindowFrame = "{{15, 155}, {1079, 718}}";
+		};
+	};
+	27E0DAD30A448A7D00B4AAA0 /* ZMenu_Carbon.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 728}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 98}, {858, 630}}";
+		};
+	};
+	27E0DADC0A448A7D00B4AAA0 /* ZNet_Internet_MacOT_OSX.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 12068}}";
+			sepNavSelRange = "{20412, 17}";
+			sepNavVisRect = "{{0, 10478}, {1054, 422}}";
+		};
+	};
+	27E0DADD0A448A7D00B4AAA0 /* ZNet_Internet_MacOT_OSX.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 2324}}";
+			sepNavSelRange = "{1895, 0}";
+			sepNavVisRect = "{{0, 384}, {1054, 422}}";
+		};
+	};
+	27E0DADE0A448A7D00B4AAA0 /* ZOSWindow_Carbon.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1094, 35658}}";
+			sepNavSelRange = "{54273, 0}";
+			sepNavVisRect = "{{0, 24077}, {858, 630}}";
+			sepNavWindowFrame = "{{380, 101}, {897, 759}}";
+		};
+	};
+	27E0DADF0A448A7D00B4AAA0 /* ZOSWindow_Carbon.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 3682}}";
+			sepNavSelRange = "{300, 0}";
+			sepNavVisRect = "{{0, 3076}, {1040, 589}}";
+			sepNavWindowFrame = "{{239, 113}, {1079, 718}}";
+		};
+	};
+	27E0DAE10A448A7D00B4AAA0 /* ZOSWindow_Mac.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {980, 4214}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {758, 616}}";
+		};
+	};
+	27E0DAE60A448A7D00B4AAA0 /* ZStream_Mac.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1470}}";
+			sepNavSelRange = "{1579, 0}";
+			sepNavVisRect = "{{0, 219}, {1054, 422}}";
+		};
+	};
+	27E0DAE70A448A7D00B4AAA0 /* ZStream_Mac.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1204}}";
+			sepNavSelRange = "{1562, 0}";
+			sepNavVisRect = "{{0, 342}, {1054, 422}}";
+		};
+	};
+	27E0DAE80A448A7D00B4AAA0 /* ZStream_MacOSX.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1109, 3262}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {1109, 578}}";
+			sepNavWindowFrame = "{{61, 124}, {1148, 707}}";
+		};
+	};
+	27E0DAE90A448A7D00B4AAA0 /* ZStream_MacOSX.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1708}}";
+			sepNavSelRange = "{1546, 0}";
+			sepNavVisRect = "{{0, 141}, {1054, 422}}";
+		};
+	};
+	27E0DAEC0A448A7D00B4AAA0 /* ZThreadTM.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1082, 18270}}";
+			sepNavSelRange = "{28276, 173}";
+			sepNavVisRect = "{{0, 12634}, {1054, 422}}";
+			sepNavWindowFrame = "{{98, 50}, {1079, 718}}";
+		};
+	};
+	27E0DAED0A448A7D00B4AAA0 /* ZThreadTM.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 3052}}";
+			sepNavSelRange = "{2728, 0}";
+			sepNavVisRect = "{{0, 679}, {1054, 422}}";
+			sepNavWindowFrame = "{{98, 50}, {1079, 718}}";
+		};
+	};
+	27E0DAEE0A448A7D00B4AAA0 /* ZUtil_Mac_HL.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 11956}}";
+			sepNavSelRange = "{1798, 0}";
+			sepNavVisRect = "{{0, 265}, {1054, 422}}";
+		};
+	};
+	27E0DAEF0A448A7D00B4AAA0 /* ZUtil_Mac_HL.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 1414}}";
+			sepNavSelRange = "{1678, 0}";
+			sepNavVisRect = "{{0, 244}, {1054, 422}}";
+		};
+	};
+	27E0DAF00A448A7D00B4AAA0 /* ZUtil_Mac_LL.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 9240}}";
+			sepNavSelRange = "{1556, 0}";
+			sepNavVisRect = "{{0, 286}, {1054, 422}}";
+		};
+	};
+	27E0DAF10A448A7D00B4AAA0 /* ZUtil_Mac_LL.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 3402}}";
+			sepNavSelRange = "{1606, 0}";
+			sepNavVisRect = "{{0, 272}, {1054, 422}}";
+		};
+	};
+	27E0DAF90A448A7D00B4AAA0 /* ZFile_POSIX.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {842, 5404}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 294}, {842, 611}}";
+		};
+	};
+	27E0DB2A0A448A7D00B4AAA0 /* ZStream.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {890, 19068}}";
+			sepNavSelRange = "{17326, 30}";
+			sepNavVisRect = "{{0, 8166}, {890, 552}}";
+		};
+	};
+	27E0DB2B0A448A7D00B4AAA0 /* ZStream.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {890, 9464}}";
+			sepNavSelRange = "{8038, 24}";
+			sepNavVisRect = "{{0, 3511}, {890, 552}}";
+			sepNavWindowFrame = "{{456, 80}, {929, 681}}";
+		};
+	};
+	27E0DB310A448A7D00B4AAA0 /* ZStream_Buffered.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 2772}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 319}, {1040, 589}}";
+		};
+	};
+	27E0DB410A448A7D00B4AAA0 /* ZStream_Memory.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {890, 3318}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 2766}, {890, 552}}";
+		};
+	};
+	27E0DB430A448A7D00B4AAA0 /* ZStream_PageBuffered.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 2254}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 105}, {1040, 589}}";
+		};
+	};
+	27E0DB490A448A7D00B4AAA0 /* ZStream_Tee.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {890, 1624}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 1072}, {890, 552}}";
+			sepNavWindowFrame = "{{38, 171}, {929, 681}}";
+		};
+	};
+	27E0DB4C0A448A7D00B4AAA0 /* ZStreamer.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 9422}}";
+			sepNavSelRange = "{4922, 15}";
+			sepNavVisRect = "{{0, 1063}, {781, 577}}";
+			sepNavWindowFrame = "{{38, 146}, {820, 706}}";
+		};
+	};
+	27E0DB4D0A448A7D00B4AAA0 /* ZStreamer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 12460}}";
+			sepNavSelRange = "{2614, 13}";
+			sepNavVisRect = "{{0, 853}, {781, 577}}";
+			sepNavWindowFrame = "{{18, 168}, {820, 706}}";
+		};
+	};
+	27E0DB610A448A7D00B4AAA0 /* ZStreamRW_MemoryPipe.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {890, 1274}}";
+			sepNavSelRange = "{1408, 7}";
+			sepNavVisRect = "{{0, 0}, {890, 552}}";
+		};
+	};
+	27E0DB980A448A7D00B4AAA0 /* ZThread.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {956, 30828}}";
+			sepNavSelRange = "{35975, 0}";
+			sepNavVisRect = "{{0, 20366}, {842, 611}}";
+			sepNavWindowFrame = "{{385, 93}, {881, 740}}";
+		};
+	};
+	27E0DB990A448A7D00B4AAA0 /* ZThread.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {842, 9660}}";
+			sepNavSelRange = "{14855, 13}";
+			sepNavVisRect = "{{0, 6506}, {842, 611}}";
+			sepNavWindowFrame = "{{655, -21}, {881, 740}}";
+		};
+	};
+	27E0DB9A0A448A7D00B4AAA0 /* ZThreadSimple.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {761, 564}}";
+			sepNavSelRange = "{1340, 13}";
+			sepNavVisRect = "{{0, 0}, {761, 564}}";
+			sepNavWindowFrame = "{{61, 138}, {800, 693}}";
+		};
+	};
+	27E0DB9B0A448A7D00B4AAA0 /* ZThreadSimple.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {761, 854}}";
+			sepNavSelRange = "{1473, 43}";
+			sepNavVisRect = "{{0, 0}, {761, 564}}";
+			sepNavWindowFrame = "{{61, 138}, {800, 693}}";
+		};
+	};
+	27E0DB9D0A448A7D00B4AAA0 /* ZApp.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {788, 5558}}";
+			sepNavSelRange = "{2168, 10}";
+			sepNavVisRect = "{{0, 721}, {758, 616}}";
+			sepNavWindowFrame = "{{484, 49}, {797, 745}}";
+		};
+	};
+	27E0DB9E0A448A7D00B4AAA0 /* ZApp.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {628, 1498}}";
+			sepNavSelRange = "{2747, 29}";
+			sepNavVisRect = "{{0, 853}, {628, 605}}";
+			sepNavWindowFrame = "{{38, 118}, {667, 734}}";
+		};
+	};
+	27E0DBA10A448A7D00B4AAA0 /* ZDragClip.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1226, 8848}}";
+			sepNavSelRange = "{1769, 0}";
+			sepNavVisRect = "{{0, 258}, {1054, 422}}";
+		};
+	};
+	27E0DBA20A448A7D00B4AAA0 /* ZDragClip.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1424, 3276}}";
+			sepNavSelRange = "{1585, 0}";
+			sepNavVisRect = "{{0, 448}, {1054, 422}}";
+		};
+	};
+	27E0DBA60A448A7D00B4AAA0 /* ZEventHr.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {818, 2226}}";
+			sepNavSelRange = "{1565, 14}";
+			sepNavVisRect = "{{0, 328}, {814, 394}}";
+		};
+	};
+	27E0DBA70A448A7D00B4AAA0 /* ZFakeWindow.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1034, 6860}}";
+			sepNavSelRange = "{11185, 12}";
+			sepNavVisRect = "{{0, 4920}, {814, 394}}";
+		};
+	};
+	27E0DBA80A448A7D00B4AAA0 /* ZFakeWindow.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {814, 2464}}";
+			sepNavSelRange = "{4306, 12}";
+			sepNavVisRect = "{{0, 1434}, {814, 394}}";
+			sepNavWindowFrame = "{{67, 123}, {1079, 718}}";
+		};
+	};
+	27E0DBAA0A448A7D00B4AAA0 /* ZMenu.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {858, 4564}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {858, 630}}";
+			sepNavWindowFrame = "{{305, 77}, {897, 759}}";
+		};
+	};
+	27E0DBAB0A448A7D00B4AAA0 /* ZMouseTracker.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {814, 1498}}";
+			sepNavSelRange = "{1335, 13}";
+			sepNavVisRect = "{{0, 227}, {814, 394}}";
+		};
+	};
+	27E0DBAC0A448A7D00B4AAA0 /* ZMouseTracker.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {814, 966}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {814, 394}}";
+		};
+	};
+	27E0DBAD0A448A7D00B4AAA0 /* ZOSWindow.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {758, 7504}}";
+			sepNavSelRange = "{13941, 0}";
+			sepNavVisRect = "{{0, 6643}, {758, 616}}";
+			sepNavWindowFrame = "{{484, 106}, {797, 745}}";
+		};
+	};
+	27E0DBAE0A448A7D00B4AAA0 /* ZOSWindow.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 4326}}";
+			sepNavSelRange = "{2315, 18}";
+			sepNavVisRect = "{{0, 639}, {782, 635}}";
+			sepNavWindowFrame = "{{454, 74}, {821, 764}}";
+		};
+	};
+	27E0DBB10A448A7D00B4AAA0 /* ZPane.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {920, 15442}}";
+			sepNavSelRange = "{11733, 20}";
+			sepNavVisRect = "{{0, 4898}, {782, 635}}";
+		};
+	};
+	27E0DBB20A448A7D00B4AAA0 /* ZPane.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {830, 5446}}";
+			sepNavSelRange = "{6125, 8}";
+			sepNavVisRect = "{{0, 2189}, {761, 564}}";
+			sepNavWindowFrame = "{{61, 138}, {800, 693}}";
+		};
+	};
+	27E0DBB30A448A7D00B4AAA0 /* ZUI.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1268, 28266}}";
+			sepNavSelRange = "{29769, 12}";
+			sepNavVisRect = "{{0, 13769}, {782, 635}}";
+			sepNavWindowFrame = "{{323, 70}, {821, 764}}";
+		};
+	};
+	27E0DBB40A448A7D00B4AAA0 /* ZUI.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1154, 12698}}";
+			sepNavSelRange = "{13483, 59}";
+			sepNavVisRect = "{{0, 5469}, {782, 635}}";
+			sepNavWindowFrame = "{{323, 70}, {821, 764}}";
+		};
+	};
+	27E0DBB50A448A7D00B4AAA0 /* ZUIBase.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 635}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{38, 88}, {821, 764}}";
+		};
+	};
+	27E0DBB70A448A7D00B4AAA0 /* ZUIColor.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 2268}}";
+			sepNavSelRange = "{1503, 0}";
+			sepNavVisRect = "{{0, 216}, {1054, 422}}";
+		};
+	};
+	27E0DBBB0A448A7D00B4AAA0 /* ZUIFactory.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1004, 12026}}";
+			sepNavSelRange = "{15294, 12}";
+			sepNavVisRect = "{{0, 4730}, {782, 635}}";
+			sepNavWindowFrame = "{{466, 83}, {821, 764}}";
+		};
+	};
+	27E0DBBC0A448A7D00B4AAA0 /* ZUIFactory.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {980, 4760}}";
+			sepNavSelRange = "{5003, 11}";
+			sepNavVisRect = "{{0, 821}, {722, 585}}";
+		};
+	};
+	27E0DBBF0A448A7D00B4AAA0 /* ZUIInk.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1054, 2016}}";
+			sepNavSelRange = "{1500, 0}";
+			sepNavVisRect = "{{0, 80}, {1054, 422}}";
+		};
+	};
+	27E0DBC30A448A7D00B4AAA0 /* ZUIRendered.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1148, 44534}}";
+			sepNavSelRange = "{103065, 14}";
+			sepNavVisRect = "{{0, 43770}, {814, 394}}";
+			sepNavWindowFrame = "{{323, 70}, {821, 764}}";
+		};
+	};
+	27E0DBC40A448A7D00B4AAA0 /* ZUIRendered.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1586, 17500}}";
+			sepNavSelRange = "{780, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{61, 67}, {821, 764}}";
+		};
+	};
+	27E0DBC50A448A7D00B4AAA0 /* ZUtil_UI.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1040, 2926}}";
+			sepNavSelRange = "{2531, 22}";
+			sepNavVisRect = "{{0, 721}, {1040, 589}}";
+		};
+	};
+	27E0DBC60A448A7D00B4AAA0 /* ZUtil_UI.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 700}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 0}, {782, 635}}";
+			sepNavWindowFrame = "{{38, 88}, {821, 764}}";
+		};
+	};
+	27E0DBC70A448A7D00B4AAA0 /* ZWindow.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {938, 10542}}";
+			sepNavSelRange = "{10904, 19}";
+			sepNavVisRect = "{{0, 5368}, {814, 394}}";
+			sepNavWindowFrame = "{{38, 112}, {881, 740}}";
+		};
+	};
+	27E0DBC80A448A7D00B4AAA0 /* ZWindow.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {782, 2996}}";
+			sepNavSelRange = "{3690, 37}";
+			sepNavVisRect = "{{0, 932}, {782, 635}}";
+			sepNavWindowFrame = "{{211, 68}, {821, 764}}";
+		};
+	};
+	27E0DBD40A448A7D00B4AAA0 /* ZUIRenderer_Appearance.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1706, 22974}}";
+			sepNavSelRange = "{2584, 0}";
+			sepNavVisRect = "{{0, 840}, {1054, 422}}";
+			sepNavWindowFrame = "{{130, 61}, {1148, 707}}";
+		};
+	};
+	27E0DBD50A448A7D00B4AAA0 /* ZUIRenderer_Appearance.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1580, 6468}}";
+			sepNavSelRange = "{1982, 0}";
+			sepNavVisRect = "{{0, 400}, {1054, 422}}";
+			sepNavWindowFrame = "{{15, 109}, {821, 764}}";
+		};
+	};
+	27E0DE030A4498D600B4AAA0 /* ZooLib-10.3 */ = {
+		activeExec = 0;
+	};
+	27E0E05F0A44AD9600B4AAA0 /* XCBreakpointsBucket */ = {
+		isa = XCBreakpointsBucket;
+		name = ZooLib;
+		objects = (
+		);
+	};
+	27F806280A66238100DD7D4F /* ZLog.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {781, 1652}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRect = "{{0, 185}, {781, 577}}";
+			sepNavWindowFrame = "{{38, 146}, {820, 706}}";
+		};
+	};
+}
